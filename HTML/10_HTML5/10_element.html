@@ -2,35 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 </head>
 
 <body>
-    <!-- 10. 開始標籤到結束標籤 -> 元素 -->
+	<!-- 10. 開始標籤到結束標籤 -> 元素 -->
+	<h1>Hello, World</h1>
 
-
-    <!-- 20. 元素的屬性 -->
-
-    <!-- id 的屬性值:
+	<!-- 20. 元素的屬性 -->
+	<h1 id="content">Hello, World </h1>
+	<!-- id 的屬性值:
         1. 有區分大小寫
         2. 至少包含一個字元
         3. 不能以數字開頭
         4. 不能包含空格 -->
 
 
-    <!-- 21. 不同元素可能有不同屬性。 ex: <a> -->
+	<!-- 21. 不同元素可能有不同屬性。 ex: <a> -->
+	<a href="https://www.google.com">Google</a>
 
+	<!-- 快捷鍵 -->
+	<!-- 複製程式碼 ALT + SHIFT + 上or下  -->
+	<!-- 搬移程式碼 ALT + 上or下 -->
+	<!-- 格式化文件 ALT + SHIFT + F -->
+	<!-- 22. 元素可以有多個屬性。 ex: <a> -->
+	<h1><a id="Google" href="https://www.google.com">Google</a></h1>
 
-    <!-- 22. 元素可以有多個屬性。 ex: <a> -->
-
-
-    <!-- 試試看，
+	<!-- 試試看，
          元素使用不支援的屬性，是否能達到效果? -->
+	<!-- <h1 href="https://www.google.com">測試標題</h1> -->
 
-
-    <!-- 23. JS相關屬性 -->
-
-
+	<!-- 23. JS相關屬性 -->
+	<button onclick="showMsg()">請按我</button>
+	
+	<!-- function 函式名稱() {要執行的事情} -->
+	<script>
+		function showMsg(){
+			alert("hello");
+		}
+	</script>
 
 </body>
 
