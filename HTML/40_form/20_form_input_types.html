@@ -16,7 +16,7 @@
                 用餐地點 / 時段 / 人數 <fieldset> 群組標籤 
                 和 <legend> 並給予說明 -->
 
-                    
+
     <!-- step4. 在表單 <form> 內加入用餐地點 -->
     <!--    id：識別某個HTML文件上的元素 -->
     <!--  name：做為radio、checkbox的分組 ; 讓伺服器識別 -->
@@ -31,13 +31,53 @@
 
 
     <!-- step7. 在 <form> 表單內加入訂位資訊群組標籤並給予說明 -->
-                    
+
 
     <!-- step8. 在表單 <form> 內加入姓名和文字輸入框 -->
-                    
+
 
     <!-- step9. 在表單 <form> 內加入電話和輸入框 -->
-
+    <form action="">
+        <h3>海上餐廳-線上訂位</h3>
+        <fieldset>
+            <legend>用餐地點/時段/人數</legend>
+            <div>
+                用餐地點:&nbsp;
+                <input type="radio" name="location" id="location1">
+                <label for="location1">淡水店</label>
+                <input type="radio" name="location" id="location2">
+                <label for="location2">台中店</label>
+                <input type="radio" name="location" id="location3">
+                <label for="location3">旗津店</label>
+            </div>
+            <div>
+                用餐時段:&nbsp;
+                <input type="date" name="" id="">
+                <select name="" id="">
+                    <option value="">12:00</option>
+                    <option value="">17:00</option>
+                </select>
+                <!-- <input type="time" name="" id="" value="12:00" min="10:00" max="20:00" required> -->
+            </div>
+            <div>
+                訂位人數(上限20人):&nbsp;
+                <input type="number" checked="1" value="1" min="1" max="20">
+                人
+            </div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>定位資訊</legend>
+            <div>
+                <label for="username">姓名 :&nbsp;</label>    
+                <input type="text" id="username">
+            </div>
+            <div>
+                <label for="usertel">電話 :&nbsp;</label>
+                <input type="tel" id="usertel">
+            </div>
+        </fieldset>
+    </form>
 </body>
 
 </html>

@@ -11,13 +11,40 @@
     <hr>
 
     <!-- 試試看，<select>、<option> -->
-    
-        
+    <label for="phone_name">選擇手機型號:</label>
+    <select name="" id="phone">
+        <option value="iphone">iphone</option>
+        <option value="samsumg">samsumg</option>
+        <option value="asus">asus</option>
+        <option value="oppo">oppo</option>
+        <option value="xiaomi">xiaomi</option>
+    </select>
+    <hr>
     <!-- 試試看，<select>、<optgroup>、<option> -->
-    
+    <label for="phone_name1">選擇手機型號:</label>
+    <select name="" id="phone1">
+        <optgroup label="ios">
+        <option value="iphone">iphone</option>
+        </optgroup>
+        <optgroup label="Android">
+        <option value="samsumg">samsumg</option>
+        <option value="asus">asus</option>
+        <option value="oppo">oppo</option>
+        <option value="xiaomi">xiaomi</option>
+        </optgroup>
+    </select>
+        
 
     <!-- 試試看，<datalist>、<option> -->
-    
+    <br>
+    <br><br>
+    <label for="movie">請輸入喜歡的電影:</label>
+    <input type="text" id="movie" list="movielist" value="">
+    <datalist id="movielist">
+        <option value="ironman">
+        <option value="spider man">
+        <option value="bat man">
+    </datalist>
 </body>
 
 </html>
