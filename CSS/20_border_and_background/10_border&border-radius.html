@@ -11,14 +11,17 @@
 
         .normalBorder {
             /* 用border畫出四邊邊框 */
-
+            border: 2px solid blue;
             /* 簡寫 border: width || style || color  */
             
         }
 
         .leftBorder {
             /* 用border畫出左邊框 */
-            
+            /* border-left:2px solid red; */
+            border-width: 0 0 0 2px;
+            border-style: solid;
+            border-color: red
             /* border-width 簡寫
                一個值: 全部
                兩個值: 上下 左右

@@ -8,11 +8,21 @@
         /* 先開啟網頁觀察畫面 */
 
         /* ::before 在元素前面加上內容 */
-        
+        #demo1::before {
+            content: "強檔電影! ";
+            color: green;
+            border: 1px solid red;
+        }
 
         /* ::after 在元素後面加上內容 */
-        
-
+        #demo1::after {
+            content: "...現正熱映中";
+            background-color: aqua;
+        }
+        #demo2::after{
+            content: "...展開閱讀";
+            color: gray;
+        }
     </style>
 
 </head>
