@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>padding margin</title>
     <style>
+        body{
+            height: 600px;
+            display: flex;
+        }
         #title {
             width: 200px;
             height: 100px;
@@ -17,7 +21,8 @@
             border: 5px red solid;
 
             /* 10. 先瀏覽這個頁面跑出來的結果是什麼?*/
-
+            padding: 20px;
+            
             /* 20. 加入padding屬性看看文字的變化*/
             /* padding 簡寫
                一個值: 全部
@@ -25,7 +30,7 @@
                三個值: 上 左右 下
                四個值: 上 右 下 左 (順時針方向) */
 
-
+           margin-top: auto;
             /* 30. 再加入margin屬性看看方框的變化*/
             /* margin 簡寫
                一個值: 全部
@@ -42,7 +47,7 @@
 
 <body>
     <div id="title">來東京冒險吧！٩(｡・ω・｡)و</div>
-    <div id="content">好想去東京鐵塔看海賊展。</div>
+    <div id="content" style="display: flex;">好想去東京鐵塔看海賊展。</div>
 </body>
 
 </html>

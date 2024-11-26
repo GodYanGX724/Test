@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width: 300px;
+        }
+        #btn1:checked ~ img{
+                filter: blur(5px);
+        }
+        #btn2:checked ~ img{
+                filter: contrast(50%);
+        }
+        #btn3:checked ~ img{
+                filter: none;
+        }
+        img:has(~#btn4:checked){
+            filter: blur(5px);
+        }
+        img:has(~#btn5:checked){
+            filter: grayscale(80%);
+        }
+        img:has(~#btn6:checked){
+            filter: brightness(50%);
+        }
+    </style>
+</head>
+<body>
+    <form><label for=""></label>
+        <input type="radio" id="btn1" name="filter"><label for="btn1">濾鏡1</label> <br><br>
+        <input type="radio" id="btn2" name="filter"><label for="btn2">濾鏡2</label> <br><br>
+        <input type="radio" id="btn3" name="filter"><label for="btn3">濾鏡3</label> <br><br>
+        <img src="../img/sunny.jpg" alt="" id="photo"><br><br>
+        <input type="radio" id="btn4" name="filter"><label for="btn4">濾鏡4</label> <br><br>
+        <input type="radio" id="btn5" name="filter"><label for="btn5">濾鏡5</label> <br><br>
+        <input type="radio" id="btn6" name="filter"><label for="btn6">濾鏡6</label> <br><br>
+    </form>
+</body>
+</html>

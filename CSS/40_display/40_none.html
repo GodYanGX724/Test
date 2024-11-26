@@ -8,19 +8,37 @@
     <style>
         /* 10. 撰寫當滑鼠經過 id 為 reddiv 開頭的元素，
                把背景顏色改為黃色*/
-        
+        div[id^="reddiv"]:hover{
+            background-color: yellow;
+        }
 
         /* 20. 挑選 #reddiv_B 設定 display:none */
-        
+        #reddiv_B{
+            display: none;
+        }
 
         /* 30. 挑選 #reddiv_C 設定 visibility:hidden */
-        
+        #reddiv_C{
+            visibility: hidden;
+        }
 
         /* 40. 撰寫當滑鼠經過 #reddiv_B 加上 display: block
                或經過 #reddiv_C 時，加上 visibility: visible，
                看看是否有效果? */
-        
+        #reddiv_B:hover{
+            display: block;
+        }
 
+        #reddiv_C:hover{
+            visibility: visible;
+        }
+
+        .demo:hover>#reddiv_B{
+            display: block;
+        }
+        .demo:hover>#reddiv_C{
+            visibility: visible;
+        }
     </style>
 </head>
 
