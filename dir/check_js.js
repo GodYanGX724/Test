@@ -449,7 +449,7 @@ const donatenumber = document.getElementById("donate-number");
 //         }
 //     }
 // }
-
+let correct = 0;
 cardnumber.addEventListener('input', () =>{
     const value = cardnumber.value;
 
@@ -457,61 +457,71 @@ cardnumber.addEventListener('input', () =>{
         // 當格式不正確時，顯示錯誤訊息
         carderror.style.display = 'inline';
         cardnumber.style.border = '1px solid red';
+        correct = 1;
     }   else {
         carderror.style.display = 'none';
         cardnumber.style.border = 'none';
+        correct = 0;
     }
 })
 
 expirydate.addEventListener('input', () =>{
     const value = expirydate.value;
-
+    
     if (!/^\d{2}\/\d{2}$/.test(value)) {
         // 當格式不正確時，顯示錯誤訊息
         dateerror.style.display = 'inline';
         expirydate.style.border = '1px solid red';
+        correct = 1;
     }   else {
         dateerror.style.display = 'none';
         expirydate.style.border = 'none';
+        correct = 0;
     }
 })
 
 cvv.addEventListener('input', () =>{
     const value = cvv.value;
-
+    
     if (!/^\d{3}$/.test(value)) {
         // 當格式不正確時，顯示錯誤訊息
         cvverror.style.display = 'inline';
         cvv.style.border = '1px solid red';
+        correct = 1;
     }   else {
         cvverror.style.display = 'none';
         cvv.style.border = 'none';
+        correct = 0;
     }
 })
 
 buyertel.addEventListener('input', () =>{
     const value = buyertel.value;
-
+    
     if (!/^\d{10}$/.test(value)) {
         // 當格式不正確時，顯示錯誤訊息
         telError.style.display = 'inline';
         buyertel.style.border = '1px solid red';
+        correct = 1;
     }   else {
         telError.style.display = 'none';
         buyertel.style.border = 'none';
+        correct = 0;
     }
 })
 
 pickertel.addEventListener('input', () =>{
     const value = pickertel.value;
-
+    
     if (!/^\d{10}$/.test(value)) {
         // 當格式不正確時，顯示錯誤訊息
         telError1.style.display = 'inline';
         pickertel.style.border = '1px solid red';
+        correct = 1;
     }   else {
         telError1.style.display = 'none';
         pickertel.style.border = 'none';
+        correct = 0;
     }
 })
 
@@ -520,11 +530,14 @@ buyermail.addEventListener('input', () => {
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
         emailError.style.display = 'inline';
         buyermail.style.border = '1px solid red'
+        correct = 1;
     } else {
         emailError.style.display = 'none';
         buyermail.style.border = 'none';
+        correct = 0;
     }
 });
+
 
 function validateForm() {
     // 檢測是否選擇運送方式
@@ -532,7 +545,7 @@ function validateForm() {
         alert("請選擇運送方式");
         return false;
     }
-
+    
     // 檢測是否選擇付款方式
     if (!state.payment) {
         alert("請選擇付款方式");
@@ -543,7 +556,7 @@ function validateForm() {
         buyername, buyertel, buyermail,
         pickername, pickertel
     ];
-
+    
     // 如果是宅配，地址必填
     if (state.shipping === 'home') {
         requiredFields.push(country, place, addres);
@@ -576,6 +589,13 @@ function validateForm() {
             field.focus();
             return false;
         }
+
+        if (field.style.border === '1px solid red') {
+            alert("請檢查輸入資料格式是否正確");
+            field.focus();
+            return false;
+        }
+        
     }
 
 

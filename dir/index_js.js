@@ -29,7 +29,7 @@ let cartItems = []; // 用來儲存購物車商品
 let sortedProducts = []; // 存儲排序後的商品
 
 // 從 JSON 文件讀取商品資料
-fetch('products.json')
+fetch('./products.json')
     .then(response => {
         if (!response.ok) {
             throw new Error('無法載入 JSON 文件');
