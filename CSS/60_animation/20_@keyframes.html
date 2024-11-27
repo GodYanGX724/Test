@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* exmaple 01. */
+        #div_A {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            animation-name: wave;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        /* example 02. */
+        #div_B {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            animation-name: alot;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes wave {
+            from{
+                background-color: blue;
+            }
+
+            to {
+                background-color: yellow;
+            }
+        }
+
+        @keyframes alot {
+            0%{
+                background-color: red;
+            }
+            20%{
+                background-color: blue;
+            }
+            40%{
+                background-color: yellow;
+            }
+            60%{
+                background-color: green;
+            }
+            80%{
+                background-color: red;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="div_A"></div>
+    <div id="div_B"></div>
+</body>
+
+</html>

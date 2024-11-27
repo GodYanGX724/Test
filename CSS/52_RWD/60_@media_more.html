@@ -1,33 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@media</title>
     <style>
-        /* 觀察並試著製作出對應的效果 */
+        /* 装置宽度小于 700px */
+        /* div 背景设置为蓝色，隐藏 h1 */
+        @media screen and (max-width: 700px) {
+            div {
+                background-color: blue;
+            }
 
-        /* 裝置寬度大於 1000px */
-        /* div 背景設定粉紅色 */
-        
-        
-        /* 裝置寬度大於 700px 小於1000px */
-        /* div 背景設定綠色 */
-        
-        
-        /* 裝置寬度小於 700px */
-        /* div 背景設定藍色 */
-        /* 隱藏 h1 */
+            h1 {
+                display: none;
+            }
+        }
 
+        /* 装置宽度大于 1000px */
+        /* div 背景设置为粉红色 */
+        @media screen and (min-width: 1000px) {
+            div {
+                background-color: pink;
+            }
+        }
 
+        /* 装置宽度大于 700px 且小于 1000px */
+        /* div 背景设置为绿色 */
+        @media screen and (min-width: 700px) and (max-width: 1000px) {
+            div {
+                background-color: green;
+            }
+        }
     </style>
 </head>
 
 <body>
     <h1>Apple</h1>
     <div style="font-size: 3rem; padding: 10px;">Cat</div>
-
 </body>
 
 </html>

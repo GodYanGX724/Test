@@ -7,9 +7,13 @@
     <style>
         /* 10. 將 #reddiv 固定在右下角，並且顯示圖片 */
         #reddiv{
+            background-color: transparent;
             position: fixed;
             right: 0;
             bottom: 0;
+            background-image: url(../img/onepiece20th_logo.png);
+            background-size: contain;
+            background-repeat: no-repeat;
         }
         img{
             width: 20%;
@@ -28,8 +32,8 @@
 
     <div class="demo">
         我是demo div的元素內容。<br>
-        <a href="https:www.google.com" target="_blank" ><img src="../img/onepiece20th_logo.png" alt=""></a>
-        <!-- <div id="reddiv"></div> -->
+        <!-- <a href="https:www.google.com" target="_blank" ><img src="../img/onepiece20th_logo.png" alt=""></a> -->
+        <a href="https:www.google.com" target="_blank"><div id="reddiv"></div></a>
         <div id="greendiv">Green</div>
         <div id="bluediv">Blue</div>
     </div>

@@ -6,7 +6,31 @@
     <style>
         /* 參照 60_image_hover_desc.png，
            請試著加入 css，讓文字在滑鼠經過時才顯示  */
-
+        img{
+            border: 2px solid red;
+            width: 100%;
+            display: block;
+        }
+        .desc{
+            border: 2px blue;
+            visibility: hidden;
+            width: 100%;            
+            position: absolute;
+            font-size: 50px;
+            bottom: 50px;
+            padding-left: 50px;
+            box-sizing: border-box;
+            background-color: rgba(204, 204, 204, 0.8);
+        }
+        figure{
+            border:  2px solid gray;
+            width: 500px;
+            position: relative;
+            display: inline-block;
+        }
+        figure:hover>.desc{
+            visibility: visible;
+        }
         
     </style>
 </head>

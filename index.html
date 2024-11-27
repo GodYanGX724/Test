@@ -1,20 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>毛咪寵物王國</title>
+    <style>
+        .header_all {
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2vw;
+            position: relative;
+        }
+
+        #icon {
+            height: 18vh;
+            margin-left: 15vw;
+        }
+
+        .search-all {
+            width: 40vw;
+        }
+
+        .search {
+            margin-left: 2vw;
+
+        }
+
+        .search input[type="search"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 2vw;
+            border: none;
+
+            background-color: rgba(128, 128, 128, 0.2);
+        }
+
+        .search-icon {
+            width: 24px;
+            height: 24px;
+            color: gray;
+        }
+
+        .quick-links {
+            margin-top: 1vh;
+            margin-left: 1vw;
+        }
+
+        .keywords {
+            color: #b1c1cc;
+            font-size: .875em;
+            text-decoration: none;
+            margin-right: 0.4em;
+        }
+    </style>
 </head>
+
 <body>
     <header>
-        <div class="header_out">
-            <div class="header_midium">
-                <div>
-                    <img src="img/icon_transparent_precise.png" alt="">
-                </div>
-
+        <div class="header_all">
+            <a href="index.html">
+                <img src="img/icon.jpg" id="icon" alt="">
+            </a>
+            <div class="search-all">
+                <span class="search"><input type="search" placeholder="搜尋寵物產品...">
             </div>
+            <div class="quick-links">
+                <a href="#" class="keywords">健康饗宴</a>
+                <a href="#" class="keywords">野趣磨爪板</a>
+                <a href="#" class="keywords">玩趣爪爪</a>
+                <a href="#" class="keywords">貓砂</a>
+                <a href="#" class="keywords">健康饗宴</a>
+                <a href="#" class="keywords">貓草</a>
+            </div>
+            </span>
         </div>
     </header>
 </body>
+
 </html>
