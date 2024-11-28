@@ -8,40 +8,90 @@
     <link rel="stylesheet" href="../_css/bootstrap.css">
     <script src="../_js/bootstrap.bundle.js"></script>
     <style>
-        .row{
-            width: 100vw;
-            flex-wrap: nowrap;
+        div[class^="col"]:nth-child(odd) {
+            background-color: lightblue;
         }
 
+        div[class^="col"]:nth-child(even) {
+            background-color: lightcoral;
+        }
     </style>
 </head>
 
 <body>
 
     <h4>Bootstrap Grids</h4>
-    <p><a href="https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php">https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php</a></p>
+    <p><a
+            href="https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php">https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php</a>
+    </p>
     <h4>Bootstrap Grid Examples</h4>
-    <p><a href="https://www.w3schools.com/bootstrap5/bootstrap_grid_examples.php">https://www.w3schools.com/bootstrap5/bootstrap_grid_examples.php</a></p>
+    <p><a
+            href="https://www.w3schools.com/bootstrap5/bootstrap_grid_examples.php">https://www.w3schools.com/bootstrap5/bootstrap_grid_examples.php</a>
+    </p>
     <h4>Grid options</h4>
-    <p><a href="https://getbootstrap.com/docs/5.2/layout/grid/#grid-options">https://getbootstrap.com/docs/5.2/layout/grid/#grid-options</a></p>    
+    <p><a
+            href="https://getbootstrap.com/docs/5.2/layout/grid/#grid-options">https://getbootstrap.com/docs/5.2/layout/grid/#grid-options</a>
+    </p>
 
     <h4>Row columns</h4>
-    <p><a href="https://getbootstrap.com/docs/5.2/layout/grid/#row-columns">https://getbootstrap.com/docs/5.2/layout/grid/#row-columns</a></p>
+    <p><a
+            href="https://getbootstrap.com/docs/5.2/layout/grid/#row-columns">https://getbootstrap.com/docs/5.2/layout/grid/#row-columns</a>
+    </p>
     <h4>Nesting</h4>
-    <p><a href="https://getbootstrap.com/docs/5.2/layout/grid/#nesting">https://getbootstrap.com/docs/5.2/layout/grid/#nesting</a></p>
+    <p><a
+            href="https://getbootstrap.com/docs/5.2/layout/grid/#nesting">https://getbootstrap.com/docs/5.2/layout/grid/#nesting</a>
+    </p>
     <hr>
 
-    <!-- 10. 請試著透過 col-* 或者 row-cols-* 的設定，將畫面平分成四欄 -->
+    10. 請試著透過 col-* 或者 row-cols-* 的設定，將畫面平分成四欄
     <div class="row">
-        <div class="col-1 bg-warning">col</div>
-        <div class="col-5 bg-success">col</div>
-        <div class="col-8 bg-warning">col</div>
+        <div class="col-3 ">col</div>
+        <div class="col-3 ">col</div>
+        <div class="col-3 ">col</div>
+        <div class="col-3 ">col</div>
+    </div>
+    <br><br>
+    20. 請試著透過 col-斷點-* 的設定當瀏覽器寬度 ≥768px 時，將畫面平分成兩欄
+    <div class="row">
+        <div class="col-md-6 ">col</div>
+        <div class="col-md-6 ">col</div>
+    </div>
+    <br><br>
+    21. 請試著透過 col-斷點-* 的設定當瀏覽器寬度 ≥992px 時，將畫面平分成四欄
+    <div class="row">
+        <div class="col-lg-3 ">col</div>
+        <div class="col-lg-3 ">col</div>
+        <div class="col-lg-3 ">col</div>
+        <div class="col-lg-3 ">col</div>
+    </div>
+    <br><br>
+    22.延伸練習，≥768px時，將畫面平分成兩欄，≥992px 時，將畫面平分成四欄
+    <div class="row">
+        <div class="col-md-6  col-lg-3">col</div>
+        <div class="col-md-6  col-lg-3">col</div>
+        <div class="col-md-6  col-lg-3">col</div>
+        <div class="col-md-6  col-lg-3">col</div>
+    </div>
+    <br><br>
+    <h1>.row-cols-{數字}</h1>
+    <div class="row row-cols-3">
+        <div class="col">1</div>
+        <div class="col">2</div>
+        <div class="col">3</div>
+        <div class="col">4</div>
+    </div>
+
+    30. 觀察現有的網頁，進行巢狀堆疊Grid的練習
+    <div class="row">
+        <div class="col-3">col-3</div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-9">col-9</div>
+                <div class="col-3">col-3</div>
+            </div>
+        </div>
 
     </div>
-    <!-- 20. 請試著透過 col-斷點-* 的設定當瀏覽器寬度 ≥768px 時，將畫面平分成兩欄 -->
-
-    <!-- 30. 觀察現有的網頁，進行巢狀堆疊Grid的練習 -->
-
 </body>
 
 </html>
