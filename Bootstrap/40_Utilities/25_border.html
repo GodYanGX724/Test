@@ -29,13 +29,20 @@
     <div class="container">
 
         <h4>官方網站</h4>
-        <p><a href="https://getbootstrap.com/docs/5.2/utilities/borders/">https://getbootstrap.com/docs/5.2/utilities/borders/</a></p>
+        <p><a
+                href="https://getbootstrap.com/docs/5.2/utilities/borders/">https://getbootstrap.com/docs/5.2/utilities/borders/</a>
+        </p>
         <hr>
 
         <!-- 10. 為什麼這樣設定div不會出現? -->
-        <div class="w-25 h-100 bg-success"></div>
-
+        <div class="w-25 h-100 bg-success">1</div>
+        <div style="width: 50px; height: 50px; background-color: blue;"></div>
         <!-- 20. 複製貼上官網的範例，為什麼 border 測試不出來 -->
+        <span class="border"  style="display: inline-block; width: 100px; height: 100px; background-color: #f0f0f0;">1</span>
+        <span class="border-top" style="display: inline-block; width: 100px; height: 100px; background-color: #f0f0f0;">2</span>
+        <span class="border-end" style="display: inline-block; width: 100px; height: 100px; background-color: #f0f0f0;">3</span>
+        <span class="border-bottom" style="display: inline-block; width: 100px; height: 100px; background-color: #f0f0f0;">4</span>
+        <span class="border-start" style="display: inline-block; width: 100px; height: 100px; background-color: #f0f0f0;">5</span>
 
         <!-- 21. 設定不同的邊線顏色 -->
 
@@ -45,7 +52,6 @@
         <!--     .rounded-top    | .rounded-bottom  -->
         <!--     .rounded-start  | .rounded-end     -->
         <!--     .rounded-circle | .rounded-pill   -->
-
     </div>
 
 </body>

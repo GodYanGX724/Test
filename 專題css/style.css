@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
 }
+header{
+    position: fixed;
+    border-bottom: 1px solid #f8f8f8;
+}
 .header_all {
     height: 20vh;
     display: flex;
@@ -40,8 +44,7 @@
     height: 4vh;
     border: none;
     cursor: pointer;
-    background-color: rgba(128, 128, 128, 0.2);
-    background:  rgba(128, 128, 128, 0.2);
+    background-color: transparent;
 }
 
 .quick-links {
@@ -55,4 +58,86 @@
     font-size: .875em;
     text-decoration: none;
     margin-right: 0.4em;
+}
+.cart-all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 4vw;
+    padding-top: 1vh;
+    /* background-color: lightblue; */
+}
+.cart-icon{
+    
+    /* margin-left: -1vw; */
+    /* border: 1px solid blue; */
+    justify-self: center;
+    width: 2vw;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+}
+.cart-word{
+    font-size: 1rem;
+    /* margin-left: -1vw; */
+    /* border: 1px solid red; */
+    color: gray;
+    text-align: left;
+    text-align: center;
+}
+.mail-all{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1vw;
+    padding-top: 1.5vh;
+    /* background-color: lightblue; */
+}
+.mail-icon{
+    
+    /* margin-left: -1vw; */
+    /* border: 1px solid blue; */
+    justify-self: center;
+    width: 2vw;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+}
+.mail-word{
+    margin-top: -0.5vh;
+    font-size: 1rem;
+    /* margin-left: -1vw; */
+    /* border: 1px solid red; */
+    color: gray;
+    text-align: left;
+    text-align: center;
+}
+.member-all{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1vw;
+    padding-top: 1.5vh;
+    /* background-color: lightblue; */
+}
+.member-icon{
+    
+    /* margin-left: -1vw; */
+    /* border: 1px solid blue; */
+    justify-self: center;
+    width: 2vw;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+}
+.member-word{
+    margin-top: -0.5vh;
+    font-size: 1rem;
+    /* margin-left: -1vw; */
+    /* border: 1px solid red; */
+    color: gray;
+    text-align: left;
+    text-align: center;
 }

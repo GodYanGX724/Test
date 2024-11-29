@@ -5,26 +5,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>毛咪寵物王國</title>
-    <link rel="stylesheet" href="/專題css/style.css">
+
+
+    <!-- <link rel="stylesheet" href="/專題css/style.css"> -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 背景淺灰色 */
+        body {
+            background-color: #f0f0f0;
+        }
+
+        /* 頁首滿版 背景白色 固定在畫面上 底部分隔線 */
+        header {
+            width: 100%;
+            background-color: white;
+            position: fixed;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        /* 頁首元件控制 */
+        .header_all {
+
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2vw;
+            position: relative;
+        }
+
+        /* logo控制 */
+        #icon {
+            height: 18vh;
+            margin-left: 15vw;
+        }
+
+        /* 搜尋框控制 */
+        .search-all {
+            width: 35vw;
+            /* background-color: lightblue; */
+            margin-left: 2vw;
+            position: relative;
+        }
+
+        /* 搜尋框設定 */
+        .search input[type="search"] {
+            width: 35vw;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 2vw;
+            border: none;
+            height: 4vh;
+
+            background-color: rgba(128, 128, 128, 0.2);
+        }
+
+        /* 搜尋框按鈕設定 */
+        .search-icon {
+            position: absolute;
+            right: 1vw;
+            top: 0;
+            width: 24px;
+            height: 4vh;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        /* 關鍵字排版 */
+        .quick-links {
+            margin-top: 1vh;
+            margin-left: 1vw;
+            position: absolute;
+        }
+
+        /* 關鍵字設定 */
+        .keywords {
+            color: #b1c1cc;
+            font-size: .875em;
+            text-decoration: none;
+            margin-right: 0.4em;
+        }
+
+        /* 購物車框架 */
+        .cart-all {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 4vw;
+            padding-top: 1vh;
+            /* background-color: lightblue; */
+        }
+
+        /* 購物車圖示按鈕 */
+        .cart-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        /* 購物車文字 */
+        .cart-word {
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+
+        /* 聯絡我們框架 */
+        .mail-all {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 1vw;
+            padding-top: 1.5vh;
+            /* background-color: lightblue; */
+        }
+
+        /* 聯絡圖示按鈕 */
+        .mail-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        /* 聯絡文字 */
+        .mail-word {
+            margin-top: -0.5vh;
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+
+        /* 會員框架 */
+        .member-all {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 1vw;
+            padding-top: 1.5vh;
+            /* background-color: lightblue; */
+        }
+
+        /* 會員圖示按鈕 */
+        .member-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        /* 會員文字 */
+        .member-word {
+            margin-top: -0.5vh;
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+    </style>
+    
 </head>
 
 <body>
     <header>
+        <!-- 頁首 -->
         <div class="header_all">
+            <!-- icon  -->
             <a href="index.html">
                 <img src="img/icon.jpg" id="icon" alt="">
             </a>
+            <!-- 搜尋框 -->
             <div class="search-all">
                 <span class="search"><input type="search" placeholder="搜尋寵物產品...">
-
+                    <!-- 搜尋圖示及按鈕 -->
                     <button class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=""
+                            viewBox="0 0 16 16">
                             <path
                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                         </svg>
                     </button>
-
+                    <!-- 搜尋框下方關鍵字 -->
                     <div class="quick-links">
                         <a href="#" class="keywords">健康饗宴</a>
                         <a href="#" class="keywords">野趣磨爪板</a>
@@ -38,8 +227,61 @@
                     </div>
                 </span>
             </div>
+            <!-- 購物車 -->
+            <div class="cart-all">
+                <!-- 購物車icon按鈕 -->
+                <button class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-cart2"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                    </svg>
+                </button>
+                <!-- 購物車文字 -->
+                <div class="cart-word">
+                    <div>購物車</div>
+                </div>
+            </div>
+            <!-- 聯絡我們 -->
+            <div class="mail-all">
+                <!-- 聯絡icon按鈕 -->
+                <button class="mail-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-envelope"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                    </svg>
+                </button>
+                <!-- 聯絡文字 -->
+                <div class="mail-word">
+                    <div>聯絡我們</div>
+                </div>
+            </div>
+            <!-- 會員 -->
+            <div class="member-all">
+                <!-- 會員icon按鈕 -->
+                <button class="member-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-person-circle"
+                        viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                </button>
+                <!-- 會員文字 -->
+                <div class="member-word">
+                    <div>會員</div>
+                </div>
+            </div>
         </div>
     </header>
+    <section class="slide">
+        
+
+    </section>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
+
 </body>
 
 </html>

@@ -21,9 +21,19 @@
         <!-- 10. 在不同的裝置螢幕下，載入不同的圖片-->
         <!--    a. 先製作大中小不同尺寸的素材 -->
         <!--        https://dummyimage.com/ -->
+        <!-- https://dummyimage.com/1200x400/a6782d/fff.png -->
         
+        <!-- https://dummyimage.com/900x400/2e3ca6/fff.png -->
+        
+        <!-- https://dummyimage.com/600x400/2e3ca6/fff.png -->
         <!--    b. 再透過 <picture>、<source srcset="" media="">、<img src=""> 等標籤實現 -->
+        <picture>
+            <source media="(min-width: 1200px)" srcset="https://dummyimage.com/1200x400/000/fff">
+            <source media="(min-width: 900px)" srcset="https://dummyimage.com/900x400/000/fff">
+            <img src="https://dummyimage.com/600x400/000/fff" alt="">
 
+
+        </picture>
     </div>
 
 </body>

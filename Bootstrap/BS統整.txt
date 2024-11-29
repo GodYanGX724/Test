@@ -1,0 +1,33 @@
+.container
+.container-{斷點 | fluid}
+
+.row
+.row-col-{1~6}
+.col
+.col-{1~12}
+.col-{斷點}-{1~12}
+
+md ==> 畫面寬度>=768px
+col-3 ==> 元素分配3等分
+.col-md-3 ==> 當畫面端度>=768px，元素分配3等分
+
+.table
+.table-{顏色名稱}
+.bg-{顏色}
+.text-bg-{顏色}
+
+{ w }-{ 25 | 50 | 75 | 100 | auto}
+
+
+{ h }-{ 25 | 50 | 75 | 100 | auto}
+
+{m | p}{ t | b | s | e | x | y | none}-{ 0-5 }
+{m | p}{ t | b | s | e | x | y | none}-{斷點}-{ 0-5 }
+
+.border
+.border-{ top | bottom | start | end}
+.border-{ 顏色 }
+.border-{ 1-5 }
+
+.rounded
+.rounded-{ top | bottom | start | end | circle | pill}
