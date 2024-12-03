@@ -29,11 +29,11 @@
             width: 100%;
             background-color: white;
             position: sticky;
-            top: 0;
+            top:0;
             z-index: 1020;
             border-bottom: 1px solid #f8f8f8;
             /* 不放margiin輪播圖會跑到hearder後面 */
-            margin-bottom: 20vh;
+            /* margin-bottom: 20vh; */
         }
 
         /* 頁首元件控制 */
@@ -205,11 +205,14 @@
 
         /* 輪播圖設定 */
         .slide {
-            display: flex;
+            display: block;
+            position: relative;
+            margin: 0 auto;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 70vh;
+            background-color:#f0f0f0; ;
+           
+            width: 1220px;
             
             
         }
@@ -218,7 +221,31 @@
         .carousel-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+        }
+        /* 活動導覽列 */
+        .navbar{
+            border-radius: 15px;
+            margin: 15px auto;
+            display: flex;
+            width: 1220px;
+            height: 70px;
+            justify-content: space-between;
+            background-color: white
+        }
+        .navbar a{
+           text-decoration: none;
+            padding: 5px 10px;
+            
+            font-size: 20px;
+        }
+        /* 側邊商品導覽列 */
+        .sidebar{
+            border: 1px solid red;
+            position: relative;
+            right: 600px;
+            width: 200px;
+            justify-self: center;
         }
     </style>
 
@@ -305,6 +332,7 @@
             </div>
         </div>
     </header>
+    <!-- 輪播圖 -->
     <section class="slide">
         <div id="carouselExampleControls" class="carousel slide" data-bs-interval="3000" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -336,8 +364,33 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-
     </section>
+    <!-- 活動導覽列 -->
+    <nav>
+        <div class="navbar">
+            <a href="">限時秒殺優惠 🔥</a>
+            <a href="">新品首發專區 🌟</a>
+            <a href="">即品出清25折 📣</a>
+            <a href="">季節特賣會 ☀️❄️</a>
+            <a href="">買一送一優惠專區 🎁</a>
+            <a href="">保健食品8折起 💊</a>
+        </div>
+    </nav>
+    <!-- 商品導覽列 -->
+    <aside>
+        <div class="sidebar">
+            
+            
+                <button >狗狗用品</button>
+                <button >貓咪用品</button>
+                <button >寵物零食</button>
+                <button >寵物玩具</button>
+                <button >清潔與保健</button>
+                <button >貓砂與用品</button>
+                <button >新商品推薦</button>
+            
+        </div>
+    </aside>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
