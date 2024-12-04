@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <h4>JavaScript String Methods</h4>
+    <p><a href="http://www.w3schools.com/js/js_string_methods.asp">http://www.w3schools.com/js/js_string_methods.asp</a></p>
+    <h4>JavaScript String Reference</h4>
+    <p><a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">https://www.w3schools.com/jsref/jsref_obj_string.asp</a></p>
+    
+    <script>
+        var test = "APPLE";
+
+        // 1. 字串的長度
+        // 字串.length
+        var temp = test.length
+        console.log(temp);
+        console.log(test.length);
+        
+        
+        // 2. 字串.indexOf() 
+        // 可以幫助我們做什麼事情? 呼叫後回傳了什麼?
+        console.log(test.indexOf("A"));
+        
+        // 3. 字串.lastIndexOf() 
+        // 可以幫助我們做什麼事情? 呼叫後回傳了什麼?
+        console.log(test.lastIndexOf("L"));
+        
+        // 4. 字串.split() 幫助我們把字串分割為陣列
+        var fruits = "apple,bubble,lemon";
+        console.log(fruits.split("l"));
+        
+
+        // 5. 希望把字串補零到指定長度的話，該如何處理?
+        //    目標 : 原始字串13756，希望產出00013756
+        // 字串.padStart()
+        var demo = "13756";
+        console.log(demo.padStart(8,0));
+        
+        // 6. 擷取字串
+        // 0911222333 是 手機
+        // 0423456789 是 電話號碼
+        // 字串.substring()
+        var phones = "09112223330423456789";
+        console.log(phones.substring(0,10));
+        console.log(phones.substring(10));
+        
+
+    </script>
+</body>
+
+</html>

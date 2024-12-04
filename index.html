@@ -26,10 +26,10 @@
 
         /* 頁首滿版 背景白色 固定在畫面上 底部分隔線 */
         header {
-            width: 100%;
+
             background-color: white;
             position: sticky;
-            top:0;
+            top: 0;
             z-index: 1020;
             border-bottom: 1px solid #f8f8f8;
             /* 不放margiin輪播圖會跑到hearder後面 */
@@ -38,18 +38,20 @@
 
         /* 頁首元件控制 */
         .header_all {
-
-            height: 20vh;
+            margin: 0 auto;
+            width: 1220px;
+            height: 150px;
             display: flex;
             align-items: center;
             padding: 0 2vw;
             position: relative;
+
         }
 
         /* logo控制 */
         #icon {
-            height: 18vh;
-            margin-left: 15vw;
+            height: 150px;
+
         }
 
         /* 搜尋框控制 */
@@ -104,7 +106,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-left: 4vw;
+            margin-left: 20px;
             padding-top: 1vh;
             /* background-color: lightblue; */
         }
@@ -138,7 +140,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-left: 1vw;
+            margin-left: 20px;
             margin-bottom: 0.5vh;
             padding-top: 1.5vh;
             /* background-color: lightblue; */
@@ -173,7 +175,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-left: 1vw;
+            margin-left: 20px;
             margin-top: -0.5vh;
             padding-top: 1.5vh;
             /* background-color: lightblue; */
@@ -202,6 +204,11 @@
             text-align: center;
         }
 
+        .body {
+            width: 1220px;
+            margin: 0 auto;
+            position: relative;
+        }
 
         /* 輪播圖設定 */
         .slide {
@@ -210,11 +217,12 @@
             margin: 0 auto;
             justify-content: center;
             align-items: center;
-            background-color:#f0f0f0; ;
-           
-            width: 1220px;
-            
-            
+            background-color: #f0f0f0;
+            ;
+
+            width: 100%;
+
+
         }
 
 
@@ -223,8 +231,9 @@
             height: 100%;
             object-fit: contain;
         }
+
         /* 活動導覽列 */
-        .navbar{
+        .navbar {
             border-radius: 15px;
             margin: 15px auto;
             display: flex;
@@ -233,19 +242,59 @@
             justify-content: space-between;
             background-color: white
         }
-        .navbar a{
-           text-decoration: none;
+
+        .navbar a {
+            text-decoration: none;
             padding: 5px 10px;
-            
+
             font-size: 20px;
         }
+
         /* 側邊商品導覽列 */
-        .sidebar{
-            border: 1px solid red;
-            position: relative;
-            right: 600px;
+        .sidebar {
+            background-color: white;
+           
+            position: absolute;
+            left: 0;
             width: 200px;
             justify-self: center;
+        }
+
+        .sidebar button {
+            background-color: white;
+            width: 100%;
+            text-align: left;
+            border: none;
+           padding-left: 10px;
+            height: 50px;
+
+            margin: 10px 0;
+            position: relative;
+        }
+        .sidebar button:last-child{
+            margin-bottom: 0;
+        }
+
+        .sidebar button::after {
+            content: "";
+            position: absolute;
+            right: 10px;
+            margin-top: 4.5px;
+            width: 16px;
+            height: 16px;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 width%3D%2216%22 height%3D%2216%22 fill%3D%22currentColor%22 class%3D%22bi bi-chevron-right%22 viewBox%3D%220 0 16 16%22%3E%3Cpath fill-rule%3D%22evenodd%22 d%3D%22M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708%22/%3E%3C/svg%3E');
+
+        }
+
+        .sidebar button::before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            width: 100%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #f0f0f0;
         }
     </style>
 
@@ -332,65 +381,70 @@
             </div>
         </div>
     </header>
-    <!-- 輪播圖 -->
-    <section class="slide">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-interval="3000" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="img/slide1.webp" alt="">
+    <div class="body">
+        <!-- 輪播圖 -->
+        <section class="slide">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-interval="3000" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/slide1.webp" alt="">
+                    </div>
+                    <div class=" carousel-item">
+                        <img src="img/slide2.webp" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/slide3.webp" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/slide4.webp" alt="">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/slide5.webp" alt="">
+                    </div>
+
                 </div>
-                <div class=" carousel-item">
-                    <img src="img/slide2.webp" alt="">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/slide3.webp" alt="">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/slide4.webp" alt="">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/slide5.webp" alt="">
-                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+        <!-- 活動導覽列 -->
+        <nav>
+            <div class="navbar">
+                <a href="">限時秒殺優惠 🔥</a>
+                <a href="">新品首發專區 🌟</a>
+                <a href="">即品出清25折 📣</a>
+                <a href="">季節特賣會 ☀️❄️</a>
+                <a href="">買一送一優惠專區 🎁</a>
+                <a href="">保健食品8折起 💊</a>
+            </div>
+        </nav>
+        <!-- 商品導覽列 -->
+        <aside>
+            <div class="sidebar">
+
+
+                <button>新商品推薦</button>
+                <button>狗狗飼料</button>
+                <button>貓咪飼料</button>
+                <button>貓咪罐罐</button>
+                <button>狗狗罐罐</button>
+                <button>寵物零食</button>
+                <button>寵物玩具</button>
+                <button>清潔與保健</button>
+                <button>貓砂與用品</button>
+                <button>外出用品</button>
 
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
-    <!-- 活動導覽列 -->
-    <nav>
-        <div class="navbar">
-            <a href="">限時秒殺優惠 🔥</a>
-            <a href="">新品首發專區 🌟</a>
-            <a href="">即品出清25折 📣</a>
-            <a href="">季節特賣會 ☀️❄️</a>
-            <a href="">買一送一優惠專區 🎁</a>
-            <a href="">保健食品8折起 💊</a>
-        </div>
-    </nav>
-    <!-- 商品導覽列 -->
-    <aside>
-        <div class="sidebar">
-            
-            
-                <button >狗狗用品</button>
-                <button >貓咪用品</button>
-                <button >寵物零食</button>
-                <button >寵物玩具</button>
-                <button >清潔與保健</button>
-                <button >貓砂與用品</button>
-                <button >新商品推薦</button>
-            
-        </div>
-    </aside>
+        </aside>
+    </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
