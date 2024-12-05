@@ -68,8 +68,9 @@
 
         /* 搜尋框設定 */
         .search input[type="search"] {
+            appearance: none;
             width: 670px;
-            padding: 10px;
+            padding: 20px;
             font-size: 16px;
             border-radius: 2vw;
             border: none;
@@ -80,7 +81,7 @@
         /* 搜尋框按鈕設定 */
         .search-icon {
             position: absolute;
-            right: 20px;
+            right: 15px;
             top: -2px;
             width: 40px;
             height: 40px;
@@ -171,6 +172,55 @@
             color: gray;
             text-align: left;
             text-align: center;
+        }
+
+        /* 聯絡表單 */
+        .contact-form {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1050;
+            width: 300px;
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
         }
 
         /* 會員框架 */
@@ -302,15 +352,36 @@
             background-color: #f0f0f0;
         }
 
+        .product_all {
+            position: relative;
+            /* 父容器需要設為相對定位 */
+            margin-left: 250px;
+        }
+
+        .sort {
+            position: absolute;
+            top: 12.5px;
+            right: 20px;
+            /* 靠右對齊 */
+
+        }
+
+        .sort button {
+            border: none;
+            margin-left: 15px;
+            background-color: white;
+        }
+
         /* 商品展示區 */
         .product-grid {
-            margin-left: 250px;
+
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             /* 響應式設計 */
             gap: 20px;
             /* 卡片間距 */
             padding: 20px;
+            padding-top: 50px;
             background-color: white;
             /* 背景色 */
         }
@@ -380,7 +451,7 @@
             </a>
             <!-- 搜尋框 -->
             <div class="search-all">
-                <span class="search"><input type="search" placeholder="搜尋寵物產品...">
+                <span class="search"><input type="search" placeholder="搜尋寵物產品..." name="search" id="forsearch">
                     <!-- 搜尋圖示及按鈕 -->
                     <button class="search-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=""
@@ -421,7 +492,7 @@
             <!-- 聯絡我們 -->
             <div class="mail-all">
                 <!-- 聯絡icon按鈕 -->
-                <button class="mail-icon">
+                <button class="mail-icon" onclick="toggleContactForm()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-envelope"
                         viewBox="0 0 16 16">
                         <path
@@ -432,6 +503,19 @@
                 <div class="mail-word">
                     <div>聯絡我們</div>
                 </div>
+            </div>
+            <!-- 聯絡表單 -->
+            <div class="contact-form" id="contact-form">
+                <h2>聯絡我們</h2>
+                <form>
+                    <label for="contact-email">電子郵件</label>
+                    <input type="email" name="contact-email" id="contact-email" placeholder="請輸入您的電子郵件" required>
+
+                    <label for="contact-message">訊息內容</label>
+                    <textarea name="contact-message" id="contact-message" placeholder="請輸入您的訊息" rows="4"
+                        required></textarea>
+                    <button type="submit">送出</button>
+                </form>
             </div>
             <!-- 會員 -->
             <div class="member-all">
@@ -501,53 +585,112 @@
             <div class="sidebar">
 
 
-                <button>新商品推薦</button>
-                <button>狗狗飼料</button>
-                <button>貓咪飼料</button>
-                <button>貓咪罐罐</button>
-                <button>狗狗罐罐</button>
-                <button>寵物零食</button>
-                <button>寵物玩具</button>
-                <button>清潔與保健</button>
-                <button>貓砂與用品</button>
-                <button>外出用品</button>
+                <button onclick="sortProducts('new', 'asc')">新商品推薦</button>
+                <button onclick="filterProducts('狗狗飼料')">狗狗飼料</button>
+                <button onclick="filterProducts('貓咪飼料')">貓咪飼料</button>
+                <button onclick="filterProducts('貓咪罐頭')">貓咪罐罐</button>
+                <button onclick="filterProducts('狗狗罐頭')">狗狗罐罐</button>
+                <button onclick="filterProducts('貓狗零食')">貓狗零食</button>
+                <button onclick="filterProducts('貓狗玩具')">貓狗玩具</button>
+                <button onclick="filterProducts('清潔保健')">清潔保健</button>
+                <button onclick="filterProducts('貓砂用品')">貓砂用品</button>
+                <button onclick="filterProducts('外出用品')">外出用品</button>
 
             </div>
         </aside>
-        <div class="product-grid" id="product-grid"></div>
+        <section class="product_all">
+            <div class="sort">
+                <button onclick="sortCurrentRenderedProducts('price', 'asc')">價格：低到高</button>
+                <button onclick="sortCurrentRenderedProducts('price', 'desc')">價格：高到低</button>
+                <button onclick="sortCurrentRenderedProducts('rating', 'desc')">評價：高到低</button>
+            </div>
+            <div class="product-grid" id="product-grid"></div>
+        </section>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     <script>
-        fetch('products.json') // JSON 文件路徑
+        let products = []; // 用來儲存所有商品資料
+        let currentRenderedProducts = [];
+
+        // 從 JSON 文件讀取商品資料
+        fetch('products.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('無法載入 JSON 文件');
                 }
                 return response.json();
             })
-            .then(products => {
-                const grid = document.getElementById("product-grid");
-                products.forEach(product => {
-                    const productCard = `
-        <div class="product-card">
-          <div class="product-image">
-            <img src="${product.image}" alt="${product.name}">
-          </div>
-          <div class="product-info">
-            <h3>${product.name}</h3>
-            <p>NT$${product.price}</p>
-            <button>加入購物車</button>
-          </div>
-        </div>
-      `;
-                    grid.innerHTML += productCard;
-                });
+            .then(data => {
+                products = data; // 儲存資料
+                sortProducts('new', 'desc'); // 預設以新品排序
             })
             .catch(error => {
                 console.error(error);
             });
+
+        // 渲染商品
+        function renderProducts(productList) {
+            currentRenderedProducts = productList;
+            const grid = document.getElementById("product-grid");
+            grid.innerHTML = ""; // 清空現有商品
+            productList.forEach(product => {
+                const productCard = `
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p>NT$${product.price}</p>
+                    <p>評價：${product.rating}</p>
+                    <button>加入購物車</button>
+                </div>
+            </div>
+        `;
+                grid.innerHTML += productCard;
+            });
+        }
+
+        function sortProducts(key, order) {
+            const sortedProducts = [...products].sort((a, b) => {
+                if (order === 'asc') {
+                    return a[key] - b[key];
+                } else {
+                    return b[key] - a[key];
+                }
+            });
+            renderProducts(sortedProducts); // 渲染排序後的商品
+        }
+        // 排序商品並渲染
+        function sortCurrentRenderedProducts(key, order) {
+            const sortedProducts = [...currentRenderedProducts].sort((a, b) => {
+                if (order === 'asc') {
+                    return a[key] - b[key];
+                } else {
+                    return b[key] - a[key];
+                }
+            });
+            renderProducts(sortedProducts); // 渲染排序後的商品
+        }
+
+        // 篩選商品
+        function filterProducts(category) {
+            const filteredProducts = products.filter(product => product.category === category);
+            renderProducts(filteredProducts); // 渲染篩選後的商品
+        }
+
+        // 聯絡表單顯示
+        function toggleContactForm() {
+            const contactForm = document.getElementById("contact-form");
+            if (contactForm.style.display === "none" || contactForm.style.display === "") {
+                contactForm.style.display = "block"; // 顯示表單
+            } else {
+                contactForm.style.display = "none"; // 隱藏表單
+            }
+        }
     </script>
+
 
 </body>
 
