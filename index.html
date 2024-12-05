@@ -17,6 +17,7 @@
         * {
             margin: 0;
             padding: 0;
+            /* overflow: hidden; */
         }
 
         /* 背景淺灰色 */
@@ -32,6 +33,7 @@
             top: 0;
             z-index: 1020;
             border-bottom: 1px solid #f8f8f8;
+            
             /* 不放margiin輪播圖會跑到hearder後面 */
             /* margin-bottom: 20vh; */
         }
@@ -40,7 +42,8 @@
         /* 圖片212.17+670 */
         .header_all {
             margin: 0 auto;
-            width: 1220px;
+            width: 100%;
+            max-width:  1220px;
             height: 150px;
             display: flex;
             align-items: center;
@@ -57,9 +60,9 @@
 
         /* 搜尋框控制 */
         .search-all {
-            width: 35vw;
+            width: 692px;
             /* background-color: lightblue; */
-           margin-left: 15px;
+           margin:0 15px;
             position: relative;
         }
 
@@ -77,10 +80,10 @@
         /* 搜尋框按鈕設定 */
         .search-icon {
             position: absolute;
-            right: 1vw;
-            top: 0;
-            width: 24px;
-            height: 4vh;
+            right: 20px;
+            top: -2px;
+            width: 40px;
+            height: 40px;
             border: none;
             cursor: pointer;
             background-color: transparent;
@@ -104,7 +107,7 @@
         /* 購物車框架 */
         .cart-all {
             display: flex;
-            width: 112px;
+            width: 100px;
             flex-direction: column;
             align-items: center;
             
@@ -141,7 +144,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 112px;
+            width: 100px;
             margin-bottom: 0.5vh;
             padding-top: 1.5vh;
             /* background-color: lightblue; */
@@ -176,7 +179,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 112px;
+            width: 100px;
             margin-top: -0.5vh;
             padding-top: 1.5vh;
             /* background-color: lightblue; */
@@ -314,7 +317,7 @@
                 <span class="search"><input type="search" placeholder="搜尋寵物產品...">
                     <!-- 搜尋圖示及按鈕 -->
                     <button class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=""
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=""
                             viewBox="0 0 16 16">
                             <path
                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
