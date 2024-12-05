@@ -258,6 +258,133 @@
             text-align: center;
         }
 
+        /* 會員登錄 */
+        /* Full-width input fields */
+        .membertype {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        .login-submit {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .container button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .closearea {
+
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 310px;
+            height: 400px;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .closebtn {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .closebtn:hover,
+        .closebtn:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
         .body {
             width: 1220px;
             margin: 0 auto;
@@ -484,11 +611,13 @@
                             d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
                     </svg>
                 </button>
+                
                 <!-- 購物車文字 -->
                 <div class="cart-word">
                     <div>購物車</div>
                 </div>
             </div>
+
             <!-- 聯絡我們 -->
             <div class="mail-all">
                 <!-- 聯絡icon按鈕 -->
@@ -499,11 +628,13 @@
                             d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
                     </svg>
                 </button>
+
                 <!-- 聯絡文字 -->
                 <div class="mail-word">
                     <div>聯絡我們</div>
                 </div>
             </div>
+
             <!-- 聯絡表單 -->
             <div class="contact-form" id="contact-form">
                 <h2>聯絡我們</h2>
@@ -517,10 +648,11 @@
                     <button type="submit">送出</button>
                 </form>
             </div>
+
             <!-- 會員 -->
             <div class="member-all">
                 <!-- 會員icon按鈕 -->
-                <button class="member-icon">
+                <button class="member-icon" id="login-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-person-circle"
                         viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -532,6 +664,34 @@
                 <div class="member-word">
                     <div>會員</div>
                 </div>
+            </div>
+
+            <!-- 會員登錄 -->
+            <!-- 模態框 -->
+            <div id="id01" class="modal">
+                <form class="modal-content animate" id="login-form">
+                    <div class="closearea">
+                        <span class="closebtn" title="Close Modal">&times;</span>
+                    </div>
+                    <div class="container">
+                        <label for="uname"><b>使用者名稱</b></label>
+                        <input class="membertype" type="text" placeholder="輸入使用者名稱" name="uname" id="uname"
+                            required>
+
+                        <label for="psw"><b>密碼</b></label>
+                        <input class="membertype" type="password" placeholder="輸入密碼" name="psw" id="psw"
+                            required>
+
+                        <button type="submit" class="login-submit">登入</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> 記得我
+                        </label>
+                    </div>
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="button" class="cancelbtn">取消</button>
+                        <span class="psw"> <a href="#">忘記密碼</a></span>
+                    </div>
+                </form>
             </div>
         </div>
     </header>
@@ -569,6 +729,7 @@
                 </button>
             </div>
         </section>
+
         <!-- 活動導覽列 -->
         <nav>
             <div class="navbar">
@@ -580,6 +741,7 @@
                 <a href="">保健食品8折起 💊</a>
             </div>
         </nav>
+
         <!-- 商品導覽列 -->
         <aside>
             <div class="sidebar">
@@ -598,6 +760,7 @@
 
             </div>
         </aside>
+
         <section class="product_all">
             <div class="sort">
                 <button onclick="sortCurrentRenderedProducts('price', 'asc')">價格：低到高</button>
@@ -689,7 +852,56 @@
                 contactForm.style.display = "none"; // 隱藏表單
             }
         }
-    </script>
+
+        // 表單
+        const contact = document.getElementById('contact-form');
+        
+        // 會員登錄顯示
+        const modal = document.getElementById('id01');
+        const loginButton = document.getElementById('login-btn');
+        const closeButton = document.querySelector('.closebtn');
+        const cancelButton = document.querySelector('.cancelbtn');
+
+        // 顯示模態框
+        loginButton.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+
+        // 隱藏模態框（點擊關閉按鈕）
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 隱藏模態框（點擊取消按鈕）
+        cancelButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 點擊模態框外部隱藏模態框
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 登陸表單提交
+        document.getElementById('login-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            console.log("表單提交");
+            
+            alert('已登錄！');
+            modal.style.display = 'none';
+        });
+
+        // 聯絡表單提交
+        document.getElementById('contact-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            console.log("表單提交");
+            
+            alert('已送出！');
+            contact.style.display = 'none';
+        });
+        </script>
 
 
 </body>
