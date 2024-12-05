@@ -33,7 +33,7 @@
             top: 0;
             z-index: 1020;
             border-bottom: 1px solid #f8f8f8;
-            
+
             /* 不放margiin輪播圖會跑到hearder後面 */
             /* margin-bottom: 20vh; */
         }
@@ -43,11 +43,11 @@
         .header_all {
             margin: 0 auto;
             width: 100%;
-            max-width:  1220px;
+            max-width: 1220px;
             height: 150px;
             display: flex;
             align-items: center;
-            
+
             position: relative;
 
         }
@@ -62,7 +62,7 @@
         .search-all {
             width: 692px;
             /* background-color: lightblue; */
-           margin:0 15px;
+            margin: 0 15px;
             position: relative;
         }
 
@@ -91,8 +91,8 @@
 
         /* 關鍵字排版 */
         .quick-links {
-            margin-top: 1vh;
-            margin-left: 1vw;
+            margin-top: 10px;
+            margin-left: 10px;
             position: absolute;
         }
 
@@ -110,7 +110,7 @@
             width: 100px;
             flex-direction: column;
             align-items: center;
-            
+
             padding-top: 1vh;
             /* background-color: lightblue; */
         }
@@ -257,7 +257,7 @@
         /* 側邊商品導覽列 */
         .sidebar {
             background-color: white;
-           
+
             position: absolute;
             left: 0;
             width: 200px;
@@ -269,13 +269,14 @@
             width: 100%;
             text-align: left;
             border: none;
-           padding-left: 10px;
+            padding-left: 10px;
             height: 50px;
 
             margin: 10px 0;
             position: relative;
         }
-        .sidebar button:last-child{
+
+        .sidebar button:last-child {
             margin-bottom: 0;
         }
 
@@ -299,6 +300,71 @@
             right: 0;
             height: 1px;
             background-color: #f0f0f0;
+        }
+
+        /* 商品展示區 */
+        .product-grid {
+            margin-left: 250px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            /* 響應式設計 */
+            gap: 20px;
+            /* 卡片間距 */
+            padding: 20px;
+            background-color: white;
+            /* 背景色 */
+        }
+
+        /* 單個商品卡片 */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* 卡片陰影 */
+            background-color: #fff;
+        }
+
+        /* 商品圖片 */
+        .product-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            /* 確保圖片比例 */
+            background-color: black;
+            /* 模擬黑色區域 */
+        }
+
+        /* 商品資訊 */
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .product-info button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-info button:hover {
+            background-color: #0056b3;
         }
     </style>
 
@@ -448,9 +514,40 @@
 
             </div>
         </aside>
+        <div class="product-grid" id="product-grid"></div>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+    <script>
+        fetch('products.json') // JSON 文件路徑
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('無法載入 JSON 文件');
+                }
+                return response.json();
+            })
+            .then(products => {
+                const grid = document.getElementById("product-grid");
+                products.forEach(product => {
+                    const productCard = `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>NT$${product.price}</p>
+            <button>加入購物車</button>
+          </div>
+        </div>
+      `;
+                    grid.innerHTML += productCard;
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
 </body>
 
