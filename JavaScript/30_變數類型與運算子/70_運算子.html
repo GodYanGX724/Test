@@ -12,47 +12,74 @@
 
     <script>
         
-        // 算術運算子：四則運算、取餘數 (%) 等
+        // 算術運算子：四則運算(+、 - 、 * 、 /)、取餘數 (%) 等
         var a = 10;
         var b = 3;
 
         // 10. 取餘數 %
-
-        // 11. ++變數  和  變數++ 
-
+        console.log(a%b);
+        
+        // 11. ++變數  和  變數++ (差異在顯示+完前還+完後) 
+        // b = b + 1;
+        // b+=1
+        // b++
+        console.log(++b);
+        
 
         // ---------------------------------------------
         // 比較運算子：評估條件，回傳 true 或者 false 值
         var x = 10;
         var y = "10";
 
-        // 20. == 和 === 的差異在?
-
+        // 20. == 和 === 的差異在?(==比較數值  ===還有資料型態)
+        console.log(x == y);
+        console.log(x === y);
+        
 
 
         // 21. 測試 2 > 1
-
+        console.log(2 > 1);
+        
         // 22. 測試 1 < 2 < 3 和 3 > 2 > 1
-
+        console.log(1 < 2 < 3);
+        console.log(3 > 2 > 1);
+        
         // 23. 測試 true == 1 還有 false == 0 
+        console.log(true == 1);
+        console.log(false == 0);
         
         
         // 30. 不等於的寫法 (!=)
+        var apple = 10;
+        var bee = 5;
+        console.log(apple != bee);
         
 
         // ---------------------------------------------
         // 邏輯運算子
 
         // 40. and (&&) 條件需要同時成立的時候
-
+        console.log(apple == 10 && bee == 5);
+        console.log(apple == 10 && bee == 10);
+        
         // 50. or (||) 條件擇一成立
+        console.log(apple == 10 || bee == 5);
+        console.log(apple == 10 || bee == 10);
 
-
-
+        
         // ---------------------------------------------
         // 60. 三元運算子 (condition) ? value1:value2
+        
+        // if(條件 | 比較){
+        //     條件成立，執行這段
+        // }else{
+        //     條件不成立，執行這段
+        // }
 
-
+        var nowTime = "AM"
+        var apple = (nowTime == "AM")? 100:200;
+        console.log(apple);
+        
 
     </script>
 

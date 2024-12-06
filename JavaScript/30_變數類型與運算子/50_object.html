@@ -8,15 +8,56 @@
 <body>
 
     <h4>JavaScript Objects</h4>
-    <p><a href="https://www.w3schools.com/js/js_object_definition.asp">https://www.w3schools.com/js/js_object_definition.asp</a></p>
+    <p><a
+            href="https://www.w3schools.com/js/js_object_definition.asp">https://www.w3schools.com/js/js_object_definition.asp</a>
+    </p>
 
     <script>
+        // var apple = "";//apple是字串
+        // var apple = {};//apple是物件
+        // var apple = [];//apple是陣列
+
         // 10. 使用 {} create object；object 可以包含屬性和方法
         //     { key1:value1, key2:value2.. }
+        var apple = { bee: "cat" };
+        // apple是物件
+        // apple物件裡面有一個bee屬性
+        // bee屬性的值是字串cat
+
+
+        // 情境: 目標是記錄學生的姓名、國文成績、數學成績
+        // var stdName = "pika"
+        // var math = 100;
+        // var chinese = 50;
+
+        // 陣列
+        // var student = ["pika", 100, 50]
+        // console.log(student[2]);
+
+        // 物件
+        var student = {
+            name: "pika",
+            chinese: 80,
+            math: 100
+
+        }
+        console.log(student);
 
         // 20. 透過 .  可以 取得 | 新增 object 的屬性
-
+        console.log(student.math);
+        student.math = 95;
+        console.log(student.math);
+        student.english = 60;
+        console.log(student.english);
+        
         // 30. 透過 [] 可以 取得 | 新增 object 的屬性
+        console.log(student['chinese']);
+        student['chinese'] = 100;
+        console.log(student['chinese']);
+
+        student['science'] = 90;
+        console.log(student);
+        
     </script>
 
 </body>

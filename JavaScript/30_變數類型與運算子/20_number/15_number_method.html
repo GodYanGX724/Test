@@ -15,12 +15,39 @@
         // 10. 數值運算常見的錯誤
         // NaN、Infinity、-Infinity
 
+        var apple = (10 / 0);
+        console.log(apple);
+        
+        var x = 100 / 10;
+        console.log(x);
+
+        var y = 100 / "10";
+        console.log(y);
+
+        var z = 100 / "apple";
+        console.log(z);
+        
+        
+        
         // 20. 判斷數值 isNaN()
+        console.log(isNaN(x));
 
+        console.log(isNaN(z));
+        
         // 30. 把文字轉換為數值 parseInt()
-
+        var a1 = "11" + 1;
+        console.log(a1);
+        console.log(parseInt(a1));
+        console.log(parseInt("11") + 1);
+        
+        
         // 35. 數值轉字串的方法 toString()
-
+        var b1 = 5;
+        console.log(typeof(b1));
+        console.log(b1.toString());
+        console.log(typeof(b1.toString()));
+        
+        
     </script>
 
 </body>

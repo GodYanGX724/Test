@@ -807,13 +807,15 @@
                     <h3>${product.name}</h3>
                     <p>NT$${product.price}</p>
                     <p>評價：${product.rating}</p>
-                    <button>加入購物車</button>
+                    <button class="add-to-cart">加入購物車</button>
                 </div>
             </div>
         `;
                 grid.innerHTML += productCard;
             });
         }
+
+        
 
         function sortProducts(key, order) {
             const sortedProducts = [...products].sort((a, b) => {

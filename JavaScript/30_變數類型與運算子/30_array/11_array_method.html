@@ -8,24 +8,46 @@
 <body>
 
     <h4>JavaScript Array Methods</h4>
-    <p><a href="http://www.w3schools.com/js/js_array_methods.asp">http://www.w3schools.com/js/js_array_methods.asp</a></p>
+    <p><a href="http://www.w3schools.com/js/js_array_methods.asp">http://www.w3schools.com/js/js_array_methods.asp</a>
+    </p>
 
     <script>
         var weekList = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
         // 10. 陣列的取值和長度
+        console.log(weekList[1]);
+        console.log(weekList.length);
 
-        
+
 
         // 12. 陣列.toString()
+        console.log(weekList.toString());
 
         // 13. 陣列.join("#")
-        
+        console.log(weekList.join("#"));
+
         // 14. 移除陣列中第一份資料
+        // .shift()
 
+        console.log(weekList);
+        var res = weekList.shift();
+        console.log(res);
+        console.log(weekList);
+        
         // 15. 移除陣列中最後一份資料
-
+        // .pop
+        console.log(weekList);
+        res0 = weekList.pop();
+        console.log(res0);
+        console.log(weekList);
+        
         // 16. 想要加入資料到陣列中可以怎麼操作?
+        // 加在第一筆 .unshift()
+        // 最後一筆 .push()
+        // 最後一筆 陣列[索引] = 資料
+        weekList.push("everyday");
+        console.log(weekList);
+        
 
 
 
