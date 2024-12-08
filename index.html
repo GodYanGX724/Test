@@ -54,8 +54,8 @@
 
         /* logo控制 */
         #icon {
-            height: 150px;
-
+            height: 120px;
+            margin: 0 60px;
         }
 
         /* 搜尋框控制 */
@@ -138,6 +138,72 @@
             text-align: left;
             text-align: center;
         }
+
+        .cart {
+            position: fixed;
+            top: 150px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1050;
+            width: 350px;
+            display: none;
+            /* 默認隱藏，點擊購物車按鈕顯示 */
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* 左右對齊 */
+            margin-bottom: 10px;
+            /* 商品之間的間距 */
+            width: 100%;
+            box-sizing: border-box;
+            /* border: 1px solid red; */
+        }
+
+        .cart-itemphoto {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .cart-item .remove-item {
+
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: auto;
+            /* border: 1px solid blue; */
+        }
+
+        .cart-item span {
+            flex-grow: 1;
+            /* 文字填充剩餘空間 */
+            margin-right: initial;
+            /* 確保文字和按鈕有間距 */
+            /* border: 1px solid green; */
+
+        }
+
+        .remove-item:hover {
+            background-color: #d32f2f;
+        }
+
+        #clear-cart {
+            margin-top: 10px;
+        }
+
+
 
         /* 聯絡我們框架 */
         .mail-all {
@@ -574,7 +640,7 @@
         <div class="header_all">
             <!-- icon  -->
             <a href="index.html">
-                <img src="img/icon.jpg" id="icon" alt="">
+                <img src="img/icon new.jpg" id="icon" alt="">
             </a>
             <!-- 搜尋框 -->
             <div class="search-all">
@@ -611,11 +677,20 @@
                             d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
                     </svg>
                 </button>
-                
+
                 <!-- 購物車文字 -->
                 <div class="cart-word">
                     <div>購物車</div>
                 </div>
+            </div>
+
+            <!-- 購物車詳細內容 -->
+            <div id="cart" class="cart">
+                <h2>購物車</h2>
+                <div id="cart-items">
+                    <p>目前購物車為空</p>
+                </div>
+                <button id="clear-cart">清空購物車</button>
             </div>
 
             <!-- 聯絡我們 -->
@@ -675,12 +750,10 @@
                     </div>
                     <div class="container">
                         <label for="uname"><b>使用者名稱</b></label>
-                        <input class="membertype" type="text" placeholder="輸入使用者名稱" name="uname" id="uname"
-                            required>
+                        <input class="membertype" type="text" placeholder="輸入使用者名稱" name="uname" id="uname" required>
 
                         <label for="psw"><b>密碼</b></label>
-                        <input class="membertype" type="password" placeholder="輸入密碼" name="psw" id="psw"
-                            required>
+                        <input class="membertype" type="password" placeholder="輸入密碼" name="psw" id="psw" required>
 
                         <button type="submit" class="login-submit">登入</button>
                         <label>
@@ -774,7 +847,8 @@
 
     <script>
         let products = []; // 用來儲存所有商品資料
-        let currentRenderedProducts = [];
+        let currentRenderedProducts = []; // 用來儲存選擇的商品
+        let cartItems = []; // 用來儲存購物車商品
 
         // 從 JSON 文件讀取商品資料
         fetch('products.json')
@@ -797,7 +871,7 @@
             currentRenderedProducts = productList;
             const grid = document.getElementById("product-grid");
             grid.innerHTML = ""; // 清空現有商品
-            productList.forEach(product => {
+            productList.forEach((product, index) => {
                 const productCard = `
             <div class="product-card">
                 <div class="product-image">
@@ -807,15 +881,22 @@
                     <h3>${product.name}</h3>
                     <p>NT$${product.price}</p>
                     <p>評價：${product.rating}</p>
-                    <button class="add-to-cart">加入購物車</button>
+                    <button class="add-to-cart" data-index="${index}">加入購物車</button>
                 </div>
             </div>
         `;
                 grid.innerHTML += productCard;
             });
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const index = event.target.getAttribute('data-index'); // 取得按鈕對應的商品索引
+                    addToCart(productList[index]); // 加入購物車
+                });
+            });
         }
 
-        
+
 
         function sortProducts(key, order) {
             const sortedProducts = [...products].sort((a, b) => {
@@ -857,7 +938,7 @@
 
         // 表單
         const contact = document.getElementById('contact-form');
-        
+
         // 會員登錄顯示
         const modal = document.getElementById('id01');
         const loginButton = document.getElementById('login-btn');
@@ -886,11 +967,67 @@
             }
         });
 
+        // 加入購物車
+        function addToCart(product) {
+            cartItems.push(product);
+            renderCart();
+        }
+
+        // 渲染購物車內容
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = ""; // 清空購物車內容
+
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<p>目前購物車為空</p>';
+                return;
+            }
+
+            cartItems.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `           
+                <img class="cart-itemphoto" src="${item.image}" alt="${item.name}">
+                <span>${item.name} - NT$${item.price}</span>
+                <button class="remove-item" data-index="${index}">移除</button>            
+            <br>
+            
+        `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            // 綁定移除按鈕
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const index = event.target.getAttribute('data-index');
+                    cartItems.splice(index, 1);
+                    renderCart();
+                });
+            });
+        }
+
+        // 清空購物車
+        document.getElementById('clear-cart').addEventListener('click', () => {
+            cartItems = [];
+            renderCart();
+        });
+
+        // 購物車顯示/隱藏
+        const cart = document.getElementById('cart'); // 購物車詳細內容區域
+        const cartButton = document.querySelector('.cart-icon'); // 購物車按鈕
+
+        cartButton.addEventListener('click', () => {
+            // 切換購物車區域顯示/隱藏
+            cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
+        });
+
+
+
         // 登陸表單提交
         document.getElementById('login-form').addEventListener('submit', (event) => {
             event.preventDefault();
             console.log("表單提交");
-            
+
             alert('已登錄！');
             modal.style.display = 'none';
         });
@@ -899,11 +1036,11 @@
         document.getElementById('contact-form').addEventListener('submit', (event) => {
             event.preventDefault();
             console.log("表單提交");
-            
+
             alert('已送出！');
             contact.style.display = 'none';
         });
-        </script>
+    </script>
 
 
 </body>
