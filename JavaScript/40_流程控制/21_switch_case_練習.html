@@ -6,10 +6,43 @@
 </head>
 
 <body>
-   
-    <!-- 10. 請設計一個介面，讓使用者輸入頻道代碼後，網頁可以顯示對應的頻道名稱 -->
 
+    <!-- 10. 請設計一個介面，讓使用者輸入頻道代碼後，網頁可以顯示對應的頻道名稱 -->
+    <div>
+        <span>請輸入頻道代碼:</span>
+        <input type="text" name="channel" id="channel" value="">
+        <button onclick="search()">查詢</button>
+    </div>
+    <div>目前只有20、65、66這三台可以查詢</div>
+    <div id="msg"></div>
     <script>
+
+        function search() {
+            var chanel = document.getElementById("channel").value;
+            var result;
+            console.log(chanel);
+            switch (chanel) {
+                case '20':
+                    // document.getElementById("msg").innerHTML="TLC 旅遊生活頻道";
+                    result = "TLC 旅遊生活頻道";
+                    break;
+                case '65':
+                    // document.getElementById("msg").innerHTML="HBO";
+                    result = "HBO";
+                    break;
+                case '66':
+                    // document.getElementById("msg").innerHTML="東森洋片台";
+                    break;
+
+                default:
+                    // document.getElementById("msg").innerHTML="頻道尚未建立";
+                    result = "頻道尚未建立";
+                    break;
+            }
+            document.getElementById("msg").innerHTML = result;
+        }
+
+
         // 20. 透過 switch case 設定底下對應項目
         //     20 ==> TLC 旅遊生活頻道
         //     65 ==> HBO
@@ -19,4 +52,3 @@
 </body>
 
 </html>
- 

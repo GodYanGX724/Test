@@ -10,16 +10,31 @@
     <h4>The Window Object</h4>
     <p><a href="https://www.w3schools.com/jsref/obj_window.asp">https://www.w3schools.com/jsref/obj_window.asp</a></p>
     <hr>
-    <button>接收輸入，並顯示結果</button>
+    <button onclick="showMsg()">接收輸入，並顯示結果</button>
 
     <script>
-        var temp = prompt("apple","bee");
-        console.log(temp);
-        
+        // var temp = prompt("apple", "bee");
+        // console.log(temp);
+        // alert(temp);
+
+        // var x = prompt("請輸入x");
+        // var y = prompt("請輸入y");
+        // alert("x+y = " x + y);
         // 10. 透過 prompt() 接收使用者輸入的值，並記錄下來
-alert(temp);
+        function showMsg() {
+            console.log('ok');
+            var x = prompt('請輸入x')
+            x = parseInt(x);
+            var y = prompt('請輸入y')
+            y = parseInt(y);
+            var total = x + y;
+            alert(`x + y = ${x + y}`)
+            // alert("x+y="+total);
+            
+
+        }
         // 20. 使用 alert() 將記錄到的資訊顯示出來
- 
+
     </script>
 
 </body>

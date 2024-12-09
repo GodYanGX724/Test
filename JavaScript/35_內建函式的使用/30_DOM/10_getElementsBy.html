@@ -19,16 +19,28 @@
     <h2>Egg</h2>
 
     <script>
- 
-        // 10. 透過 getElementsByTagName 取得所有 <h2> 元素
-    
-        // 20. 透過 getElementsByClassName 取得擁有 class 類別的 元素
-                
-        // 30. 透過 getElementById 取得 id 為 myApple 的元素
         
+        // 10. 透過 getElementsByTagName 取得所有 <h2> 元素
+            var res1 = document.getElementsByTagName('h2');
+            console.log(res1);
+            
+            // 20. 透過 getElementsByClassName 取得擁有 class 類別的 元素
+            var res2 = document.getElementsByClassName('group1');
+            console.log(res2);
+            
+            // 30. 透過 getElementById 取得 id 為 myApple 的元素
+            var res3 = document.getElementById('myApple');
+            console.log(res3);
+            
         // 40. 透過 CSS Selectors 取得 標籤
         //     querySelector()
         //     querySelectorAll()
+        var temp1 = document.querySelector('#myApple')
+        console.log(temp1);
+        var temp2 = document.querySelectorAll('.group1')
+        console.log(temp2);
+        console.log(temp2[1]);
+        
         
     </script>
 

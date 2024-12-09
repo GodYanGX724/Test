@@ -10,9 +10,15 @@
     <p id="memo">點選圖片後，放大圖片和文字</p>
     
     <!-- 10. 設定一張圖片 -->
-    
+    <img src="../../img/find.png" alt="" id="apple" onclick="zoomIn()">
     <script>
         // 20. 網頁的 圖片的 樣式的 寬度 改變
+        function zoomIn() {
+            var imgElem = document.getElementById('apple');
+            imgElem.style.width = '500px';
+            var wordElem =document.getElementById('memo');
+            wordElem.style.fontSize='50px'
+        }
 
         // 22. 網頁的 memo的 樣式的 字型 改變
     </script>

@@ -8,6 +8,21 @@
 <body>
   
     <script>
+
+        var nowTime = new Date();
+        nowTime = nowTime.getHours();
+        console.log(nowTime);
+        
+        if(nowTime>= 8 && nowTime<=11){
+            console.log("上午課程");
+            }else if(nowTime == 12){
+                console.log("中午用餐時間");
+                }else if(nowTime >=13 && nowTime <= 16){
+                    console.log("下午課程");                    
+                }else{
+                    console.log("非課程時間");
+                    
+                }
         // 1. 取得系統現在時間(HH)
         // 2. 如果是 8點 ~ 11點，在主控台顯示上午課程
         // 3. 如果是 12點，在主控台顯示中午用餐時間
