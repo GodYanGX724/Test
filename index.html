@@ -44,7 +44,7 @@
             margin: 0 auto;
             width: 100%;
             max-width: 1220px;
-            height: 150px;
+            height: 100px;
             display: flex;
             align-items: center;
 
@@ -54,35 +54,38 @@
 
         /* logo控制 */
         #icon {
-            height: 120px;
+            height: 100px;
             margin: 0 60px;
         }
 
         /* 搜尋框控制 */
         .search-all {
             width: 692px;
+            height: 20px;
             /* background-color: lightblue; */
-            margin: 0 15px;
+            margin: 0 25px;
             position: relative;
+            border: 0px;
         }
 
         /* 搜尋框設定 */
-        .search input[type="search"] {
-            appearance: none;
+        .search input[type="text"] {
+            top: 30px;
             width: 670px;
-            padding: 20px;
-            font-size: 16px;
+            /* padding: 20px; */
+            padding: 0 10px;
+            font-size: 14px;
             border-radius: 2vw;
             border: none;
-            height: 40px;
+            height: 33px;
             background-color: rgba(128, 128, 128, 0.2);
         }
 
         /* 搜尋框按鈕設定 */
         .search-icon {
             position: absolute;
-            right: 15px;
-            top: -2px;
+            right: 10px;
+            top: -5px;
             width: 40px;
             height: 40px;
             border: none;
@@ -92,7 +95,7 @@
 
         /* 關鍵字排版 */
         .quick-links {
-            margin-top: 10px;
+            margin-top: 3px;
             margin-left: 10px;
             position: absolute;
         }
@@ -100,7 +103,7 @@
         /* 關鍵字設定 */
         .keywords {
             color: #b1c1cc;
-            font-size: .875em;
+            font-size: 12px;
             text-decoration: none;
             margin-right: 0.4em;
         }
@@ -114,6 +117,10 @@
 
             padding-top: 1vh;
             /* background-color: lightblue; */
+        }
+
+        .cart-all:hover>.cart-word {
+            color: #000;
         }
 
         /* 購物車圖示按鈕 */
@@ -242,11 +249,21 @@
             background-color: #d32f2f;
         }
 
+        /* 清空購物車 */
         #clear-cart {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: auto;
             margin-top: 10px;
         }
 
-
+        #clear-cart:hover {
+            background-color: #d32f2f;
+        }
 
         /* 聯絡我們框架 */
         .mail-all {
@@ -258,6 +275,10 @@
             margin-bottom: 0.5vh;
             padding-top: 1.5vh;
             /* background-color: lightblue; */
+        }
+
+        .mail-all:hover>div {
+            color: #000;
         }
 
         /* 聯絡圖示按鈕 */
@@ -344,6 +365,10 @@
             /* background-color: lightblue; */
         }
 
+        .member-all:hover>.member-word {
+            color: #000;
+        }
+
         /* 會員圖示按鈕 */
         .member-icon {
 
@@ -368,7 +393,7 @@
         }
 
         /* 會員登錄 */
-        /* Full-width input fields */
+
         .membertype {
             width: 100%;
             padding: 12px 20px;
@@ -378,7 +403,7 @@
             box-sizing: border-box;
         }
 
-        /* Set a style for all buttons */
+
         .login-submit {
             background-color: #04AA6D;
             color: white;
@@ -393,14 +418,14 @@
             opacity: 0.8;
         }
 
-        /* Extra styles for the cancel button */
+
         .cancelbtn {
             width: auto;
             padding: 10px 18px;
             background-color: #f44336;
         }
 
-        /* Center the image and position the close button */
+
         .closearea {
 
             margin: 24px 0 12px 0;
@@ -418,41 +443,41 @@
             padding-top: 16px;
         }
 
-        /* The Modal (background) */
+
         .modal {
             display: none;
-            /* Hidden by default */
+
             position: fixed;
-            /* Stay in place */
+
             z-index: 1;
-            /* Sit on top */
+
             left: 0;
             top: 0;
             width: 100%;
-            /* Full width */
+
             height: 100%;
-            /* Full height */
+
             overflow: auto;
-            /* Enable scroll if needed */
+
             background-color: rgb(0, 0, 0);
-            /* Fallback color */
+
             background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
+
             padding-top: 60px;
         }
 
-        /* Modal Content/Box */
+
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto 15% auto;
-            /* 5% from the top, 15% from the bottom and centered */
+
             border: 1px solid #888;
             width: 310px;
             height: 400px;
-            /* Could be more or less, depending on screen size */
+
         }
 
-        /* The Close Button (x) */
+
         .closebtn {
             position: absolute;
             right: 25px;
@@ -468,7 +493,7 @@
             cursor: pointer;
         }
 
-        /* Add Zoom Animation */
+
         .animate {
             -webkit-animation: animatezoom 0.6s;
             animation: animatezoom 0.6s
@@ -538,6 +563,11 @@
             padding: 5px 10px;
             font-weight: 700;
             font-size: 20px;
+            color: gray;
+        }
+
+        .navbar a:hover {
+            color: #000;
         }
 
         /* 側邊商品導覽列 */
@@ -557,9 +587,13 @@
             border: none;
             padding-left: 10px;
             height: 50px;
-
+            color: gray;
             margin: 10px 0;
             position: relative;
+        }
+
+        .sidebar button:hover {
+            color: #000;
         }
 
         .sidebar button:last-child {
@@ -612,7 +646,7 @@
         .product-grid {
 
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             /* 響應式設計 */
             gap: 20px;
             /* 卡片間距 */
@@ -673,6 +707,87 @@
         .product-info button:hover {
             background-color: #0056b3;
         }
+
+        /* 商品分頁 */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination-button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination-button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        .pagination-button:hover {
+            background-color: #e2e6ea;
+        }
+
+        footer {
+            margin-top: 10px;
+            background-color: white;
+        }
+
+        .footer-all {
+            align-items: flex-start;
+            display: flex;
+            justify-content: flex-start;
+            margin: auto;
+            max-width: 1200px;
+            padding: 30px 8px;
+        }
+
+        .footer-all>div {
+            margin-right: 50px;
+        }
+
+        .footer-quick-links a {
+            align-items: flex-start;
+            text-decoration: none;
+            display: flex;
+            color: gray;
+            justify-content: flex-start;
+            line-height: 19px;
+            padding: 4px 0;
+        }
+
+        .footer-social-media a {
+            align-items: flex-start;
+            text-decoration: none;
+            display: flex;
+            color: gray;
+            justify-content: flex-start;
+            line-height: 19px;
+            padding: 4px 0;
+        }
+
+        .footer-quick-links a:hover,
+        .footer-social-media a:hover {
+            color: #000;
+        }
+
+        .footer-hr {
+            border-bottom: 1px solid rgba(17, 20, 24, .15);
+        }
+
+        .copyright {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
     </style>
 
 </head>
@@ -682,12 +797,12 @@
         <!-- 頁首 -->
         <div class="header_all">
             <!-- icon  -->
-            <a href="index.html">
+            <a href=" javascript:void(0);" id="logo">
                 <img src="img/icon new.jpg" id="icon" alt="">
             </a>
             <!-- 搜尋框 -->
             <div class="search-all">
-                <span class="search"><input type="search" placeholder="搜尋寵物產品..." name="search" id="forsearch">
+                <span class="search"><input type="text" placeholder="搜尋寵物產品..." name="search" id="forsearch">
                     <!-- 搜尋圖示及按鈕 -->
                     <button class="search-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=""
@@ -733,6 +848,7 @@
                 <div id="cart-items">
                     <p>目前購物車為空</p>
                 </div>
+                <div id="cart-total">總價格：NT$0</div> <!-- 總價格顯示 -->
                 <button id="clear-cart">清空購物車</button>
             </div>
 
@@ -811,6 +927,7 @@
             </div>
         </div>
     </header>
+
     <div class="body">
         <!-- 輪播圖 -->
         <section class="slide">
@@ -884,14 +1001,52 @@
                 <button onclick="sortCurrentRenderedProducts('rating', 'desc')">評價：高到低</button>
             </div>
             <div class="product-grid" id="product-grid"></div>
+            <!-- 分頁按鈕區域 -->
+            <div id="pagination-controls" class="pagination-controls"></div>
         </section>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <footer>
+        <div class="footer-all">
+            <div class="footer-info">
+                <h4>聯絡資訊</h4>
+                <div>毛咪王國</div>
+                <div>XX門市:XX市XX區XX路XX號</div>
+                <div>營業時間:09:00~20:00</div>
+                <div>TEL:XX-XXXXXXX</div>
+                <div>Mail:maomikingdom@maomi.com</div>
+            </div>
+            <div class="footer-quick-links">
+                <h4>快速導覽</h4>
+                <a href="">關於我們</a>
+                <a href="">常見問題</a>
+                <a href="">隱私權政策</a>
+                <a href="">退換貨政策</a>
+            </div>
+            <div class="footer-social-media">
+                <h4>追蹤我們</h4>
+                <a href="">Facebook</a>
+                <a href="">Instagram</a>
+                <a href="">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-hr"></div>
+        <div class="copyright">© 2024 毛咪寵物王國. 版權所有。</div>
+    </footer>
 
     <script>
+        // 回頂部
+        document.getElementById('logo').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 平滑滾動
+            });
+        });
+
         let products = []; // 用來儲存所有商品資料
         let currentRenderedProducts = []; // 用來儲存選擇的商品
         let cartItems = []; // 用來儲存購物車商品
+        let sortedProducts = []; // 存儲排序後的商品
 
         // 從 JSON 文件讀取商品資料
         fetch('products.json')
@@ -904,6 +1059,7 @@
             .then(data => {
                 products = data; // 儲存資料
                 sortProducts('new', 'desc'); // 預設以新品排序
+                initPagination(); // 初始化分頁
             })
             .catch(error => {
                 console.error(error);
@@ -911,7 +1067,7 @@
 
         // 渲染商品
         function renderProducts(productList) {
-            currentRenderedProducts = productList;
+
             const grid = document.getElementById("product-grid");
             grid.innerHTML = ""; // 清空現有商品
             productList.forEach((product, index) => {
@@ -949,24 +1105,30 @@
                     return b[key] - a[key];
                 }
             });
+            
             renderProducts(sortedProducts); // 渲染排序後的商品
         }
         // 排序商品並渲染
         function sortCurrentRenderedProducts(key, order) {
-            const sortedProducts = [...currentRenderedProducts].sort((a, b) => {
+            sortedProducts = [...currentRenderedProducts].sort((a, b) => {
                 if (order === 'asc') {
                     return a[key] - b[key];
                 } else {
                     return b[key] - a[key];
                 }
             });
-            renderProducts(sortedProducts); // 渲染排序後的商品
+            resetPagination(); // 重置分頁
+            currentPage = 1; // 重置到第一頁
+            renderPaginatedProducts(sortedProducts); // 渲染排序後的商品
         }
 
         // 篩選商品
         function filterProducts(category) {
             const filteredProducts = products.filter(product => product.category === category);
-            renderProducts(filteredProducts); // 渲染篩選後的商品
+            currentRenderedProducts = filteredProducts; // 更新目前渲染的商品清單
+            currentPage = 1; // 重設到第一頁
+            resetPagination(); // 重置分頁
+            renderPaginatedProducts(); // 重新渲染分頁商品
         }
 
         // 聯絡表單顯示
@@ -1029,8 +1191,11 @@
 
             if (cartItems.length === 0) {
                 cartItemsContainer.innerHTML = '<p>目前購物車為空</p>';
+                document.getElementById('cart-total').textContent = "總價格：NT$0"; // 清空總價格
                 return;
             }
+
+            let totalPrice = 0; // 初始化總價格
 
             cartItems.forEach((item, index) => {
                 const cartItem = document.createElement('div');
@@ -1047,7 +1212,13 @@
             
         `;
                 cartItemsContainer.appendChild(cartItem);
+
+                // 計算總價格
+                totalPrice += item.price * item.quantity;
             });
+
+            // 更新總價格顯示
+            document.getElementById('cart-total').textContent = `總價格：NT$${totalPrice}`;
 
             // 綁定移除按鈕
             document.querySelectorAll('.remove-item').forEach(button => {
@@ -1113,6 +1284,75 @@
             alert('已送出！');
             contact.style.display = 'none';
         });
+
+        // 商品分頁
+        let currentPage = 1; // 當前頁面
+        const itemsPerPage = 5 * 4; // 每頁5行，每行4個商品（根據你的畫面設計調整）
+
+        // 渲染分頁商品
+        function renderPaginatedProducts(productList = sortedProducts.length > 0 ? sortedProducts : products) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedProducts = productList.slice(startIndex, endIndex);
+
+            renderProducts(paginatedProducts); // 使用現有的 renderProducts 渲染
+            renderPaginationControls(productList.length); // 渲染分頁按鈕
+        }
+
+        // 渲染分頁按鈕
+        function renderPaginationControls(totalItems) {
+            const paginationContainer = document.getElementById('pagination-controls');
+            paginationContainer.innerHTML = ""; // 清空現有按鈕
+
+            const totalPages = Math.ceil(totalItems / itemsPerPage); // 總頁數
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.add('pagination-button');
+
+                if (i === currentPage) {
+                    button.classList.add('active'); // 當前頁高亮
+                }
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    renderPaginatedProducts();
+
+                    window.scrollTo({
+                        top: 800,
+                        behavior: 'smooth' // 平滑滾動
+                    });
+                });
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        // 回頂部
+        document.getElementById('logo').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 平滑滾動
+            });
+        });
+
+
+        // 初始化分頁
+        function initPagination() {
+            currentPage = 1; // 預設顯示第一頁
+            currentRenderedProducts = products; // 顯示所有商品
+            renderPaginatedProducts();
+        }
+
+        // 重置分頁
+        function resetPagination() {
+            currentPage = 1; // 重置到第一頁
+            renderPaginatedProducts(); // 渲染第一頁
+        }
+
+
+        // 預設加載分頁
+        initPagination();
+
     </script>
 
 
