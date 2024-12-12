@@ -1058,7 +1058,7 @@
             })
             .then(data => {
                 products = data; // 儲存資料
-                sortProducts('new', 'desc'); // 預設以新品排序
+                sortCurrentRenderedProducts('new', 'desc'); // 預設以新品排序
                 initPagination(); // 初始化分頁
             })
             .catch(error => {
@@ -1098,6 +1098,7 @@
 
 
         function sortProducts(key, order) {
+            // currentRenderedProducts = products;
             const sortedProducts = [...products].sort((a, b) => {
                 if (order === 'asc') {
                     return a[key] - b[key];
@@ -1105,30 +1106,39 @@
                     return b[key] - a[key];
                 }
             });
-            
+            currentRenderedProducts = sortedProducts;
             renderProducts(sortedProducts); // 渲染排序後的商品
         }
         // 排序商品並渲染
         function sortCurrentRenderedProducts(key, order) {
-            sortedProducts = [...currentRenderedProducts].sort((a, b) => {
+            if (currentRenderedProducts.length === 0) {
+                // 如果目前沒有篩選商品，使用完整商品清單
+                currentRenderedProducts = [...products];
+            }
+
+            // 對目前的商品清單進行排序
+            currentRenderedProducts = [...currentRenderedProducts].sort((a, b) => {
                 if (order === 'asc') {
                     return a[key] - b[key];
                 } else {
                     return b[key] - a[key];
                 }
             });
-            resetPagination(); // 重置分頁
-            currentPage = 1; // 重置到第一頁
-            renderPaginatedProducts(sortedProducts); // 渲染排序後的商品
+
+            // 清空排序結果，避免影響後續操作
+            sortedProducts = [];
+
+            // 重新渲染分頁商品
+            resetPagination();
         }
 
         // 篩選商品
         function filterProducts(category) {
             const filteredProducts = products.filter(product => product.category === category);
             currentRenderedProducts = filteredProducts; // 更新目前渲染的商品清單
-            currentPage = 1; // 重設到第一頁
-            resetPagination(); // 重置分頁
-            renderPaginatedProducts(); // 重新渲染分頁商品
+            sortedProducts = []; // 清空排序結果
+            currentPage = 1; // 重置到第一頁
+            renderPaginatedProducts(currentRenderedProducts); // 渲染篩選後的分頁
         }
 
         // 聯絡表單顯示
@@ -1290,21 +1300,21 @@
         const itemsPerPage = 5 * 4; // 每頁5行，每行4個商品（根據你的畫面設計調整）
 
         // 渲染分頁商品
-        function renderPaginatedProducts(productList = sortedProducts.length > 0 ? sortedProducts : products) {
+        function renderPaginatedProducts(productList) {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedProducts = productList.slice(startIndex, endIndex);
 
-            renderProducts(paginatedProducts); // 使用現有的 renderProducts 渲染
-            renderPaginationControls(productList.length); // 渲染分頁按鈕
+            renderProducts(paginatedProducts); // 渲染商品
+            renderPaginationControls(productList.length); // 更新分頁按鈕
         }
 
         // 渲染分頁按鈕
         function renderPaginationControls(totalItems) {
             const paginationContainer = document.getElementById('pagination-controls');
-            paginationContainer.innerHTML = ""; // 清空現有按鈕
+            paginationContainer.innerHTML = ""; // 清空按鈕
 
-            const totalPages = Math.ceil(totalItems / itemsPerPage); // 總頁數
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
 
             for (let i = 1; i <= totalPages; i++) {
                 const button = document.createElement('button');
@@ -1312,15 +1322,14 @@
                 button.classList.add('pagination-button');
 
                 if (i === currentPage) {
-                    button.classList.add('active'); // 當前頁高亮
+                    button.classList.add('active'); // 高亮當前頁
                 }
                 button.addEventListener('click', () => {
                     currentPage = i;
-                    renderPaginatedProducts();
-
+                    renderPaginatedProducts(currentRenderedProducts); // 使用目前的商品列表進行渲染
                     window.scrollTo({
-                        top: 800,
-                        behavior: 'smooth' // 平滑滾動
+                        top: 800, // 調整滾動位置
+                        behavior: 'smooth'
                     });
                 });
                 paginationContainer.appendChild(button);
@@ -1339,14 +1348,13 @@
         // 初始化分頁
         function initPagination() {
             currentPage = 1; // 預設顯示第一頁
-            currentRenderedProducts = products; // 顯示所有商品
             renderPaginatedProducts();
         }
 
         // 重置分頁
         function resetPagination() {
             currentPage = 1; // 重置到第一頁
-            renderPaginatedProducts(); // 渲染第一頁
+            renderPaginatedProducts(currentRenderedProducts); // 渲染排序後的商品
         }
 
 
