@@ -148,7 +148,7 @@
 
         .cart {
             position: fixed;
-            top: 150px;
+            top: 101px;
             right: 20px;
             background-color: white;
             border: 1px solid #ccc;
@@ -264,7 +264,21 @@
         #clear-cart:hover {
             background-color: #d32f2f;
         }
-
+        
+        #checkout-button{
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            float: right;
+            margin-top: 10px;
+        }
+        
+        #checkout-button:hover{
+            background-color: #e68900;            
+        }
         /* 聯絡我們框架 */
         .mail-all {
 
@@ -734,6 +748,15 @@
             background-color: #e2e6ea;
         }
 
+        .To-Top{
+            position: fixed;
+            right: 0;
+            bottom: 200px;
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
         footer {
             margin-top: 10px;
             background-color: white;
@@ -850,6 +873,7 @@
                 </div>
                 <div id="cart-total">總價格：NT$0</div> <!-- 總價格顯示 -->
                 <button id="clear-cart">清空購物車</button>
+                <button id="checkout-button">結帳</button>
             </div>
 
             <!-- 聯絡我們 -->
@@ -1006,6 +1030,12 @@
         </section>
     </div>
 
+    <div class="To-Top" id="To-Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+      </svg>
+    </div>
+
     <footer>
         <div class="footer-all">
             <div class="footer-info">
@@ -1107,7 +1137,7 @@
                 }
             });
             currentRenderedProducts = sortedProducts;
-            renderProducts(sortedProducts); // 渲染排序後的商品
+            renderPaginatedProducts(sortedProducts); // 渲染排序後的商品
         }
         // 排序商品並渲染
         function sortCurrentRenderedProducts(key, order) {
@@ -1217,7 +1247,8 @@
                 ${item.quantity}
                 <button class="increase-quantity" data-index="${index}">+</button>
                 </span>
-                <button class="remove-item" data-index="${index}">移除</button>            
+                <button class="remove-item" data-index="${index}">移除</button>  
+                          
             <br>
             
         `;
@@ -1337,7 +1368,7 @@
         }
 
         // 回頂部
-        document.getElementById('logo').addEventListener('click', () => {
+        document.getElementById('To-Top').addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth' // 平滑滾動
