@@ -13,7 +13,7 @@ function longTimeWork(workFine = true, errorMessage = "test") {
 
 async function usingLongTimeWork() {
     try {
-        var result = await longTimeWork(false, "test");
+        var result = await longTimeWork(true, "test");
         console.log(result);
     }
     catch (e) {

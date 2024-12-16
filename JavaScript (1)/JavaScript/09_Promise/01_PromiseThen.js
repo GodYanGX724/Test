@@ -14,6 +14,8 @@ function usingLongTimeWork() {
     .catch(function (e) {
         console.log(e);
     })
+    console.log("logggg");
+    
 }
 
 usingLongTimeWork();
