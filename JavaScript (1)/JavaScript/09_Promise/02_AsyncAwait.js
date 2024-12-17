@@ -19,6 +19,7 @@ async function usingLongTimeWork() {
     catch (e) {
         console.log(e);
     }
+    console.log("loggg");
     
 }
 
