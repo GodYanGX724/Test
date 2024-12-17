@@ -264,8 +264,9 @@
         #clear-cart:hover {
             background-color: #d32f2f;
         }
-        
-        #checkout-button{
+
+        #checkout-button {
+            text-decoration: none;
             background-color: #ff9800;
             color: white;
             border: none;
@@ -275,10 +276,11 @@
             float: right;
             margin-top: 10px;
         }
-        
-        #checkout-button:hover{
-            background-color: #e68900;            
+
+        #checkout-button:hover {
+            background-color: #e68900;
         }
+
         /* 聯絡我們框架 */
         .mail-all {
 
@@ -460,23 +462,15 @@
 
         .modal {
             display: none;
-
             position: fixed;
-
             z-index: 1;
-
             left: 0;
             top: 0;
             width: 100%;
-
             height: 100%;
-
             overflow: auto;
-
             background-color: rgb(0, 0, 0);
-
             background-color: rgba(0, 0, 0, 0.4);
-
             padding-top: 60px;
         }
 
@@ -748,13 +742,21 @@
             background-color: #e2e6ea;
         }
 
-        .To-Top{
+        .To-Top {
             position: fixed;
+            height: 40px;
+            width: 40px;
             right: 0;
             bottom: 200px;
             background-color: rgba(128, 128, 128, 0.5);
             border-radius: 20px;
             cursor: pointer;
+        }
+
+        .To-Top-arrow {
+            position: absolute;
+            top: 2px;
+            left: 2px;
         }
 
         footer {
@@ -820,7 +822,7 @@
         <!-- 頁首 -->
         <div class="header_all">
             <!-- icon  -->
-            <a href=" javascript:void(0);" id="logo">
+            <a href="index.html" id="logo">
                 <img src="img/icon new.jpg" id="icon" alt="">
             </a>
             <!-- 搜尋框 -->
@@ -873,7 +875,8 @@
                 </div>
                 <div id="cart-total">總價格：NT$0</div> <!-- 總價格顯示 -->
                 <button id="clear-cart">清空購物車</button>
-                <button id="checkout-button">結帳</button>
+                <a href="dir/check.html" id="checkout-button">結帳</a>
+                
             </div>
 
             <!-- 聯絡我們 -->
@@ -1031,9 +1034,11 @@
     </div>
 
     <div class="To-Top" id="To-Top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
-      </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+            class="bi bi-arrow-up To-Top-arrow" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+        </svg>
     </div>
 
     <footer>
@@ -1126,7 +1131,7 @@
         }
 
 
-
+        // 商品排序
         function sortProducts(key, order) {
             // currentRenderedProducts = products;
             const sortedProducts = [...products].sort((a, b) => {
@@ -1193,6 +1198,8 @@
         // 顯示模態框
         loginButton.addEventListener('click', () => {
             modal.style.display = 'block';
+            contact.style.display = "none"; // 隱藏表單
+            cart.style.display = "none"; //隱藏購物車
         });
 
         // 隱藏模態框（點擊關閉按鈕）
@@ -1223,6 +1230,22 @@
             }
             renderCart(); // 更新購物車內容
         }
+
+        // 從 localStorage 載入購物車內容
+        function loadCartFromLocalStorage() {
+            const storedCart = localStorage.getItem('cartItems');
+            if (storedCart) {
+                cartItems = JSON.parse(storedCart);
+            } else {
+                cartItems = [];
+            }
+        }
+
+        // 在頁面載入時從 localStorage 載入購物車
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCartFromLocalStorage();
+            renderCart(); // 使用載入的資料渲染購物車
+        });
 
         // 渲染購物車內容
         function renderCart() {
@@ -1266,13 +1289,15 @@
                 button.addEventListener('click', (event) => {
                     const index = event.target.getAttribute('data-index');
                     cartItems.splice(index, 1);
-                    renderCart();
+                    saveCartToLocalStorage(); // 儲存更新後的購物車
+                    renderCart();// 更新購物車內容
                 });
             });
             document.querySelectorAll('.increase-quantity').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const index = event.target.getAttribute('data-index');
                     cartItems[index].quantity += 1;
+                    saveCartToLocalStorage(); // 儲存更新後的購物車
                     renderCart(); // 更新購物車內容
                 });
             });
@@ -1285,15 +1310,19 @@
                     } else {
                         cartItems.splice(index, 1); // 如果數量為1，移除商品
                     }
+                    saveCartToLocalStorage(); // 儲存更新後的購物車
                     renderCart(); // 更新購物車內容
                 });
             });
+
+            saveCartToLocalStorage(); // 儲存更新後的購物車內容到 localStorage
 
         }
 
         // 清空購物車
         document.getElementById('clear-cart').addEventListener('click', () => {
             cartItems = [];
+            saveCartToLocalStorage(); // 儲存更新後的購物車
             renderCart();
         });
 
@@ -1391,6 +1420,13 @@
 
         // 預設加載分頁
         initPagination();
+
+        // 將購物車內容儲存到 localStorage
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+
 
     </script>
 

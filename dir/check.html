@@ -1,11 +1,838 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>結帳</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* overflow: hidden; */
+        }
+
+        /* 背景淺灰色 */
+        body {
+            background-color: #f0f0f0;
+        }
+
+        /* 頁首滿版 背景白色 固定在畫面上 底部分隔線 */
+        header {
+
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            border-bottom: 1px solid #f8f8f8;
+
+            /* 不放margiin輪播圖會跑到hearder後面 */
+            /* margin-bottom: 20vh; */
+        }
+
+        /* 頁首元件控制 */
+        /* 圖片212.17+670 */
+        .header_all {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1220px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+        }
+
+        /* logo控制 */
+        #icon {
+            height: 100px;
+            margin: 0 60px;
+        }
+
+        /* 搜尋框控制 */
+        .search-all {
+            width: 692px;
+            height: 20px;
+            /* background-color: lightblue; */
+            margin: 0 25px;
+            position: relative;
+            border: 0px;
+        }
+
+        /* 搜尋框設定 */
+        .search input[type="text"] {
+            top: 30px;
+            width: 670px;
+            /* padding: 20px; */
+            padding: 0 10px;
+            font-size: 14px;
+            border-radius: 2vw;
+            border: none;
+            height: 33px;
+            background-color: rgba(128, 128, 128, 0.2);
+        }
+
+        /* 搜尋框按鈕設定 */
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: -5px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        /* 關鍵字排版 */
+        .quick-links {
+            margin-top: 3px;
+            margin-left: 10px;
+            position: absolute;
+        }
+
+        /* 關鍵字設定 */
+        .keywords {
+            color: #b1c1cc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 0.4em;
+        }
+
+        /* 購物車框架 */
+        .cart-all {
+            display: flex;
+            width: 100px;
+            flex-direction: column;
+            align-items: center;
+
+            padding-top: 1vh;
+            /* background-color: lightblue; */
+        }
+
+        .cart-all:hover>.cart-word {
+            color: #000;
+        }
+
+        /* 購物車圖示按鈕 */
+        .cart-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+
+        }
+
+        /* 購物車文字 */
+        .cart-word {
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+
+        .cart {
+            position: fixed;
+            top: 101px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1050;
+            display: none;
+            /* 默認隱藏，點擊購物車按鈕顯示 */
+
+            min-width: 300px;
+            /* 最小寬度 */
+            max-width: 600px;
+            /* 最大寬度 */
+            width: auto;
+            /* 自動適應內容 */
+            word-wrap: break-word;
+            /* 如果內容太長，自動換行 */
+        }
+
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* 左右對齊 */
+            margin-bottom: 10px;
+            /* 商品之間的間距 */
+            width: 100%;
+            box-sizing: border-box;
+            /* border: 1px solid red; */
+        }
+
+        .cart-itemphoto {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .decrease-quantity,
+        .increase-quantity {
+            width: 30px;
+            /* 按鈕寬度 */
+            height: 20px;
+            /* 按鈕高度 */
+            display: inline-flex;
+            /* 讓按鈕內容居中 */
+            justify-content: center;
+            /* 水平居中 */
+            align-items: center;
+            /* 垂直居中 */
+            background-color: #007bff;
+            /* 按鈕背景色 */
+            color: white;
+            /* 按鈕文字顏色 */
+            border: none;
+            /* 移除邊框 */
+            border-radius: 4px;
+            /* 圓角 */
+            margin: 0 5px;
+            /* 左右間距 */
+            cursor: pointer;
+            /* 鼠標指針效果 */
+        }
+
+        .decrease-quantity:hover,
+        .increase-quantity:hover {
+            background-color: #0056b3;
+            /* 滑鼠懸停背景色 */
+        }
+
+
+
+        .cart-item .remove-item {
+
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: auto;
+            /* border: 1px solid blue; */
+        }
+
+        .cart-item span {
+            flex-grow: 1;
+            /* 文字填充剩餘空間 */
+            margin-right: initial;
+            /* 確保文字和按鈕有間距 */
+            /* border: 1px solid green; */
+
+        }
+
+        .remove-item:hover {
+            background-color: #d32f2f;
+        }
+
+        /* 清空購物車 */
+        #clear-cart {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: auto;
+            margin-top: 10px;
+        }
+
+        #clear-cart:hover {
+            background-color: #d32f2f;
+        }
+
+        #checkout-button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            float: right;
+            margin-top: 10px;
+        }
+
+        #checkout-button:hover {
+            background-color: #e68900;
+        }
+
+        /* 聯絡我們框架 */
+        .mail-all {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            margin-bottom: 0.5vh;
+            padding-top: 1.5vh;
+            /* background-color: lightblue; */
+        }
+
+        .mail-all:hover>div {
+            color: #000;
+        }
+
+        /* 聯絡圖示按鈕 */
+        .mail-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        /* 聯絡文字 */
+        .mail-word {
+
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+
+        /* 聯絡表單 */
+        .contact-form {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1050;
+            width: 300px;
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 會員框架 */
+        .member-all {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            margin-top: -0.5vh;
+            padding-top: 1.5vh;
+            /* background-color: lightblue; */
+        }
+
+        .member-all:hover>.member-word {
+            color: #000;
+        }
+
+        /* 會員圖示按鈕 */
+        .member-icon {
+
+            /* margin-left: -1vw; */
+            /* border: 1px solid blue; */
+            justify-self: center;
+            width: 2vw;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        /* 會員文字 */
+        .member-word {
+
+            font-size: 1rem;
+            /* margin-left: -1vw; */
+            /* border: 1px solid red; */
+            color: gray;
+            text-align: left;
+            text-align: center;
+        }
+
+        /* 會員登錄 */
+
+        .membertype {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+
+        .login-submit {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .container button:hover {
+            opacity: 0.8;
+        }
+
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+
+        .closearea {
+
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+
+            border: 1px solid #888;
+            width: 310px;
+            height: 400px;
+
+        }
+
+
+        .closebtn {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .closebtn:hover,
+        .closebtn:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .body {
+            width: 1220px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 購物明細 */
+        #checkout-details{
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        #checkout-top{
+            display: flex;
+            justify-content: space-around
+        }
+        #checkout-total{
+            display: block;
+            margin-left: auto;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <header>
+        <!-- 頁首 -->
+        <div class="header_all">
+            <!-- icon  -->
+            <a href="../index.html" id="logo">
+                <img src="../img/icon new.jpg" id="icon" alt="">
+            </a>
+            <!-- 搜尋框 -->
+            <div class="search-all">
+                <span class="search"><input type="text" placeholder="搜尋寵物產品..." name="search" id="forsearch">
+                    <!-- 搜尋圖示及按鈕 -->
+                    <button class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=""
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                    <!-- 搜尋框下方關鍵字 -->
+                    <div class="quick-links">
+                        <a href="#" class="keywords">健康饗宴</a>
+                        <a href="#" class="keywords">野趣磨爪板</a>
+                        <a href="#" class="keywords">玩趣爪爪</a>
+                        <a href="#" class="keywords">貓砂</a>
+                        <a href="#" class="keywords">健康饗宴</a>
+                        <a href="#" class="keywords">貓草</a>
+                        <a href="#" class="keywords">貓砂</a>
+                        <a href="#" class="keywords">健康饗宴</a>
+                        <a href="#" class="keywords">貓草</a>
+                    </div>
+                </span>
+            </div>
+            <!-- 購物車 -->
+            <div class="cart-all">
+                <!-- 購物車icon按鈕 -->
+                <button class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-cart2"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                    </svg>
+                </button>
+
+                <!-- 購物車文字 -->
+                <div class="cart-word">
+                    <div>購物車</div>
+                </div>
+            </div>
+
+            <!-- 購物車詳細內容 -->
+            <div id="cart" class="cart">
+                <h2>購物車</h2>
+                <div id="cart-items">
+                    <p>目前購物車為空</p>
+                </div>
+                <div id="cart-total">總價格：NT$0</div> <!-- 總價格顯示 -->
+                <button id="clear-cart">清空購物車</button>
+                <button id="checkout-button">結帳</button>
+            </div>
+
+            <!-- 聯絡我們 -->
+            <div class="mail-all">
+                <!-- 聯絡icon按鈕 -->
+                <button class="mail-icon" onclick="toggleContactForm()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-envelope"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                    </svg>
+                </button>
+
+                <!-- 聯絡文字 -->
+                <div class="mail-word">
+                    <div>聯絡我們</div>
+                </div>
+            </div>
+
+            <!-- 聯絡表單 -->
+            <div class="contact-form" id="contact-form">
+                <h2>聯絡我們</h2>
+                <form>
+                    <label for="contact-email">電子郵件</label>
+                    <input type="email" name="contact-email" id="contact-email" placeholder="請輸入您的電子郵件" required>
+
+                    <label for="contact-message">訊息內容</label>
+                    <textarea name="contact-message" id="contact-message" placeholder="請輸入您的訊息" rows="4"
+                        required></textarea>
+                    <button type="submit">送出</button>
+                </form>
+            </div>
+
+            <!-- 會員 -->
+            <div class="member-all">
+                <!-- 會員icon按鈕 -->
+                <button class="member-icon" id="login-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" fill="currentColor" class="bi bi-person-circle"
+                        viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                </button>
+                <!-- 會員文字 -->
+                <div class="member-word">
+                    <div>會員</div>
+                </div>
+            </div>
+
+            <!-- 會員登錄 -->
+            <!-- 模態框 -->
+            <div id="id01" class="modal">
+                <form class="modal-content animate" id="login-form">
+                    <div class="closearea">
+                        <span class="closebtn" title="Close Modal">&times;</span>
+                    </div>
+                    <div class="container">
+                        <label for="uname"><b>使用者名稱</b></label>
+                        <input class="membertype" type="text" placeholder="輸入使用者名稱" name="uname" id="uname" required>
+
+                        <label for="psw"><b>密碼</b></label>
+                        <input class="membertype" type="password" placeholder="輸入密碼" name="psw" id="psw" required>
+
+                        <button type="submit" class="login-submit">登入</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> 記得我
+                        </label>
+                    </div>
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="button" class="cancelbtn">取消</button>
+                        <span class="psw"> <a href="#">忘記密碼</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="body">
+        <!-- 購物明細 -->
+        <section id="checkout-details">
+            <h2>您的購物資料</h2>
+            <div id="checkout-top"><span>商品名稱</span> <span>數量</span> <span>價格</span></div>
+            <div id="checkout-items">
+                <!-- 动态进入 -->
+            </div>
+            <div id="checkout-total">總金額：NT$0</div>
+        </section>
+
+        <!-- 付款表單 -->
+        <section id="payment-info">
+            <h3>付款資料</h3>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="cardholder-name">持卡人姓名</label>
+                    <input type="text" id="cardholder-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-number">信用卡號碼</label>
+                    <input type="text" id="card-number" maxlength="16" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry-date">到期日 (MM/YY)</label>
+                        <input type="text" id="expiry-date" maxlength="5" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">安全碼</label>
+                        <input type="password" id="cvv" maxlength="3" required>
+                    </div>
+                </div>
+                <button type="submit">完成付款</button>
+            </form>
+        </section>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <script>
+        // 讀取localstorage
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCheckoutItems();
+            console.log("load");
+            
+        }); 
+
+        // 聯絡表單顯示
+        function toggleContactForm() {
+            const contactForm = document.getElementById("contact-form");
+            if (contactForm.style.display === "none" || contactForm.style.display === "") {
+                contactForm.style.display = "block"; // 顯示表單
+            } else {
+                contactForm.style.display = "none"; // 隱藏表單
+            }
+        }
+        // 表單
+        const contact = document.getElementById('contact-form');
+
+        // 會員登錄顯示
+        const modal = document.getElementById('id01');
+        const loginButton = document.getElementById('login-btn');
+        const closeButton = document.querySelector('.closebtn');
+        const cancelButton = document.querySelector('.cancelbtn');
+
+        // 顯示模態框
+        loginButton.addEventListener('click', () => {
+            modal.style.display = 'block';
+            contact.style.display = "none"; // 隱藏表單
+            cart.style.display = "none"; //隱藏購物車
+        });
+
+        // 隱藏模態框（點擊關閉按鈕）
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 隱藏模態框（點擊取消按鈕）
+        cancelButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 點擊模態框外部隱藏模態框
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        // 購物車顯示/隱藏
+        const cart = document.getElementById('cart'); // 購物車詳細內容區域
+        const cartButton = document.querySelector('.cart-icon'); // 購物車按鈕
+
+        cartButton.addEventListener('click', () => {
+            // 切換購物車區域顯示/隱藏
+            cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
+        });
+
+
+
+        // 登陸表單提交
+        document.getElementById('login-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            console.log("表單提交");
+
+            alert('已登錄！');
+            modal.style.display = 'none';
+        });
+
+        // 聯絡表單提交
+        document.getElementById('contact-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            console.log("表單提交");
+
+            alert('已送出！');
+            contact.style.display = 'none';
+        });
+
+        // 加载購物清單
+        function loadCheckoutItems() {
+            const checkoutContainer = document.getElementById('checkout-items');
+            const totalContainer = document.getElementById('checkout-total');
+            const storedCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            let totalPrice = 0;
+            checkoutContainer.innerHTML = '';
+
+            if (storedCart.length === 0) {
+                checkoutContainer.innerHTML = '<p class="text-center">購物車是空的。</p>';
+                totalContainer.textContent = '總金額：NT$0';
+                return;
+            }
+
+            storedCart.forEach(item => {
+                const itemHTML = `
+                    <div class="checkout-item">
+                        <img src="../${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                        <span><strong>${item.name}</strong> x ${item.quantity}</span>
+                        <span>NT$${item.price * item.quantity}</span>
+                    </div>
+                    <hr>
+                `;
+                totalPrice += item.price * item.quantity;
+                checkoutContainer.innerHTML += itemHTML;
+            });
+
+            totalContainer.textContent = `總金額：NT$${totalPrice}`;
+        }
+
+    </script>
 </body>
+
 </html>
