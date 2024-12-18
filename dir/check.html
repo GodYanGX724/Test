@@ -531,19 +531,199 @@
         }
 
         /* 購物明細 */
-        #checkout-details{
+        #checkout-details {
             background-color: white;
             display: flex;
             flex-direction: column;
+            margin-bottom: 50px;
+            padding: 20px;
         }
-        #checkout-top{
+
+        #checkout-details h2 {
+            /* border: 1px solid red; */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #checkout-top {
             display: flex;
-            justify-content: space-around
+            justify-content: space-around;
+            border-bottom: 1px gray solid;
+            margin-bottom: 20px;
+
         }
-        #checkout-total{
+
+        #checkout-total {
             display: block;
             margin-left: auto;
         }
+
+        /* 運送付款 */
+        #checkout-trans {
+            background-color: white;
+            padding: 20px;
+        }
+
+        /* 運送 */
+        .trans-total {
+            margin-bottom: 10px;
+        }
+
+        .circle {
+            color: #f0f0f0;
+        }
+
+        .check-circle {
+            color: red;
+            display: none;
+
+        }
+
+        /* 付款 */
+        #select-payment {
+            display: none;
+        }
+
+        .store {
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            display: none;
+        }
+
+        .store>div {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .store>div span {
+            color: red;
+        }
+
+        .store a img {
+            width: 80px;
+        }
+
+        /* 刷卡表單 */
+        #payment-info {
+            background-color: white;
+            padding: 20px;
+            display: none;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            background-color: #f0f0f0;
+            padding-left: 10px;
+            border: none;
+            border-radius: 10px;
+            height: 40px;
+            width: 400px;
+        }
+
+        /* 購買人資訊 */
+        .buyer-info {
+            display: flex;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .buyer {
+            width: 590px;
+        }
+
+        .buyer div span {
+            color: red;
+        }
+
+        .buyer div {
+            margin-bottom: 10px;
+        }
+
+        .buyer div input {
+            background-color: #f0f0f0;
+            padding-left: 10px;
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 580px;
+        }
+
+        .border {
+            border: 1px solid #f0f0f0;
+        }
+
+        .picker {
+            width: 590px;
+            padding-left: 20px;
+        }
+
+        .picker div span {
+            color: red;
+        }
+
+        .picker div {
+            margin-bottom: 10px;
+        }
+
+        .picker div input {
+            background-color: #f0f0f0;
+            padding-left: 10px;
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 580px;
+        }
+
+        .add {
+            margin: 0 auto;
+        }
+
+
+        #country {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        #place {
+            width: 200px;
+        }
+
+        /* 發票 */
+        .recipe {
+            background-color: white;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .recipe > span{
+            margin-right: 20px;
+        }
+        /* 公司發票 */
+        .company-detail{
+            margin-top: 20px;
+            display: none;
+        }
+        .company-detail div{
+            margin: 10px 0;
+        }
+        .company-detail span{
+            color: red;
+        }
+        .company-detail input{
+            background-color: #f0f0f0;
+            padding-left: 10px;
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 100%;
+        }
+
+        /* 個人載具 */
     </style>
 </head>
 
@@ -695,7 +875,91 @@
             <div id="checkout-total">總金額：NT$0</div>
         </section>
 
-        <!-- 付款表單 -->
+        <section id="checkout-trans">
+            <!-- <div>
+                <input type="radio" name="trans" id="">宅配到府
+                <input type="radio" name="trans" id="">超商取貨
+            </div> -->
+            <!-- 運送方式 -->
+            <div class="trans-total">
+                <h4>選擇運送方式</h4>
+                <span id="home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                        id="trans1" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="check-circle" id="check-trans1" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    宅配到府
+                </span>
+                <span id="7-11">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                        id="trans2" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="check-circle" id="check-trans2" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    超商取貨
+                </span>
+            </div>
+            <!-- 付款方式 -->
+            <div id="select-payment">
+                <h4>選擇付款方式</h4>
+                <span id="homepay">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                        id="pay1" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="check-circle" id="check-pay1" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    貨到付款
+                </span>
+                <span id="storepay">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                        id="pay2" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="check-circle" id="check-pay2" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    超商貨到付款
+                </span>
+                <span id="creditpay">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                        id="pay3" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="check-circle" id="check-pay3" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    線上刷卡
+                </span>
+
+            </div>
+        </section>
+
+        <section class="store" id="store">
+            <div><span>*</span>請選擇超商</div>
+            <div>
+                <a href="https://www.7-11.com.tw/" target="_blank"><img src="../img/store1.jpg" alt=""></a>
+                <a href="https://www.family.com.tw/Marketing/zh" target="_blank"><img src="../img/store2.jpg"
+                        alt=""></a>
+            </div>
+        </section>
+        <!-- 線上刷卡表單 -->
         <section id="payment-info">
             <h3>付款資料</h3>
             <form id="payment-form">
@@ -705,7 +969,7 @@
                 </div>
                 <div class="form-group">
                     <label for="card-number">信用卡號碼</label>
-                    <input type="text" id="card-number" maxlength="16" required>
+                    <input type="text" id="card-number" maxlength="16" placeholder="****-****-****-****" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -717,8 +981,103 @@
                         <input type="password" id="cvv" maxlength="3" required>
                     </div>
                 </div>
-                <button type="submit">完成付款</button>
+
             </form>
+        </section>
+
+        <section class="buyer-info">
+            <div class="buyer">
+                <h4>購買人資訊</h4>
+                <div>
+                    <div><span>*</span>姓名</div>
+                    <input type="text" name="" id="" placeholder="請輸入姓名" required>
+                </div>
+                <div>
+                    <div><span>*</span>連絡電話</div>
+                    <input type="tel" name="" id="" placeholder="請輸入連絡電話" required>
+                </div>
+                <div>
+                    <div><span>*</span>電子郵件</div>
+                    <input type="email" name="" id="" placeholder="請輸入電子郵件" required>
+                </div>
+            </div>
+            <hr>
+            <hr>
+            <div class="border"></div>
+            <div class="picker">
+                <h4>收件人資訊</h4>
+                <div>
+                    <div><span>*</span>姓名</div>
+                    <input type="text" name="" id="" placeholder="請輸入姓名" required>
+                </div>
+                <div>
+                    <div><span>*</span>電話</div>
+                    <input type="text" name="" id="" placeholder="請輸入電話" required>
+                </div>
+                <div id="add">
+                    <div><span>*</span>地址</div>
+                    <div class="add">
+                        <input type="text" name="" id="country" placeholder="縣市" required>
+                        <input type="text" name="" id="place" placeholder="鄉鎮市區" required>
+                    </div>
+                    <input type="text" name="" id="address" placeholder="請輸入地址" required>
+                </div>
+                <div>
+                    <div>備註</div>
+                    <input type="text" name="" id="" placeholder="備註">
+                </div>
+
+            </div>
+        </section>
+        <!-- 發票資訊 -->
+        <section class="recipe">
+            <h4>電子發票</h4>
+            <span id="company">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                    id="recipe1" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="check-circle"
+                    id="check-recipe1" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                公司用(統編)
+            </span>
+            <span id="personal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                    id="recipe2" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="check-circle"
+                    id="check-recipe2" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                個人載具
+            </span>
+            <span id="donate">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="circle"
+                    id="recipe3" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="check-circle"
+                    id="check-recipe3" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                捐贈發票
+            </span>
+            <div class="company-detail" id="company-detail">
+                <div><span>*</span>統一編號</div>
+                <input type="text" name="" id="" placeholder="請輸入公司統一編號" required>
+                <div><span>*</span>發票抬頭</div>
+                <input type="text" name="" id="" placeholder="請輸入發票抬頭" required>
+            </div>
+            <div class="personal-detail" id="personal-detail">
+                <div><span>*</span>手機載具條碼</div>
+                <input type="text">
+            </div>
         </section>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -728,8 +1087,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadCheckoutItems();
             console.log("load");
-            
-        }); 
+
+        });
 
         // 聯絡表單顯示
         function toggleContactForm() {
@@ -815,13 +1174,14 @@
                 totalContainer.textContent = '總金額：NT$0';
                 return;
             }
-
+            //一段margin:175.333px 行高50px 字高:68.23
             storedCart.forEach(item => {
                 const itemHTML = `
-                    <div class="checkout-item">
-                        <img src="../${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
-                        <span><strong>${item.name}</strong> x ${item.quantity}</span>
-                        <span>NT$${item.price * item.quantity}</span>
+                    <div class="checkout-item" style="position: relative;">
+                       <span style="display:inline-block; position: relative;left: 87.665px; width:239.33px;"><img src="../${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                        <strong>${item.name}</strong></span>
+                        <span style="position: relative;left: 357.663px"> ${item.quantity}</span>
+                        <span style="position: relative;left: 711.323px">NT$${item.price * item.quantity}</span>
                     </div>
                     <hr>
                 `;
@@ -831,6 +1191,189 @@
 
             totalContainer.textContent = `總金額：NT$${totalPrice}`;
         }
+
+
+        // 運送資訊
+
+        const trans1 = document.getElementById("trans1");//宅配圓圈      
+        const checktrans1 = document.getElementById("check-trans1");//宅配勾勾
+        const trans2 = document.getElementById("trans2");//超商圓圈
+        const checktrans2 = document.getElementById("check-trans2");//超商勾勾
+        const home = document.getElementById("home");
+        const store = document.getElementById("7-11");
+        let homestatus = 0;//宅配到府狀態
+        let storetatus = 0;//超商取貨狀態
+        const pickstore = document.getElementById("store");
+        const pay = document.getElementById("select-payment");//付款方式
+        const pay1 = document.getElementById("pay1")//貨到付款
+        const checkpay1 = document.getElementById("check-pay1")
+        const pay2 = document.getElementById("pay2")//超商貨到付款
+        const checkpay2 = document.getElementById("check-pay2")
+        const pay3 = document.getElementById("pay3")//線上刷卡
+        const checkpay3 = document.getElementById("check-pay3")
+        const homepay = document.getElementById("homepay");
+        const storepay = document.getElementById("storepay");
+        const creditpay = document.getElementById("creditpay");
+        let homepaystatus = 0;//取貨付款狀態
+        let storepaystatus = 0;//超商取貨付款狀態
+        let creditpaystatus = 0;//線上刷卡狀態
+        const creditpayment = document.getElementById("payment-info");//刷卡資訊
+        const address = document.getElementById("add");//宅配地址
+        // 取貨方式
+        home.addEventListener('click', () => {
+            if (homestatus == 0 || storetatus == 1) {
+                trans1.style.display = "none";
+                checktrans1.style.display = "inline";
+                trans2.style.display = "inline";
+                checktrans2.style.display = "none";
+                homestatus = 1;
+                storetatus = 0;
+                pay.style.display = "block";
+                storepay.style.display = "none";
+                homepay.style.display = "inline";
+                home.style.color = "red"
+                store.style.color = "black"
+                address.style.display = "block";
+            }
+            // trans1.style.display = trans1.style.display === "none" ? "inline" : "none";
+        })
+
+        store.addEventListener('click', () => {
+            if (homestatus == 1 || storetatus == 0) {
+                trans2.style.display = "none";
+                checktrans2.style.display = "inline";
+                trans1.style.display = "inline-block";
+                checktrans1.style.display = "none";
+                homestatus = 0;
+                storetatus = 1;
+                pay.style.display = "block";
+                storepay.style.display = "inline";
+                homepay.style.display = "none";
+                home.style.color = "black"
+                store.style.color = "red"
+                pickstore.style.display = "block";
+                address.style.display = "none";
+            }
+        })
+
+        // 付款方式
+        homepay.addEventListener('click', () => {
+            if (homepaystatus == 0 || creditpaystatus == 1) {
+                pay1.style.display = "none";
+                checkpay1.style.display = "inline";
+                pay3.style.display = "inline";
+                checkpay3.style.display = "none";
+                homepaystatus = 1;
+                creditpaystatus = 0;
+                homepay.style.color = "red"
+                creditpay.style.color = "black"
+                creditpayment.style.display = "none";
+            }
+        })
+        storepay.addEventListener('click', () => {
+            if (storepaystatus == 0 || creditpaystatus == 1) {
+                pay2.style.display = "none";
+                checkpay2.style.display = "inline";
+                pay3.style.display = "inline";
+                checkpay3.style.display = "none";
+                storepaystatus = 1;
+                creditpaystatus = 0;
+                storepay.style.color = "red"
+                creditpay.style.color = "black"
+                creditpayment.style.display = "none";
+            }
+        })
+        creditpay.addEventListener('click', () => {
+            if (homepaystatus == 1 || storepaystatus == 1 || creditpaystatus == 0) {
+                pay3.style.display = "none";
+                checkpay3.style.display = "inline";
+                pay1.style.display = "inline";
+                checkpay1.style.display = "none";
+                pay2.style.display = "inline";
+                checkpay2.style.display = "none";
+                homepaystatus = 0;
+                storepaystatus = 0;
+                creditpaystatus = 1;
+                homepay.style.color = "black"
+                storepay.style.color = "black"
+                creditpay.style.color = "red";
+                creditpayment.style.display = "block";
+
+
+            }
+        })
+
+
+
+        const expiryDateInput = document.getElementById('expiry-date');
+
+        expiryDateInput.addEventListener('input', (event) => {
+            let value = event.target.value;
+
+            // 檢查是否已經有 '/'，避免重複插入
+            if (value.length >= 2 && !value.includes('/')) {
+                event.target.value = value + '/'
+                // 在第二個字符後插入 '/'
+            }
+        });
+
+        // 發票
+        const company1 = document.getElementById("recipe1");
+        const checkcompany1 = document.getElementById("check-recipe1");
+        const personal1 = document.getElementById("recipe2");
+        const checkpersonal1 = document.getElementById("check-recipe2");
+        const donate1 = document.getElementById("recipe3");
+        const checkdonate1 = document.getElementById("check-recipe3");
+        const company = document.getElementById("company");
+        const personal = document.getElementById("personal");
+        const donate = document.getElementById("donate");
+        let companystatus = 0;
+        let personalstatus = 0;
+        let donatestatus = 0;
+        const companydetail = document.getElementById("company-detail")
+
+        company.addEventListener('click', () => {
+            if (companystatus == 0 || personalstatus == 1 || donatestatus == 1) {
+                company1.style.display = "none";
+                checkcompany1.style.display = "inline";
+                personal1.style.display = "inline";
+                checkpersonal1.style.display = "none";
+                donate1.style.display = "inline";
+                checkdonate1.style.display = "none";
+                companystatus = 1;
+                personalstatus == 0;
+                donatestatus == 0;
+                companydetail.style.display="block";
+            }
+        })
+        personal.addEventListener('click', () => {
+            if (companystatus == 1 || personalstatus == 0 || donatestatus == 1) {
+                company1.style.display = "inline";
+                checkcompany1.style.display = "none";
+                personal1.style.display = "none";
+                checkpersonal1.style.display = "inline";
+                donate1.style.display = "inline";
+                checkdonate1.style.display = "none";
+                companystatus = 0;
+                personalstatus == 1;
+                donatestatus == 0;
+                companydetail.style.display="none";
+            }
+        })
+        donate.addEventListener('click', () => {
+            if (companystatus == 1 || personalstatus == 1 || donatestatus == 0) {
+                company1.style.display = "inline";
+                checkcompany1.style.display = "none";
+                personal1.style.display = "inline";
+                checkpersonal1.style.display = "none";
+                donate1.style.display = "none";
+                checkdonate1.style.display = "inline";
+                companystatus = 0;
+                personalstatus == 0;
+                donatestatus == 1;
+                companydetail.style.display="none";
+            }
+        })
 
     </script>
 </body>
