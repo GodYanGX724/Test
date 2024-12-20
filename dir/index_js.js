@@ -16,8 +16,6 @@ document.querySelectorAll('.sort button').forEach(button => {
     button.addEventListener('click', () => setActiveSortButton(button));
 });
 
-
-
 let products = []; // 用來儲存所有商品資料
 let currentRenderedProducts = []; // 用來儲存選擇的商品
 let cartItems = []; // 用來儲存購物車商品
@@ -83,7 +81,6 @@ function renderProducts(productList) {
 
     grid.appendChild(fragment); // 一次性插入 DOM
 
-
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (event) => {
             const index = event.target.getAttribute('data-index'); // 取得按鈕對應的商品索引
@@ -91,7 +88,6 @@ function renderProducts(productList) {
         });
     });
 }
-
 
 // 商品排序
 function sortProducts(key, order) {
@@ -409,9 +405,27 @@ document.getElementById('search-icon').addEventListener('click', () => {
         return;
     }
 
+    executeSearch(searchQuery); // 執行搜尋功能
+});
+
+// 選取所有快速關鍵字
+const quickLinks = document.querySelectorAll('.quick-links .keywords');
+
+// 為每個關鍵字綁定點擊事件
+quickLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault(); // 阻止默認的跳轉行為
+        const keyword = event.target.textContent.trim(); // 獲取關鍵字的文字
+        document.getElementById('forsearch').value = keyword; // 將文字填入搜尋框
+        executeSearch(keyword); // 執行搜尋功能
+    });
+});
+
+// 搜尋功能
+function executeSearch(searchQuery) {
     const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchQuery) || // 商品名稱
-        product.category.toLowerCase().includes(searchQuery) // 商品類別
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (filteredProducts.length > 0) {
@@ -420,6 +434,34 @@ document.getElementById('search-icon').addEventListener('click', () => {
     } else {
         alert('未找到相關商品');
     }
+}
 
+// 1200px-768px
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebarMenu = document.getElementById('sidebar-menu');
+    const closeMenu = document.getElementById('close-menu');
 
+    // 打開摺疊菜單
+    menuToggle.addEventListener('click', () => {
+        sidebarMenu.classList.add('open');
+    });
+
+    // 關閉摺疊菜單
+    closeMenu.addEventListener('click', () => {
+        sidebarMenu.classList.remove('open');
+    });
+
+     // 點擊菜單外部關閉菜單
+     document.addEventListener('click', (event) => {
+        // 如果點擊的目標不是摺疊菜單，也不是三條線按鈕，則關閉
+        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+            sidebarMenu.classList.remove('open');
+        }
+    });
+
+    // 阻止點擊摺疊菜單內部的事件冒泡到 document
+    sidebarMenu.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 });
