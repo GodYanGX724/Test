@@ -344,7 +344,7 @@ function renderPaginationControls(totalItems) {
 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let paginationHTML = ""; // 儲存分頁按鈕 HTML
-    
+
     for (let i = 1; i <= totalPages; i++) {
         paginationHTML += `
             <button class="pagination-button ${i === currentPage ? 'active' : ''}" data-page="${i}">
@@ -424,7 +424,7 @@ quickLinks.forEach(link => {
 // 搜尋功能
 function executeSearch(searchQuery) {
     const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -452,10 +452,10 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarMenu.classList.remove('open');
     });
 
-     // 點擊菜單外部關閉菜單
-     document.addEventListener('click', (event) => {
+    // 點擊菜單外部關閉菜單
+    document.addEventListener('click', (event) => {
         // 如果點擊的目標不是摺疊菜單，也不是三條線按鈕，則關閉
-        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target) && !cart.contains(event.target)) {
             sidebarMenu.classList.remove('open');
         }
     });
@@ -464,4 +464,36 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarMenu.addEventListener('click', (event) => {
         event.stopPropagation();
     });
+
+    // 綁定購物車按鈕
+    const cartButton = document.getElementById('cart-button');
+    const closecartButton = document.getElementById('close-cart');
+    const cart = document.getElementById('cart'); // 原有購物車內容
+
+    cartButton.addEventListener('click', () => {
+        cart.style.display = cart.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏購物車
+    });
+    closecartButton.addEventListener('click', () => {
+        cart.style.display = "none";
+    })
+
+    // 綁定聯絡我們按鈕
+    const contactButton = document.getElementById('contact-button');
+    const contactForm = document.getElementById('contact-form'); // 原有聯絡我們表單
+
+    contactButton.addEventListener('click', () => {
+        contactForm.style.display = contactForm.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏聯絡表單
+    });
+
+    // 綁定會員按鈕
+    const memberButton = document.getElementById('member-button');
+    const modal = document.getElementById('id01'); // 原有會員模態框
+
+    memberButton.addEventListener('click', () => {
+        modal.style.display = 'block'; // 顯示會員模態框
+    });
+
+    
+
+
 });

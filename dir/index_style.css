@@ -847,7 +847,7 @@ footer {
 
 @media (min-width: 768px) and (max-width: 1200px) {
 
-    a{
+    a {
         text-decoration: none;
     }
 
@@ -883,11 +883,11 @@ footer {
         cursor: pointer;
     }
 
-    .sidebar-menu{
+    .sidebar-menu {
         padding: 20px;
     }
 
-    .close-menu{
+    .close-menu {
         margin-bottom: 10px;
         height: 40px;
         width: 40px;
@@ -907,17 +907,20 @@ footer {
         font-size: 25px;
     }
 
-    .menu-content button{
+    .menu-content button {
         border: none;
         background-color: transparent;
         color: gray;
     }
-    .menu-content button:hover{
+
+    .menu-content button:hover {
         color: white;
     }
-    ul li{
+
+    ul li {
         margin-bottom: 10px;
     }
+
     ul {
         list-style-type: none;
         padding: 0;
@@ -926,5 +929,34 @@ footer {
         /* 移除外邊距 */
     }
 
+    .cart {
+        top: 75px
+    }
 
+    .cart h2 {
+        display: inline;
+    }
+
+    .close-cart {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: transparent;
+        color: gray;
+    }
+
+    .body {
+        width: 768px;
+    }
+
+    .navbar {
+        width: 768px;
+    }
+
+    .footer-all {
+        width: 768px;
+    }
 }
