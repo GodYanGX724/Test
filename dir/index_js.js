@@ -13,9 +13,16 @@ function setActiveSortButton(button) {
 
 // 在排序按鈕中調用：
 document.querySelectorAll('.sort button').forEach(button => {
+    
     button.addEventListener('click', () => setActiveSortButton(button));
 });
 
+function removelight() {
+    const light = document.querySelectorAll('.sort button');
+    light.forEach(button => {
+        button.classList.remove('active'); // 對每個按鈕移除 active 類別
+    });
+}
 let products = []; // 用來儲存所有商品資料
 let currentRenderedProducts = []; // 用來儲存選擇的商品
 let cartItems = []; // 用來儲存購物車商品
@@ -99,6 +106,7 @@ function sortProducts(key, order) {
             return b[key] - a[key];
         }
     });
+    removelight();
     currentRenderedProducts = sortedProducts;
     renderPaginatedProducts(sortedProducts); // 渲染排序後的商品
 }
@@ -127,6 +135,7 @@ function sortCurrentRenderedProducts(key, order) {
 
 // 篩選商品
 function filterProducts(category) {
+    removelight();
     const filteredProducts = products.filter(product => product.category === category);
     currentRenderedProducts = filteredProducts; // 更新目前渲染的商品清單
     sortedProducts = []; // 清空排序結果
@@ -139,6 +148,7 @@ function toggleContactForm() {
     const contactForm = document.getElementById("contact-form");
     if (contactForm.style.display === "none" || contactForm.style.display === "") {
         contactForm.style.display = "block"; // 顯示表單
+        cart.style.display = "none";
     } else {
         contactForm.style.display = "none"; // 隱藏表單
     }
@@ -225,10 +235,12 @@ function renderCart() {
         cartHTML += `
             <div class="cart-item">
                 <img class="cart-itemphoto" src="${item.image}" alt="${item.name}">
-                <span>${item.name} - NT$${item.price} x 
+                <span>${item.name} - NT$${item.price}  
+                <span class="cartnumbercontrol"> x
                 <button class="decrease-quantity" data-index="${index}">-</button>
                 ${item.quantity}
                 <button class="increase-quantity" data-index="${index}">+</button>
+                </span>
                 </span>
                 <button class="remove-item" data-index="${index}">移除</button>  
             </div>
@@ -301,6 +313,7 @@ const cartButton = document.querySelector('.cart-icon'); // 購物車按鈕
 cartButton.addEventListener('click', () => {
     // 切換購物車區域顯示/隱藏
     cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
+    contact.style.display = "none";
 });
 
 
@@ -455,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 點擊菜單外部關閉菜單
     document.addEventListener('click', (event) => {
         // 如果點擊的目標不是摺疊菜單，也不是三條線按鈕，則關閉
-        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target) && !cart.contains(event.target)) {
+        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target) && !cart.contains(event.target) && !contact.contains(event.target) && !modal.contains(event.target)) {
             sidebarMenu.classList.remove('open');
         }
     });
@@ -472,28 +485,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cartButton.addEventListener('click', () => {
         cart.style.display = cart.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏購物車
+        contactForm.style.display = "none";
+        sidebarMenu.classList.remove('open');
     });
     closecartButton.addEventListener('click', () => {
         cart.style.display = "none";
     })
-
+    
     // 綁定聯絡我們按鈕
     const contactButton = document.getElementById('contact-button');
     const contactForm = document.getElementById('contact-form'); // 原有聯絡我們表單
-
+    
     contactButton.addEventListener('click', () => {
         contactForm.style.display = contactForm.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏聯絡表單
+        cart.style.display = "none";
+        sidebarMenu.classList.remove('open');
     });
-
+    
     // 綁定會員按鈕
     const memberButton = document.getElementById('member-button');
     const modal = document.getElementById('id01'); // 原有會員模態框
-
+    
     memberButton.addEventListener('click', () => {
-        modal.style.display = 'block'; // 顯示會員模態框
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block'; // 顯示會員模態框
+        cart.style.display = "none";
+        contactForm.style.display = "none";
+        sidebarMenu.classList.remove('open');
     });
-
     
 
-
+    // 展開摺疊菜單
+    const submenutoggle1 = document.getElementById("submenu-toggle1");
+    const submenu1 = document.getElementById("submenu1");
+    
+    submenutoggle1.addEventListener('click', () =>{        
+        submenu1.classList.toggle('open');
+        submenutoggle1.textContent = submenutoggle1.textContent === '活動導覽 ▶︎' ? '活動導覽 ▼' : '活動導覽 ▶︎';
+    })
+    
+    const submenutoggle2 = document.getElementById("submenu-toggle2");
+    const submenu2 = document.getElementById("submenu2");
+    
+    submenutoggle2.addEventListener('click', () =>{        
+        submenu2.classList.toggle('open1');
+        submenutoggle2.textContent = submenutoggle2.textContent === '商品分類 ▶︎' ? '商品分類 ▼' : '商品分類 ▶︎';
+    })
+    
 });
+
+const searchbutton = document.getElementById("search-button");
+const closesearch = document.getElementById("close-search");
+const searchall = document.getElementById("search-all");
+const forsearch = document.getElementById("forsearch");
+const logo = document.getElementById("logo");
+
+searchbutton.addEventListener('click', () => {
+    searchall.style.display = "block";
+    if (window.innerWidth <= 768) {
+        searchall.style.left = "50px";
+    } else {
+        searchall.style.left = "119px";
+    }
+    logo.style.display =  "none";
+    closesearch.style.display = "block";
+    searchbutton.style.display = "none";
+})
+
+closesearch.addEventListener('click', () => {
+    searchall.style.display = "none";
+    searchbutton.style.display = "block";
+    logo.style.display =  "block";
+    closesearch.style.display = "none";
+})
+

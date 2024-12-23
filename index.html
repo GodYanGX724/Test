@@ -29,7 +29,7 @@
                 <img src="img/icon new.jpg" id="icon" alt="">
             </a>
             <!-- 搜尋框 -->
-            <div class="search-all">
+            <div class="search-all" id="search-all">
                 <span class="search">
                     <input type="text" placeholder="搜尋寵物產品..." name="search" id="forsearch">
                     <!-- 搜尋圖示及按鈕 -->
@@ -73,8 +73,10 @@
 
             <!-- 購物車詳細內容 -->
             <div id="cart" class="cart">
-                <h2>購物車</h2>
-                <button id="close-cart" class="close-cart">✖</button>
+                <div>
+                    <h2>購物車</h2>
+                    <button id="close-cart" class="close-cart">✖</button>
+                </div>
                 <div id="cart-items">
                     <p>目前購物車為空</p>
                 </div>
@@ -104,6 +106,7 @@
             <!-- 聯絡表單 -->
             <div class="contact-form" id="contact-form">
                 <h2>聯絡我們</h2>
+                <button id="close-contact" class="close-contact" onclick="toggleContactForm()">✖</button>
                 <form>
                     <label for="contact-email">電子郵件</label>
                     <input type="email" name="contact-email" id="contact-email" placeholder="請輸入您的電子郵件" required>
@@ -114,6 +117,7 @@
                     <button type="submit">送出</button>
                 </form>
             </div>
+
 
             <!-- 會員 -->
             <div class="member-all">
@@ -131,6 +135,8 @@
                     <div>會員</div>
                 </div>
             </div>
+
+
 
             <!-- 會員登錄 -->
             <!-- 模態框 -->
@@ -157,7 +163,32 @@
                     </div>
                 </form>
             </div>
+
+            <!-- 搜尋 -->
+            <div class="search-button" id="search-button">
+                <!-- 搜尋icon按鈕 -->
+                <button class="search-btn" id="search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" fill="currentColor" class="bi bi-search"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+                <!-- 搜尋文字 -->
+                <div class="search-word">
+                    <div>搜尋</div>
+                </div>
+            </div>
+
+            <button class="close-search" id="close-search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" class="bi bi-chevron-right"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                </svg>
+            </button>
         </div>
+
     </header>
 
     <!-- 摺疊菜單 -->
@@ -172,19 +203,29 @@
                 <li><button id="contact-button">聯絡我們 📧</button></li>
                 <li><button id="member-button">會員 👤</button></li>
                 <li>
-                    <button class="submenu-toggle">活動導覽 ▼</button>
-                    <ul class="submenu">
+                    <button class="submenu-toggle" id="submenu-toggle1">活動導覽 ▶︎</button>
+                    <ul class="submenu" id="submenu1">
                         <li><a href="#">限時秒殺優惠 🔥</a></li>
                         <li><a href="#">新品首發專區 🌟</a></li>
                         <li><a href="#">即品出清25折 📣</a></li>
+                        <li><a href="#">季節特賣會 ☀️❄️</a></li>
+                        <li><a href="#">買一送一優惠專區 🎁</a></li>
+                        <li><a href="#">保健食品8折起 💊</a></li>
                     </ul>
                 </li>
                 <li>
-                    <button class="submenu-toggle">商品分類 ▼</button>
-                    <ul class="submenu">
-                        <li><a href="#">狗狗飼料</a></li>
-                        <li><a href="#">貓咪飼料</a></li>
-                        <li><a href="#">貓咪罐罐</a></li>
+                    <button class="submenu-toggle" id="submenu-toggle2">商品分類 ▶︎</button>
+                    <ul class="submenu" id="submenu2">
+                        <button onclick="sortProducts('new', 'asc')">新商品推薦</button>
+                        <button onclick="filterProducts('狗狗飼料')">狗狗飼料</button>
+                        <button onclick="filterProducts('貓咪飼料')">貓咪飼料</button>
+                        <button onclick="filterProducts('貓咪罐頭')">貓咪罐罐</button>
+                        <button onclick="filterProducts('狗狗罐頭')">狗狗罐罐</button>
+                        <button onclick="filterProducts('貓狗零食')">貓狗零食</button>
+                        <button onclick="filterProducts('貓狗玩具')">貓狗玩具</button>
+                        <button onclick="filterProducts('清潔保健')">清潔保健</button>
+                        <button onclick="filterProducts('貓砂用品')">貓砂用品</button>
+                        <button onclick="filterProducts('外出用品')">外出用品</button>
                     </ul>
                 </li>
             </ul>
