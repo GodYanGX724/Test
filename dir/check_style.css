@@ -12,6 +12,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+a {
+    text-decoration: none;
+}
+
 /* 背景淺灰色 */
 body {
     background-color: #f0f0f0;
@@ -39,9 +44,67 @@ header {
     height: 100px;
     display: flex;
     align-items: center;
-
     position: relative;
+    z-index: 10;
+}
 
+/* 摺疊菜單 */
+.menu-icon {
+    display: none;
+    position: absolute;
+    left: 0;
+    /* 顯示摺疊菜單按鈕 */
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar-menu {
+    padding: 20px;
+}
+
+.close-menu {
+    margin-bottom: 10px;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: gray;
+}
+
+.menu-icon div {
+    width: 25px;
+    height: 3px;
+    background: black;
+}
+
+.menu-content {
+    font-size: 25px;
+}
+
+.menu-content button {
+    border: none;
+    background-color: transparent;
+    color: gray;
+}
+
+.menu-content button:hover {
+    color: white;
+}
+
+ul li {
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    /* 移除內邊距 */
+    margin: 0;
+    /* 移除外邊距 */
 }
 
 /* logo控制 */
@@ -98,6 +161,7 @@ header {
     font-size: 12px;
     text-decoration: none;
     margin-right: 0.4em;
+
 }
 
 /* 購物車框架 */
@@ -138,10 +202,54 @@ header {
     text-align: center;
 }
 
+.cart h2 {
+    display: inline;
+}
+
+/* RWD搜尋按鈕 */
+.search-button {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+}
+
+.search-button:hover>.search-word {
+    color: #000;
+}
+
+.search-btn {
+    position: relative;
+    left: 10px;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+}
+
+.search-word {
+    font-size: 1rem;
+    /* margin-left: -1vw; */
+    /* border: 1px solid red; */
+    color: gray;
+    text-align: left;
+    text-align: center;
+    width: 50px;
+}
+
+.close-search {
+    display: none;
+    position: absolute;
+
+    border: none;
+    background-color: white;
+    margin-top: -1px;
+}
+
+/* 購物車區域 */
 .cart {
     position: fixed;
     top: 101px;
-    right: 20px;
+    right: 0px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -161,6 +269,21 @@ header {
     /* 如果內容太長，自動換行 */
 }
 
+.cart>div {
+    margin-bottom: 10px;
+}
+
+.close-cart {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: gray;
+    font-size: 22px;
+}
 
 .cart-item {
     display: flex;
@@ -258,6 +381,7 @@ header {
 }
 
 #checkout-button {
+    text-decoration: none;
     background-color: #ff9800;
     color: white;
     border: none;
@@ -326,8 +450,20 @@ header {
     width: 300px;
 }
 
+#close-contact {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: gray;
+    font-size: 22px;
+}
+
 .contact-form h2 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
 }
 
@@ -518,6 +654,42 @@ span.psw {
     }
 }
 
+.close-search {
+    display: none;
+}
+
+/* 摺疊菜單樣式 */
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 1040;
+    overflow-y: scroll;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-menu.open {
+    left: 0;
+}
+
+
 .body {
     width: 1220px;
     margin: 0 auto;
@@ -552,6 +724,34 @@ span.psw {
     margin-left: auto;
 }
 
+.checkout-item {
+    position: relative;
+}
+
+.checkout-total {
+    display: inline-block;
+    position: relative;
+    left: 87.665px;
+    width: 239.33px;
+}
+
+.checkout-total img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.checkout-quantity {
+    position: relative;
+    left: 357.663px
+}
+
+.checkout-price {
+    position: relative;
+    left: 711.323px
+}
+
 /* 運送付款 */
 #checkout-trans {
     background-color: white;
@@ -581,7 +781,7 @@ span.psw {
 .store {
     width: 100%;
     background-color: white;
-    padding: 20px;
+    margin-top: 20px;
     display: none;
 }
 
@@ -599,7 +799,7 @@ span.psw {
 /* 刷卡表單 */
 #payment-info {
     background-color: white;
-    padding: 20px;
+    margin-top: 20px;
     display: none;
 }
 
@@ -645,11 +845,12 @@ span.psw {
 }
 
 .border {
+    margin-left: 10px;
     border: 1px solid #f0f0f0;
 }
 
 .picker {
-    width: 590px;
+    width: 570px;
     padding-left: 20px;
 }
 
@@ -665,7 +866,7 @@ span.psw {
     border: none;
     border-radius: 10px;
     height: 50px;
-    width: 580px;
+    width: 560px;
 }
 
 .add {
@@ -827,4 +1028,274 @@ footer {
     align-items: center;
     justify-content: center;
     margin: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    .header_all {
+        max-width: 768px;
+        /* flex-wrap: wrap; */
+        height: 75px;
+        /* justify-content: center; */
+    }
+
+    #logo {
+        position: relative;
+        left: 346.5px;
+    }
+
+    #icon {
+        height: 75px;
+        margin: 0;
+    }
+
+    .quick-links {
+        display: none;
+    }
+
+    #forsearch {
+        width: 500px;
+    }
+
+    .search-all {
+        display: none;
+        width: 500px;
+        margin-top: -10px;
+    }
+
+    .cart-all,
+    .mail-all,
+    .member-all {
+        display: none;
+    }
+
+    .search-button {
+        display: block;
+    }
+
+    .close-search {
+        right: 0;
+        margin-top: -1px;
+    }
+
+    .menu-icon {
+        display: flex;
+
+    }
+
+    .cart {
+        top: 75px
+    }
+
+    .contact-form {
+        position: fixed;
+        top: 75px;
+        right: 0px;
+    }
+
+    .body {
+        width: 768px;
+    }
+
+    /* 100px */
+    .checkout-total {
+        left: 12.335px;
+        width: 264px;
+    }
+
+    .checkout-quantity{
+        left: 106px;
+    }
+
+    .checkout-price{
+        left: 300px;
+    }
+
+    .buyer-info {
+        display: block;
+    }
+
+    .buyer {
+        width: 728px;
+    }
+
+    
+
+    .border {
+        margin-left: 0px;
+
+    }
+
+    .picker {
+        width: 728px;
+        padding-left: 0px;
+        margin-top: 20px;
+    }
+
+    .picker div input{
+        width: 728PX;
+    }
+
+    #country {
+        width: 357px;
+        margin-right: 10px;
+    }
+    
+    #place {
+        width: 357px;
+    }
+
+    .footer-all {
+        width: 768px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .header_all {
+        max-width:100%;
+        /* flex-wrap: wrap; */
+        height: 75px;
+        /* justify-content: center; */
+    }
+
+    #logo {
+        position: relative;
+        margin: 0 auto;
+    }
+
+    #icon {
+        height: 75px;
+        margin: 0;
+    }
+
+    .quick-links {
+        display: none;
+    }
+
+    #forsearch{
+        width: 100%;
+
+    }
+    .search-all {
+        display: none;
+        width : 50%;
+        margin: 0 auto;
+        margin-top: -10px;
+        transform: translateX(-40px);
+    }
+
+    .cart-all,
+    .mail-all,
+    .member-all {
+        display: none;
+    }
+    
+    .search-button {        
+        display: block;       
+    }
+    
+    .close-search{
+        right: 0;
+        margin-top: -1px;
+    }
+    .menu-icon {
+        display: flex;        
+    } 
+
+    .cart {
+        position: fixed;
+        top: 75px;
+        z-index: 1080;
+        
+    }    
+    
+    .cartnumbercontrol{
+        display: block;
+    }
+
+    .contact-form{
+        position: fixed;
+        top: 75px;
+        right: 0px;
+    }
+
+    .body {
+        width: 100%;
+    }    
+
+    #checkout-top {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* 3 等分 */
+        text-align: center; /* 中心對齊 */
+        border-bottom: 1px solid gray; /* 分隔線 */
+        padding: 10px 0;
+        font-weight: bold; /* 標題加粗 */
+    }
+    
+    .checkout-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* 與 #checkout-top 一致 */
+        align-items: center; /* 垂直居中對齊 */
+        padding: 10px 0;
+        border-bottom: 1px solid lightgray; /* 每行的分隔線 */
+    }
+    
+    .checkout-total{
+        width: 100%;
+        left: 0;
+    }
+    .checkout-total img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    
+    .checkout-quantity,
+    .checkout-price {
+        text-align: center; /* 數量和價格居中 */
+        left: 0;
+    }
+    .buyer-info {
+        display: block;
+    }
+
+    .buyer {
+        width: 100%;
+    }
+    .buyer div input{
+        width: 100%;
+    }
+    .border {
+        margin-left: 0px;
+
+    }
+    .picker {
+        width: 100%;
+        padding-left: 0px;
+        margin-top: 20px;
+    }
+    .picker div input{
+        width: 100%;
+    }
+    #country {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #place {
+        width: 100%;
+    }
+
+    .recipe>span{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .footer-all {
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .footer-all>div{
+        margin-bottom: 5px;
+    }
 }

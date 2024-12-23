@@ -94,11 +94,11 @@ function loadCheckoutItems() {
     //一段margin:175.333px 行高50px 字高:68.23
     storedCart.forEach(item => {
         const itemHTML = `
-            <div class="checkout-item" style="position: relative;">
-               <span style="display:inline-block; position: relative;left: 87.665px; width:239.33px;"><img src="../${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+            <div class="checkout-item">
+               <span class="checkout-total"><img src="../${item.image}" alt="${item.name}">
                 <strong>${item.name}</strong></span>
-                <span style="position: relative;left: 357.663px"> ${item.quantity}</span>
-                <span style="position: relative;left: 711.323px">NT$${item.price * item.quantity}</span>
+                <span class="checkout-quantity"> ${item.quantity}</span>
+                <span class="checkout-price">NT$${item.price * item.quantity}</span>
             </div>
             <hr>
         `;
@@ -617,4 +617,95 @@ checkout.addEventListener("click", () => {
         saveCartToLocalStorage(); // 儲存清空後的購物車
         window.location.href = '../index.html'; // 回到首頁
     }
+})
+
+// 1200px-768px
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebarMenu = document.getElementById('sidebar-menu');
+    const closeMenu = document.getElementById('close-menu');
+
+    // 打開摺疊菜單
+    menuToggle.addEventListener('click', () => {
+        sidebarMenu.classList.add('open');
+    });
+
+    // 關閉摺疊菜單
+    closeMenu.addEventListener('click', () => {
+        sidebarMenu.classList.remove('open');
+    });
+
+    // 點擊菜單外部關閉菜單
+    document.addEventListener('click', (event) => {
+        // 如果點擊的目標不是摺疊菜單，也不是三條線按鈕，則關閉
+        if (!sidebarMenu.contains(event.target) && !menuToggle.contains(event.target) && !cart.contains(event.target) && !contact.contains(event.target) && !modal.contains(event.target)) {
+            sidebarMenu.classList.remove('open');
+        }
+    });
+
+    // 阻止點擊摺疊菜單內部的事件冒泡到 document
+    sidebarMenu.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    // 綁定購物車按鈕
+    const cartButton = document.getElementById('cart-button');
+    const closecartButton = document.getElementById('close-cart');
+    const cart = document.getElementById('cart'); // 原有購物車內容
+
+    cartButton.addEventListener('click', () => {
+        cart.style.display = cart.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏購物車
+        contactForm.style.display = "none";
+        sidebarMenu.classList.remove('open');
+    });
+    closecartButton.addEventListener('click', () => {
+        cart.style.display = "none";
+    })
+    
+    // 綁定聯絡我們按鈕
+    const contactButton = document.getElementById('contact-button');
+    const contactForm = document.getElementById('contact-form'); // 原有聯絡我們表單
+    
+    contactButton.addEventListener('click', () => {
+        contactForm.style.display = contactForm.style.display === 'block' ? 'none' : 'block'; // 顯示或隱藏聯絡表單
+        cart.style.display = "none";
+        sidebarMenu.classList.remove('open');
+    });
+    
+    // 綁定會員按鈕
+    const memberButton = document.getElementById('member-button');
+    const modal = document.getElementById('id01'); // 原有會員模態框
+    
+    memberButton.addEventListener('click', () => {
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block'; // 顯示會員模態框
+        cart.style.display = "none";
+        contactForm.style.display = "none";
+        sidebarMenu.classList.remove('open');
+    });
+    
+})
+
+const searchbutton = document.getElementById("search-button");
+const closesearch = document.getElementById("close-search");
+const searchall = document.getElementById("search-all");
+const forsearch = document.getElementById("forsearch");
+const logo = document.getElementById("logo");
+
+searchbutton.addEventListener('click', () => {
+    searchall.style.display = "block";
+    if (window.innerWidth <= 768) {
+        searchall.style.left = "50px";
+    } else {
+        searchall.style.left = "119px";
+    }
+    logo.style.display =  "none";
+    closesearch.style.display = "block";
+    searchbutton.style.display = "none";
+})
+
+closesearch.addEventListener('click', () => {
+    searchall.style.display = "none";
+    searchbutton.style.display = "block";
+    logo.style.display =  "block";
+    closesearch.style.display = "none";
 })

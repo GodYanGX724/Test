@@ -17,15 +17,22 @@
     <header>
         <!-- 頁首 -->
         <div class="header_all">
+            <!-- 摺疊菜單按鈕 -->
+            <button id="menu-toggle" class="menu-icon">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+
             <!-- icon  -->
             <a href="../index.html" id="logo">
                 <img src="../img/icon new.jpg" id="icon" alt="">
             </a>
             <!-- 搜尋框 -->
-            <div class="search-all">
+            <div class="search-all" id="search-all">
                 <span class="search"><input type="text" placeholder="搜尋寵物產品..." name="search" id="forsearch">
                     <!-- 搜尋圖示及按鈕 -->
-                    <button class="search-icon">
+                    <button class="search-icon" id="search-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=""
                             viewBox="0 0 16 16">
                             <path
@@ -65,7 +72,10 @@
 
             <!-- 購物車詳細內容 -->
             <div id="cart" class="cart">
-                <h2>購物車</h2>
+                <div>
+                    <h2>購物車</h2>
+                    <button id="close-cart" class="close-cart">✖</button>
+                </div>
                 <div id="cart-items">
                     <p>目前購物車為空</p>
                 </div>
@@ -94,6 +104,7 @@
             <!-- 聯絡表單 -->
             <div class="contact-form" id="contact-form">
                 <h2>聯絡我們</h2>
+                <button id="close-contact" class="close-contact" onclick="toggleContactForm()">✖</button>
                 <form>
                     <label for="contact-email">電子郵件</label>
                     <input type="email" name="contact-email" id="contact-email" placeholder="請輸入您的電子郵件" required>
@@ -147,8 +158,47 @@
                     </div>
                 </form>
             </div>
+
+            <!-- 搜尋 -->
+            <div class="search-button" id="search-button">
+                <!-- 搜尋icon按鈕 -->
+                <button class="search-btn" id="search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" fill="currentColor" class="bi bi-search"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+                <!-- 搜尋文字 -->
+                <div class="search-word">
+                    <div>搜尋</div>
+                </div>
+            </div>
+
+            <button class="close-search" id="close-search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" class="bi bi-chevron-right"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                </svg>
+            </button>
         </div>
     </header>
+
+    <!-- 摺疊菜單 -->
+    <div id="sidebar-menu" class="sidebar-menu">
+        <div class="menu-header">
+            <button id="close-menu" class="close-menu">✖</button>
+            <h1>選單</h1>
+        </div>
+        <div class="menu-content">
+            <ul class="menu-list">
+                <li><button id="cart-button">購物車 🛒</button></li>
+                <li><button id="contact-button">聯絡我們 📧</button></li>
+                <li><button id="member-button">會員 👤</button></li>
+            </ul>
+        </div>
+    </div>
 
     <div class="body">
         <!-- 購物明細 -->
@@ -292,8 +342,7 @@
                     <span id="email-error" style="color: red; display: none;">請輸入有效的電子郵件地址</span>
                 </div>
             </div>
-            <hr>
-            <hr>
+
             <div class="border"></div>
             <div class="picker">
                 <h4>收件人資訊</h4>
