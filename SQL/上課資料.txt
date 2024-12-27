@@ -1,2 +1,178 @@
 上課講義網址:https://www.chainhao.com.tw/
 密碼:php5347
+
+找尋資料
+-------------------
+SELECT *
+FROM userinfo LEFT JOIN live ON live.uid = userinfo.uid
+ 	LEFT JOIN house on house.hid = live.hid
+    LEFT JOIN phone on phone.hid = house.hid
+    LEFT JOIN bill on bill.tel = phone.tel
+WHERE cname = '王大明'
+
+
+計數
+-------------------------------
+SELECT count(*)
+FROM userinfo
+
+SELECT count(*)
+FROM bill
+WHERE fee > 500
+
+
+分組計數
+-------------------------------
+SELECT tel,COUNT(*)
+FROM bill
+GROUP by tel
+
+
+總和
+-------------------------------
+SELECT tel, sum(fee)
+FROM bill
+GROUP by tel
+
+平均
+-------------------------------
+SELECT tel, avg(fee)
+FROM bill
+GROUP by tel
+
+最大最小值
+-------------------------------
+SELECT tel, MAX(fee)
+FROM bill
+GROUP by tel
+
+回傳0
+-------------------------------
+SELECT COUNT(null)
+
+取左右的字
+-------------------------------
+SELECT cname, LEFT(cname, 1),RIGHT(cname, 1)
+FROM userinfo
+WHERE cname is not null and cname <> ""
+
+
+人有幾間房
+-------------------------------
+SELECT userinfo.uid, cname, COUNT(hid)
+FROM userinfo LEFT JOIN live on userinfo.uid = live.uid
+GROUP by userinfo.uid, cname
+
+
+空屋率
+-------------------------------
+select concat(floor((
+   (
+       select count(*)
+       from House left join Live on House.hid = Live.hid
+       where Live.uid is null       
+   )
+   /
+   (select count(*) from House)
+) * 100), '%') as '空屋率'
+
+帳單金額最高的一筆
+-------------------------------
+SELECT *    
+FROM bill
+ORDER by fee DESC
+LIMIT 1
+
+帳單金額最高的所有筆
+-------------------------------
+SELECT *
+FROM bill
+WHERE fee = ( SELECT MAX(fee)
+    FROM bill)
+
+哪間房住最多人
+-------------------------------
+select address, n from (
+   select hid, count(uid) as n from Live
+   group by hid
+) as x, House
+where n = (
+   select max(n)
+   from (
+       select hid, count(uid) as n from Live
+       group by hid
+   ) as x  
+) and x.hid = House.hid
+
+帳單金額總額最低的電話號碼 地址 帳單金額
+------------------------------
+select Phone.tel, address, sum_fee
+from (
+   select tel, sum(fee) as sum_fee
+   from Bill
+   group by tel       
+) as x, Phone, House
+where x.tel = Phone.tel and Phone.hid = House.hid
+   and sum_fee = (
+       select sum(fee) as sum_fee from Bill
+       group by tel
+       order by sum_fee
+       limit 1       
+   )
+
+重複資料刪除
+------------------------------
+SELECT DISTINCT LEFT(cname, 1)
+FROM userinfo;
+
+SELECT address
+FROM house
+WHERE hid in (
+SELECT DISTINCT hid FROM live)
+垂直合併資料
+UNION ALL
+SELECT '苗栗縣'
+
+這樣只會新增一個
+-----------------
+UNION 
+SELECT '苗栗縣'
+UNION 
+SELECT '苗栗縣'
+
+case用法
+------------------------------
+SELECT *,
+	CASE 
+    	WHEN fee > 500 THEN fee * 0.8
+        WHEN fee > 300 THEN fee * 0.9
+        ELSE fee
+    END AS discount
+FROM bill
+
+
+查詢>1000
+------------------------------
+SELECT * FROM(
+SELECT tel,	sum(fee) as sum_fee
+FROM bill
+GROUP by tel) as x
+WHERE sum_fee > 1000
+
+group by 之前用where 之後用 having
+
+SELECT tel,	sum(fee) as sum_fee
+FROM bill
+GROUP by tel
+HAVING sum_fee > 1000
+
+寫入資料庫
+-------------------------------
+INSERT INTO userinfo(uid,cname) VALUES(
+     'B02','Tom')
+
+修改資料庫
+-----------------------------
+UPDATE userinfo SET cname = '孫小毛', uid = 'Z01'
+WHERE uid = 'A03'
+

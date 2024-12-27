@@ -1,0 +1,22 @@
+[
+    {
+        "name": "David",
+        "age": 30,
+        "children": [
+            "Tom",
+            "Mei"
+        ],
+        "tel": {
+            "mobile": "1111",
+            "home": "2222"
+        },
+        "a" : true,
+        "b" : false,
+        "c" : null
+        
+    },
+    {
+        "name": "Betty",
+        "age": 28
+    }
+]
