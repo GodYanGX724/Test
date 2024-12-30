@@ -176,3 +176,201 @@ INSERT INTO userinfo(uid,cname) VALUES(
 UPDATE userinfo SET cname = '孫小毛', uid = 'Z01'
 WHERE uid = 'A03'
 
+
+時間
+------------------------------
+SELECT now()
+SELECT adddate(now(), 3)
+SELECT adddate(now(), -3)
+SELECT adddate(now(), INTERVAL 7 hour)
+SELECT datediff(now(), '2024/1/1 0:0:0')
+SELECT timestampdiff(month,now(), '2024/1/1 0:0:0') 以月份去計算
+SELECT date_format(now(),'西元%Y年%m月')
+SELECT concat('西元',year(now()),'年')
+SELECT week(now())
+SELECT weekday(now())
+
+
+計算歲數
+--------------------------------
+SELECT *, floor(datediff(now(), birthday) / 365.25) as age
+FROM userinfo
+
+
+當月壽星打折
+---------------------------------
+SELECT cname, floor(
+    CASE
+    	when month(birthday) = month(now()) THEN billing * 0.8
+    	ELSE billing
+    end) as total
+FROM (
+    SELECT *,floor(datediff(now(), birthday) / 365.25) as age,1000 as billing
+    FROM userinfo
+) as tmp
+
+每季金額(缺的季份補0)
+---------------------------------
+SELECT q ,sum(total) as sum_fee
+FROM(
+SELECT quarter(dd) as q, sum(fee) as total
+FROM bill
+WHERE year(dd) = 2019
+GROUP by quarter(dd) 
+union all
+SELECT 1,0
+union all
+SELECT 2,0
+union all
+SELECT 3,0
+union all
+SELECT 4,0
+    ) as tmp
+GROUP by q
+
+上半年下半年金額    
+----------------------------------
+SELECT half_year ,sum(total) as sum_fee
+FROM(
+SELECT
+    CASE
+    	WHEN month(dd) BETWEEN 1 and 6 THEN '上半年'
+    	WHEN month(dd) BETWEEN 7 and 12 THEN '下半年'
+    END as half_year,
+    sum(fee) as total
+FROM bill
+WHERE year(dd) = 2019  =====>慢到爆
+WHERE dd BETWEEN '2024/1/1 0:0:0' and '2024/12/31 23:59:59.999' =====>快到升天
+GROUP by half_year
+union all
+SELECT '上半年',0
+union all
+SELECT '下半年',0
+    ) as tmp
+GROUP by half_year
+
+時間
+--------------------------------
+SELECT now();
+SELECT adddate(UTC_TIMESTAMP(), INTERVAL 8 hour) UTC+8
+SELECT unix_timestamp(); 格林威治時間
+SELECT from_unixtime(1735530486) 格林威治時間轉成一般時間
+
+
+trigger
+--------------------------------
+DROP TRIGGER if EXISTS userinfo_insert;
+DELIMITER $$
+CREATE TRIGGER userinfo_insert AFTER INSERT
+on userinfo FOR EACH ROW 
+BEGIN
+	SET @uid = new.uid;
+    SET @cname = ifnull(new.cname, 'NONAME');
+    SET @body = concat('將',@uid,', ',@cname,'插入到UserInfo資料表');
+    INSERT into log (body) VALUES (@body);
+END $$
+DELIMITER ;
+
+
+INSERT into userinfo (uid, cname) VALUES ('B01', 'David');
+SELECT * FROM userinfo;
+SELECT * FROM log;
+
+
+禁止更新兩筆以上資料
+-------------------------------------
+DROP TRIGGER if EXISTS userinfo_update_block;
+DELIMITER $$
+CREATE TRIGGER userinfo_update_block BEFORE UPDATE
+on userinfo FOR EACH ROW 
+BEGIN
+	if @count is null THEN
+    	set @count = 1;
+    ELSE
+    	set @count = @count+1;
+    end if;
+    
+    if @count > 1 and not (old.password <=> new.password)  THEN
+    	SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = '更新兩筆以上資料';
+    end IF;
+END $$
+DELIMITER ;
+
+
+預存程式
+--------------------------------------
+DROP PROCEDURE if EXISTS test;
+DELIMITER $$
+-- 預存程序 store procedure
+create PROCEDURE test(myuid varchar(20))
+BEGIN
+	SELECT * FROM userinfo WHERE uid = myuid;
+END $$
+DELIMITER ;
+
+
+call test('A01')
+
+登陸回傳status
+-------------------------------------------
+DROP PROCEDURE if EXISTS login;
+DELIMITER $$
+-- 預存程序 store procedure
+create PROCEDURE login(myuid varchar(20), mypwd varchar(20))
+BEGIN
+	SELECT count(*) as status FROM userinfo WHERE uid = myuid and password = mypwd;
+END $$
+DELIMITER ;
+
+
+註冊
+--------------------------------------------
+drop PROCEDURE if EXISTS register;
+DELIMITER $$
+-- 預存程序 stored procedure
+create PROCEDURE register(myuid varchar(20), mycname varchar(50), myaddress varchar(100))
+begin
+	DECLARE n int;  宣告變數
+    DECLARE myhid int DEFAULT null; 宣告變數
+   select count(*) into n from UserInfo where uid = myuid;
+   if @n = 1 then
+       select 'false' as status;
+   else
+       insert into UserInfo (uid, cname) values (myuid, mycname);
+       select hid into myhid from House where address = myaddress;
+       if myhid is null then
+           insert into House (address) values (myaddress);
+       end if;
+       select hid into myhid from House where address = myaddress;
+       insert into Live (uid, hid) values (myuid, myhid);
+       select 'OK' as status;       
+   end if;
+end $$
+DELIMITER ;
+
+
+
+DELETE  FROM userinfo WHERE uid = 'B02';
+DELETE  FROM live WHERE uid = 'B02';
+DELETE  FROM house WHERE address = '花蓮市...路';
+
+call register('B02','Tom','花蓮市...路');
+
+
+註冊
+-----------------------------------------
+drop PROCEDURE if EXISTS test;
+DELIMITER $$
+-- 預存程序 stored procedure
+create PROCEDURE test()
+begin
+	DECLARE n int DEFAULT 1000;
+    aaa: while n > 0 DO
+    	if n = 3 THEN
+        	leave aaa;
+        end if;
+    	INSERT into userinfo (uid,cname) VALUES (concat('X',n),concat('X',n));
+    	set n = n - 1; 
+    end while;
+end $$
+DELIMITER ;
