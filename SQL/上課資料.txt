@@ -357,7 +357,7 @@ DELETE  FROM house WHERE address = '花蓮市...路';
 call register('B02','Tom','花蓮市...路');
 
 
-註冊
+while迴圈註冊
 -----------------------------------------
 drop PROCEDURE if EXISTS test;
 DELIMITER $$
@@ -374,3 +374,230 @@ begin
     end while;
 end $$
 DELIMITER ;
+
+
+回傳變數
+------------------------------------------
+-- in : call-by-value 傳值呼叫
+-- inout : call-by-address 傳址呼叫
+drop PROCEDURE if EXISTS test;
+DELIMITER $$
+CREATE PROCEDURE test(INOUT n int) ====>inout / in / out
+BEGIN
+	set n = n + 1;
+
+END $$
+DELIMITER ;
+
+除法運算
+----------------------------------------------
+drop PROCEDURE if EXISTS test;
+DELIMITER $$
+CREATE PROCEDURE test(a double, b double, inout error int)
+BEGIN
+	set error = 0;
+	if b = 0 THEN
+    	set error = 1;
+    ELSE
+    	SELECT a / b as result;
+    end if;
+END $$
+DELIMITER ;
+
+
+set @error = 0;
+call test(5, 0, @error);
+SELECT @error;
+
+
+FUNCTION
+------------------------------------------------
+drop FUNCTION if EXISTS myadd;
+DELIMITER $$
+CREATE FUNCTION myadd(a double, b double) RETURNS double
+BEGIN
+	RETURN a + b;
+END $$
+DELIMITER ;
+
+
+SELECT myadd(5, 3) as result
+
+
+解釋sum()
+--------------------------------------------------
+drop PROCEDURE if EXISTS test1;
+DELIMITER $$
+CREATE PROCEDURE test1()
+BEGIN
+	DECLARE EOF bool DEFAULT false;
+    DECLARE n int;
+    DECLARE dd1 date;
+    DECLARE total int DEFAULT 0;
+    
+	DECLARE c CURSOR for SELECT fee,dd FROM bill;
+	DECLARE CONTINUE HANDLER FOR not found set EOF = true;
+    
+    open c;
+    FETCH c into n,dd1;
+    while ! EOF DO
+    	if year(dd1) = 2024 then
+    		if n >= 700 THEN
+        		set total = total + n * 0.8;    
+        	ELSE set total = total + n;
+        	END if;
+    	end if;
+    	FETCH c into n,dd1;
+    end WHILE;
+    
+    SELECT total as result;
+    close c;
+END $$
+DELIMITER ;
+
+
+SELECT sum(newfee) as result
+FROM(
+SELECT fee,
+	CASE
+		when fee >= 700 then fee * 0.8
+    	ELSE fee
+    END as newfee
+FROM bill 
+where year(dd) = 2024) as tmp;
+
+CALL test1() =====>跟上方程式一樣
+
+
+
+預設密碼 uid後兩碼及生日月份+日期
+------------------------------------------
+drop PROCEDURE if EXISTS setpwd;
+DELIMITER $$
+CREATE PROCEDURE setpwd()
+BEGIN
+	DECLARE EOF bool DEFAULT false;
+    DECLARE n varchar(10);
+    DECLARE dd1 date;
+    DECLARE pwd varchar(20) DEFAULT null;
+    
+	DECLARE c CURSOR for SELECT uid,birthday,password FROM userinfo;
+	DECLARE CONTINUE HANDLER FOR not found set EOF = true;
+    
+    open c;
+    FETCH c into n,dd1,pwd;
+    while ! EOF DO
+    	if pwd is null or pwd = '' then
+    		set pwd = CONCAT(RIGHT(n, 2), LPAD(MONTH(dd1), 2, '0'), LPAD(DAY(dd1), 2, '0'));
+            update userinfo set password = pwd WHERE uid = n;
+    	end if;
+        FETCH c into n,dd1,pwd;
+    end WHILE;
+    close c;
+END $$
+DELIMITER ;
+
+
+or
+
+drop PROCEDURE if EXISTS setpwd;
+DELIMITER $$
+CREATE PROCEDURE setpwd()
+BEGIN
+	DECLARE EOF bool DEFAULT false;
+    DECLARE myuid varchar(10);
+    DECLARE mybirthday date;
+    DECLARE mypassword varchar(20);
+    
+	DECLARE c CURSOR for SELECT uid,birthday,password FROM userinfo WHERE password is null;
+	DECLARE CONTINUE HANDLER FOR not found set EOF = true;
+    
+    open c;
+    FETCH c into myuid,mybirthday,mypassword;
+    while ! EOF DO
+    	set mypassword = concat(RIGHT(myuid,2), date_format(mybirthday,'%m%d'));
+        UPDATE userinfo set password = mypassword where uid = myuid;
+        FETCH c into myuid,mybirthday,mypassword;
+    end WHILE;
+    close c;
+END $$
+DELIMITER ;
+
+
+異動指令
+-----------------------------------------------------
+start TRANSACTION;  ====>啟動異動指令
+insert into userinfo (uid, cname) VALUES ('C01', 'David');
+-- ROLLBACK;   ====>選擇返回
+COMMIT;        ====>選擇提交
+SELECT * FROM userinfo;
+
+異動指令
+---------------------------------------------------
+drop PROCEDURE if EXISTS test;
+DELIMITER $$
+CREATE PROCEDURE test()
+BEGIN
+	START TRANSACTION;
+	set @err = 0;
+    
+    UPDATE userinfo set cname = '1234' WHERE uid = 'C01';
+	set @err = @err + @@error_count;
+    INSERT into userinfo (uid) VALUES ('D01');
+    set @err = @err + @@error_count;
+    
+    if @err = 0 THEN
+    	commit;
+    ELSE
+    	ROLLBACK;
+    end if;
+END $$
+DELIMITER ;
+
+
+
+超賣
+-----------------------------------------------
+UPDATE Ticket set quantity = 1 WHERE tid = 1;
+drop PROCEDURE if EXISTS buy;
+create PROCEDURE buy()
+BEGIN
+    DECLARE n int;
+    --查詢
+    SELECT quantity into n FROM Ticket where tid = 1;
+    do SLEEP(10);
+    --判斷
+    if n > 0 THEN
+        --執行
+        UPDATE Ticket set quantity = quantity -1 WHERE tid = 1;
+        SELECT '買走一張票' as status;
+    else 
+        SELECT '賣完了' as status;
+    end if;
+end;
+
+
+解決超賣(通解)
+-------------------------------------------------
+UPDATE Ticket set quantity = 1 WHERE tid = 1;
+drop PROCEDURE if EXISTS buy1;
+create PROCEDURE buy1()
+BEGIN
+    DECLARE n int;
+    START TRANSACTION;  ===>上X鎖只為一個人服務
+        --執行
+        UPDATE Ticket set quantity = quantity -1 WHERE tid = 1;
+        do SLEEP(10);
+    
+        --查詢
+        SELECT quantity into n FROM Ticket where tid = 1;
+    
+        --判斷
+        if n >= 0 THEN
+            COMMIT;     ====>結束才接下一人
+            SELECT '買走一張票' as status;
+        else 
+            ROLLBACK;
+            SELECT '賣完了' as status;
+        end if;
+end;
