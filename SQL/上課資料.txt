@@ -601,3 +601,88 @@ BEGIN
             SELECT '賣完了' as status;
         end if;
 end;
+
+
+
+手動上鎖
+----------------------------------------------
+START TRANSACTION;
+    UPDATE userinfo set password = '1'
+    WHERE uid = 'A01' ;
+    DO sleep(10);
+    ROLLBACK;
+SELECT 'done';
+
+
+SELECT * FROM userinfo 
+WHERE uid = 'A01'
+lock in SHARE mode; ======>上S鎖
+for UPDATE ===============>上X鎖
+查詢上鎖
+select * from information_schema.innodb_locks;
+select * from information_schema.innodb_lock_waits
+
+----------------------------------------------------
+drop PROCEDURE if EXISTS buy2;
+UPDATE ticket set quantity = 1 WHERE tid = 1;
+CREATE PROCEDURE buy2()
+BEGIN
+    DECLARE n int;
+    start TRANSACTION; --啟動交易讓下一行的X鎖持續到提交完
+        SELECT quantity into n from ticket WHERE tid = 1 for UPDATE;
+        do sleeP(10);
+        if n >= 0 THEN                
+            SELECT quantity into n from ticket WHERE tid = 1;
+            SELECT '買走一張票' as status;
+        else                 
+            SELECT '賣完了' as status;
+        end if;
+    commit;
+end;
+
+
+超賣(資料庫解)
+-----------------------------------------------------
+drop PROCEDURE if EXISTS buy2;
+UPDATE ticket set quantity = 1 WHERE tid = 1;
+CREATE PROCEDURE buy2()
+BEGIN
+    DECLARE n int;
+    start TRANSACTION; --啟動交易讓下一行的X鎖持續到提交完
+        SELECT quantity into n from ticket WHERE tid = 1 for UPDATE;
+        do sleeP(10);
+        if n > 0 THEN                
+            UPDATE Ticket set quantity = quantity -1 WHERE tid = 1;
+            SELECT '買走一張票' as status;
+        else                 
+            SELECT '賣完了' as status;
+        end if;
+    commit;
+end;
+
+查詢type = index or all都很慢
+--------------------------------------------------
+EXPLAIN
+SELECT uid,cname,birthday
+FROM userinfo
+WHERE uid = 'Z5000'
+
+
+複合欄位索引 第一位是主要欄位
+-------------------------------------------
+EXPLAIN
+SELECT * FROM userinfo 
+WHERE 
+	 uid = '' 
+    and cname = '' 
+    and password = ''
+預設索引
+ /*
+uid(+),cname(+),pwd(+)
+uid(+),cname(+)
+uid(+)
+uid(-)
+uid(-),cname(-)
+uid(-),cname(-),pwd(-)
+
+*/
