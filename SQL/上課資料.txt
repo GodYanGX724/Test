@@ -854,38 +854,36 @@ SELECT * from member;
 SELECT * from products;
 
 drop PROCEDURE if EXISTS showEvaluate;
-CREATE PROCEDURE showEvaluate(mypid int)
-BEGIN
-    DECLARE n int DEFAULT 0;
-    DECLARE total int DEFAULT 0;
-    DECLARE result DOUBLE DEFAULT 0;
-    
-    if NOT EXISTS (SELECT 1 FROM products where id = mypid) THEN
-        SIGNAL SQLSTATE '45001'
-        SET MESSAGE_TEXT = '此商品不存在';
+CREATE PROCEDURE showEvaluate(mypid INT)
+BEGIN    
+    DECLARE n INT DEFAULT 0;
+
+    -- 檢查商品是否存在
+    IF NOT EXISTS (SELECT 1 FROM products WHERE id = mypid) THEN
+        SIGNAL SQLSTATE '45001' SET MESSAGE_TEXT = '此商品不存在';
     END IF;
-    
-    SELECT sum(rating), count(rating) into total, n from productevaluate WHERE pid = mypid;
-    
+
+    -- 檢查評價數量
+    SELECT COUNT(rating) INTO n FROM productevaluate WHERE pid = mypid;
+
     IF n = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = '此商品尚無評價';
-    END IF; 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '此商品尚無評價';
+    END IF;
 
-    set result = total / n;
-    SELECT result as avg_evaluate, n AS evaluate_count,
-    rating as score;
-
-    SELECT rating AS score,
-        COUNT(*) AS count
+    -- 返回統計結果
+    SELECT 
+        AVG(rating) AS avg_evaluate,
+        COUNT(rating) AS evaluate_count,
+        SUM(CASE WHEN rating = 0 THEN 1 ELSE 0 END) AS rating_0_count,
+        SUM(CASE WHEN rating = 1 THEN 1 ELSE 0 END) AS rating_1_count,
+        SUM(CASE WHEN rating = 2 THEN 1 ELSE 0 END) AS rating_2_count,
+        SUM(CASE WHEN rating = 3 THEN 1 ELSE 0 END) AS rating_3_count,
+        SUM(CASE WHEN rating = 4 THEN 1 ELSE 0 END) AS rating_4_count,
+        SUM(CASE WHEN rating = 5 THEN 1 ELSE 0 END) AS rating_5_count
     FROM 
         productevaluate
     WHERE 
-        pid = mypid
-    GROUP BY 
-        rating
-    ORDER BY 
-        rating;
-end;
+        pid = mypid;
+END;
 
 call showEvaluate(1)
