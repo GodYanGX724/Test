@@ -686,3 +686,206 @@ uid(-),cname(-)
 uid(-),cname(-),pwd(-)
 
 */
+
+PCHOME練習
+------------------------------------------
+--測試插入資料庫
+INSERT into productevaluate(uid,cname,pid,rating,evaluate)
+VALUES ('A01','Tom','A01',5,'Very Good Product')
+--查看所需資料庫
+SELECT * from productevaluate
+SELECT * from member
+SELECT * from products
+--刪除資料表
+DELETE FROM productevaluate
+--增加外鍵
+ALTER TABLE productevaluate
+ADD CONSTRAINT fk_uid_users
+FOREIGN KEY (uid) 
+REFERENCES member1(uid);
+
+ALTER TABLE productevaluate
+ADD CONSTRAINT fk_pid_products
+FOREIGN KEY (pid) 
+REFERENCES products(id);
+
+ALTER TABLE productevaluate
+DROP FOREIGN KEY fk_uid_users;
+--查看資料表結構
+SHOW CREATE TABLE productevaluate;
+SHOW CREATE TABLE member;
+
+--更改資料結構
+ALTER TABLE productevaluate
+MODIFY COLUMN uid int NOT NULL
+
+--增加評價的purcedure
+drop PROCEDURE if EXISTS addEvaluate;
+CREATE PROCEDURE addEvaluate(myuid varchar(21), mypid int, myrating tinyint, myevaluate text)
+BEGIN
+    DECLARE mycname VARCHAR(51);
+    
+    IF NOT EXISTS (SELECT 1 FROM member1 WHERE uid = myuid) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '會員不存在';
+    END IF;
+    
+    IF myrating not between 0 and 5 then
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '評分需介於0~5';
+    end if;
+
+    IF NOT EXISTS (SELECT 1 FROM products WHERE id = mypid) THEN
+        SIGNAL SQLSTATE '45001'
+        SET MESSAGE_TEXT = '此商品不存在';
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM productevaluate WHERE uid = myuid AND pid = mypid) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '該會員已對此商品評價過';
+    END IF;
+
+
+    SELECT cname into mycname from member1 WHERE myuid = member1.uid;
+    INSERT into productevaluate (uid, cname, pid, rating, evaluate)
+    VALUES (myuid, mycname, mypid, myrating, myevaluate);
+
+    SELECT '評價已送出';
+end;
+--計算評價總數
+drop PROCEDURE if EXISTS countEvaluate;
+CREATE PROCEDURE countEvaluate(mypid int)
+BEGIN
+    DECLARE n int DEFAULT 0;
+    if NOT EXISTS (SELECT 1 FROM products where id = mypid) THEN
+        SIGNAL SQLSTATE '45001'
+        SET MESSAGE_TEXT = '此商品不存在';
+    END IF;
+
+    SELECT count(id) into n FROM productevaluate WHERE pid = mypid;
+    SELECT n as evaluate_count;
+end;
+--計算評價平均分數
+drop PROCEDURE if EXISTS avgEvaluate;
+CREATE PROCEDURE avgEvaluate(mypid int)
+BEGIN
+    DECLARE n int DEFAULT 0;
+    DECLARE total int DEFAULT 0;
+    DECLARE result DOUBLE DEFAULT 0;
+    if NOT EXISTS (SELECT 1 FROM products where id = mypid) THEN
+        SIGNAL SQLSTATE '45001'
+        SET MESSAGE_TEXT = '此商品不存在';
+    END IF;
+    SELECT sum(rating), count(rating) into total, n from productevaluate WHERE pid = mypid;
+    IF n = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '此商品尚無評價';
+    END IF;    
+    SET result = total / n;
+    SELECT result as avg_evaluate;
+end;
+--計算每個評分總數
+DROP PROCEDURE IF EXISTS ratingCount;
+CREATE PROCEDURE ratingCount(mypid int)
+BEGIN
+    if NOT EXISTS (SELECT 1 FROM products where id = mypid) THEN
+        SIGNAL SQLSTATE '45001'
+        SET MESSAGE_TEXT = '此商品不存在';
+    END IF;
+    SELECT 
+        rating AS score,
+        COUNT(*) AS count
+    FROM 
+        productevaluate
+    WHERE 
+        pid = mypid
+    GROUP BY 
+        rating
+    ORDER BY 
+        rating;
+END;
+--刪除評價
+DROP PROCEDURE IF EXISTS deleteEvaluate;
+CREATE PROCEDURE deleteEvaluate(myuid VARCHAR(21), mypid int)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 
+        FROM productevaluate 
+        WHERE uid = myuid AND pid = mypid
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '該評價不存在，無法刪除';
+    END IF;
+
+    DELETE FROM productevaluate
+    WHERE uid = myuid AND pid = mypid;
+    SELECT CONCAT('成功刪除會員 ', myuid, ' 對商品 ', mypid, ' 的評價') AS message;
+end;
+--查詢會員的評價
+DROP PROCEDURE IF EXISTS searchmemberEvaluate;
+CREATE PROCEDURE searchmemberEvaluate(myuid VARCHAR(21))
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 
+        FROM productevaluate 
+        WHERE uid = myuid
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '該會員無評價';
+    END IF;
+
+    SELECT 
+        *
+    FROM 
+        productevaluate
+    WHERE 
+        uid = myuid;    
+end;
+--實操
+call addEvaluate('001', 3, 4, "GOOD PRODUCT"); --不可重複評價 會員不存在 商品不存在
+call countEvaluate(3); --商品不存在
+call avgEvaluate(3);    --商品不存在 商品無評價
+call ratingCount(3);    --商品不存在
+call deleteEvaluate('007', 5) --評價不存在
+
+call searchmemberEvaluate('001'); --會員無評價
+SELECT * from productevaluate WHERE pid =3;
+SELECT * from member;
+SELECT * from products;
+
+drop PROCEDURE if EXISTS showEvaluate;
+CREATE PROCEDURE showEvaluate(mypid int)
+BEGIN
+    DECLARE n int DEFAULT 0;
+    DECLARE total int DEFAULT 0;
+    DECLARE result DOUBLE DEFAULT 0;
+    
+    if NOT EXISTS (SELECT 1 FROM products where id = mypid) THEN
+        SIGNAL SQLSTATE '45001'
+        SET MESSAGE_TEXT = '此商品不存在';
+    END IF;
+    
+    SELECT sum(rating), count(rating) into total, n from productevaluate WHERE pid = mypid;
+    
+    IF n = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '此商品尚無評價';
+    END IF; 
+
+    set result = total / n;
+    SELECT result as avg_evaluate, n AS evaluate_count,
+    rating as score;
+
+    SELECT rating AS score,
+        COUNT(*) AS count
+    FROM 
+        productevaluate
+    WHERE 
+        pid = mypid
+    GROUP BY 
+        rating
+    ORDER BY 
+        rating;
+end;
+
+call showEvaluate(1)
