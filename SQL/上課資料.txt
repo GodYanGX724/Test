@@ -853,9 +853,10 @@ SELECT * from productevaluate WHERE pid =3;
 SELECT * from member;
 SELECT * from products;
 
-drop PROCEDURE if EXISTS showEvaluate;
+DROP PROCEDURE IF EXISTS showEvaluate;
+
 CREATE PROCEDURE showEvaluate(mypid INT)
-BEGIN    
+BEGIN
     DECLARE n INT DEFAULT 0;
 
     -- 檢查商品是否存在
@@ -874,12 +875,12 @@ BEGIN
     SELECT 
         AVG(rating) AS avg_evaluate,
         COUNT(rating) AS evaluate_count,
-        SUM(CASE WHEN rating = 0 THEN 1 ELSE 0 END) AS rating_0_count,
-        SUM(CASE WHEN rating = 1 THEN 1 ELSE 0 END) AS rating_1_count,
-        SUM(CASE WHEN rating = 2 THEN 1 ELSE 0 END) AS rating_2_count,
-        SUM(CASE WHEN rating = 3 THEN 1 ELSE 0 END) AS rating_3_count,
-        SUM(CASE WHEN rating = 4 THEN 1 ELSE 0 END) AS rating_4_count,
-        SUM(CASE WHEN rating = 5 THEN 1 ELSE 0 END) AS rating_5_count
+        SUM(rating = 0) AS rating_0_count,
+        SUM(rating = 1) AS rating_1_count,
+        SUM(rating = 2) AS rating_2_count,
+        SUM(rating = 3) AS rating_3_count,
+        SUM(rating = 4) AS rating_4_count,
+        SUM(rating = 5) AS rating_5_count
     FROM 
         productevaluate
     WHERE 
