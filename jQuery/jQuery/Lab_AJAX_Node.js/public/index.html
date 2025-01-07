@@ -44,9 +44,11 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="button1id" name="button1id" class="btn btn-danger" onclick='MakeRequestSync()'>Hello</button>
-                            <button type="button" id="button2id" name="button2id" class="btn btn-success" onclick='MakeRequestAsync()'>Hello (AJAX)</button> &nbsp;
-                            <span id='ResponseDiv'></span>
+                            <button type="button" id="button1id" name="button1id" class="btn btn-danger"
+                                onclick='MakeRequestSync()'>Hello</button>
+                            <button type="button" id="button2id" name="button2id" class="btn btn-success"
+                                onclick='MakeRequestAsync()'>Hello (AJAX)</button> &nbsp;
+                            <span id='txtTest'></span>
                         </div>
                     </div>
                 </form>
@@ -73,7 +75,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="getButton" name="getButton" class="btn btn-success">Hello -- $.get()</button> &nbsp;
+                            <button type="button" id="getButton" name="getButton" class="btn btn-success">Hello --
+                                $.get()</button> &nbsp;
                             <span id='reportSpan'></span>
                         </div>
                     </div>
@@ -88,20 +91,23 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="firstNameTextBox">FirstName:</label>
                         <div class="col-md-4">
-                            <input name="firstNameTextBox" id="firstNameTextBox" type="text" class="form-control input-md">
+                            <input name="firstNameTextBox" id="firstNameTextBox" type="text"
+                                class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="lastNameTextBox">LastName:</label>
                         <div class="col-md-4">
-                            <input name="lastNameTextBox" id="lastNameTextBox" type="text" class="form-control input-md">
+                            <input name="lastNameTextBox" id="lastNameTextBox" type="text"
+                                class="form-control input-md">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button type="button" id="postButton" name="postButton" class="btn btn-success">Hello -- $.post(), $.ajax()</button> &nbsp;
+                            <button type="button" id="postButton" name="postButton" class="btn btn-success">Hello --
+                                $.post(), $.ajax()</button> &nbsp;
                             <span id='resultSpan'></span>
                         </div>
                     </div>
@@ -117,39 +123,132 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script type='text/javascript' src='js/ajax_concept.js'></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $(".nav-tabs a").click(function() {
+        $(document).ready(function () {
+            $(".nav-tabs a").click(function () {
                 $(this).tab('show');
             });
 
 
-            $("#getButton").on("click", function() {
+            // $("#getButton").on("click", function () {
+            //     var s = $("#nameTextBox").val();
+
+            //     // $.get('http://localhost/hello/' + s, function (e) {
+            //     //     $("#reportSpan").text(e);
+
+            //     // })
+            // })
+
+            // 記得要加上 async function()
+            $("#getButton").on("click", async function () {
                 var s = $("#nameTextBox").val();
-
-
-
-
-
-                $("#reportSpan").text(s);
+                var result = await axios.get("/hello/" + s);
+                $("#reportSpan").text(result.data);
             })
 
 
+            // $("#postButton").on("click", function () {
+            //     var dataToServer = {
+            //         firstName: $("#firstNameTextBox").val(),
+            //         lastName: $("#lastNameTextBox").val()
+            //     }
 
-            $("#postButton").on("click", function() {
+            //     // $.post("http://localhost/test", dataToServer,
+            //     //     function(e) {
+            //     //         $("#resultSpan").text(e);
+            //     //     }
+            //     // )
+
+            //     // $.ajax({
+            //     //     type: "post",
+            //     //     url: "/test",
+            //     //     data: dataToServer,
+            //     //     success: function(e) {
+            //     //         $("#resultSpan").text(e + "----ver 2.0");
+            //     //     }
+            //     // })
+
+            //     // $.ajax({
+            //     //     type: "post",
+            //     //     url: "/test",
+            //     //     data: JSON.stringify(dataToServer),
+            //     //     contentType: "application/Json",
+            //     //     success: function(e) {
+            //     //         $("#resultSpan").text(e + "----ver 2.0");
+            //     //     }
+            //     // })
+
+            //     // $.ajax({
+            //     //     type: "post",
+            //     //     url: "/test",
+            //     //     data: JSON.stringify(dataToServer),
+            //     //     contentType: "application/Json",
+            //     //     }).then(
+            //     //         function(e) {
+            //     //         $("#resultSpan").text(e + "----ver 2.0");
+            //     //     }
+            //     //     )
+
+            //     // 記得要加上 async function()
+            //     // $("#postButton").on("click", async function () {
+            //     //     var dataToServer = {
+            //     //         firstName: $("#firstNameTextBox").val(),
+            //     //         lastName: $("#lastNameTextBox").val()
+            //     //     }
+
+            //     //     var result = await $.ajax({
+            //     //         type: "post",
+            //     //         url: "/test",
+            //     //         data: JSON.stringify(dataToServer),
+            //     //         contentType: "application/json"
+            //     //     });
+
+            //     //     $("#resultSpan").text(result);
+            //     // })
+
+                
+            // })
+            // 記得要加上 async function()
+            // $("#postButton").on("click", async function () {
+            //     var dataToServer = {
+            //         firstName: $("#firstNameTextBox").val(),
+            //         lastName: $("#lastNameTextBox").val()
+            //     }
+
+            //     var result = await $.ajax({
+            //         type: "post",
+            //         url: "/test2",
+            //         data: JSON.stringify(dataToServer),
+            //         contentType: "application/json",
+            //         headers: {
+            //             prefix: "Mr."
+            //         }
+            //     });
+
+            //     $("#resultSpan").text(result);
+            // })
+
+            // 記得要加上 async function()
+            $("#postButton").on("click", async function() {
                 var dataToServer = {
                     firstName: $("#firstNameTextBox").val(),
                     lastName: $("#lastNameTextBox").val()
+                };
+                var config = {
+                    // contentType: "application/json",
+                    headers: {
+                        "content-type": "application/json",
+                        "prefix": "Mr."
+                    }
                 }
+                let result = await axios.post(
+                    "/test2", 
+                    JSON.stringify(dataToServer), 
+                    config);
 
-
-
-
-                $("#resultSpan").text(JSON.stringify(dataToServer));
-            })
-
-
+                $("#resultSpan").text(result.data);
+            });
 
 
         });

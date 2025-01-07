@@ -158,11 +158,7 @@
 
 	// 改成迴圈寫法:
 
-    var speciesList = ["狗狗", "貓", "兔兔"];
-    for (var i = 0; i < speciesList.length; i++) {
-        var filter = ".pet:eq(" + i + ")";
-        $(filter).data("species", speciesList[i]);
-    }
+   
 
 
 4.2	寫法二:
