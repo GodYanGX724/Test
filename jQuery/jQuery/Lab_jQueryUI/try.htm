@@ -37,15 +37,16 @@
  
 <script>
 
-  // $("#accordion").accordion();
-  // $("#accordion").accordion({ active: 2 });
-  // $("#accordion").accordion({ collapsible: true });
-  // $("#accordion").accordion({ event: "mouseover" });
+  $("#accordion").accordion();
+  $("#accordion").accordion({ active: 2 });
+  $("#accordion").accordion({ collapsible: true });
+  $("#accordion").accordion({ event: "mouseover" });
   $("#accordion").accordion({ header: "h4" });
   $("#accordion").accordion( "destroy" );
-
-
+  
+  
   $("#accordion").append("<h4>Section New</h4><div>new content<br>Line2</div>");
+  $("#accordion").accordion();
   $("#accordion").accordion({ header: "h4" });
 
 

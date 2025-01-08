@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -9,20 +10,19 @@
     <div class="row">
         <div class="col-md-4">
             <form action="/Todo/Create" method="post">
-                
+
                 <div class="form-group">
                     <label class="control-label" for="Name">項目名稱</label>
-                    <input class="form-control" type="text" id="Name" 
-                        name="Name" value="" />
+                    <input class="form-control" type="text" id="Name" name="Name" value="" />
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" id="IsComplete" 
-                            name="IsComplete" value="1" /> 是否已完工
+                        <input class="form-check-input" type="checkbox" id="IsComplete" name="IsComplete" value="1" />
+                        是否已完工
                     </label>
                 </div>
                 <div class="form-group">
-                    <input id="okButton" type="button" value="確定" class="btn btn-outline-primary" /> | 
+                    <input id="okButton" type="button" value="確定" class="btn btn-outline-primary" /> |
                     <a href="/index.html" class="btn btn-outline-info">取消</a>
                 </div>
             </form>
@@ -33,24 +33,21 @@
 </div>
 
 <script>
-
+    // 設計按鈕動作
     $("#okButton").on("click", async function () {
-
+        // 抓取資料
         var dataToServer = {
             title: $("#Name").prop("value"),
             isComplete: ($("#IsComplete").prop("checked")) ? 1 : 0
-        };
-
-        var result = await $.ajax({
+        }
+        // 串接提交資料的API
+        await $.ajax({
             type: "post",
-            url: "/todo/create",
+            url: "http://localhost:3000/todo/create",
             contentType: "application/json",
             data: JSON.stringify(dataToServer)
         });
-
+        // 回首頁
         window.location = "/index.html";
-
     })
-    
-    
 </script>

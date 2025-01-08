@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div class="container">
@@ -9,53 +10,56 @@
     <hr />
     <div>
         <dl class="row">
-            <dt class = "col-sm-2">
+            <dt class="col-sm-2">
                 項目名稱
             </dt>
-            <dd class = "col-sm-10" id="Name">
+            <dd class="col-sm-10" id="Name">
                 Job A
             </dd>
-            <dt class = "col-sm-2">
+            <dt class="col-sm-2">
                 是否已完工
             </dt>
-            <dd class = "col-sm-10">
-                <input class="check-box" disabled="disabled" id="isComplete"
-                type="checkbox" checked="checked" />
+            <dd class="col-sm-10">
+                <input class="check-box" disabled="disabled" id="isComplete" type="checkbox" checked="checked" />
             </dd>
         </dl>
-        
+
         <hr>
         <h3>確定要刪除這筆資料嗎?</h3>
 
         <form action="/Todo/Delete" method="post">
-            <input type="hidden" id="TodoItemId" name="TodoItemId" 
-                value="1" 
-            />
+            <input type="hidden" id="TodoItemId" name="TodoItemId" value="1" />
             <input id="deleteButton" type="button" value="確定" class="btn btn-outline-danger" /> |
             <a href="/index.html" class="btn btn-outline-info">取消</a>
+        </form>
     </div>
 
 
     <script>
-        var todoTableId = sessionStorage.getItem("todoTableId") || 1;
-        var url = "/todo/item/" + todoTableId;
-        $.get(url, function (e) {
-            // var item = JSON.parse(e);
-            var item = e;
-            $("#Name").text(item.title);
-            $("#isComplete").prop("checked", (item.isComplete) ? "checked" : "" );
-        })
-
-        $("#deleteButton").on("click", async function () {
-            var todoTableId = sessionStorage.getItem("todoTableId") || 1;
-            var delUrl = "/todo/delete/" + todoTableId;
-            var result = await $.ajax({
-                type: "delete",
-                url: delUrl
+        // 網頁讀取時動作
+        $(document).ready(function () {
+            // 抓取data id
+            const id = sessionStorage.getItem("todoTableId");
+            // 用id串接獲取資料的API
+            $.get(`http://localhost:3000/todo/item/${id}`, function (e) {
+                console.log(e.title);
+                $("#Name").text(e.title);
+                // $("#Name").empty();
+                // $("#Name").append(e.title);
+                $("#isComplete").prop("checked", e.isComplete);
             })
-            // alert(result);
-            window.location = "/index.html";
+            // 設計按鈕動作
+            $("#deleteButton").on('click', async function () {
+                // 用id串接刪除資料的API
+                await $.ajax({
+                    type: "delete",
+                    url: `http://localhost:3000/todo/delete/${id}`
+                })
+                // 回首頁
+                window.location = "/index.html";
+            })
+
         })
     </script>
-    
+
 </div>
