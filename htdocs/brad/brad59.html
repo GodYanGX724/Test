@@ -1,0 +1,45 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function search(){
+        let url = 'brad60.php?orderId=' + $('#orderId').val();
+        $.get(url,function(data,status){
+            if (status == 'success'){
+                console.log(data);
+                if (data.error == 0){
+                    $('#eid').html(data.eid);
+                    $('#ename').html(data.ename);
+                    $('#cid').html(data.cid);
+                    $('#cname').html(data.cname);
+                    $('#date').html(data.date);
+
+                    $('#table').empty();
+                    $(data.detail).each(function(i, row){
+                        $('#table').append(
+                            '<tr>' +
+                            '<td>' + (i+1) + '</td>' +
+                            '<td>' + row.pname + '</td>' +
+                            '<td>' + row.price + '</td>' +
+                            '<td>' + row.qty + '</td>' +
+                            '<td>' + row.sum + '</td>' +
+                            '<tr>'
+                        );
+                    });
+                }else{
+                    $('#table').empty();
+                }
+
+            }
+        });
+    }
+
+</script>
+<meta charset="UTF-8" />
+<h1>Brad Big Company</h1>
+<hr />
+Order ID: <input id="orderId" />
+<input type="button" onclick="search()" value="Search" />
+<hr />
+Employee ID: <span id="eid"></span> <span id="ename"></span><br />
+Customer ID: <span id="cid"></span> <span id="cname"></span><br />
+Order Date: <span id="date"></span><br />
+<table id="table" width="100%" border="1"></table>
