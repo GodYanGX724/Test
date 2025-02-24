@@ -48,7 +48,13 @@
         ];
     
     function sendMail(mailAddress) {
-        $("#report").append(mailAddress.toString() + "<br>");
+        try{
+            $("#report").append(mailAddress.toString() + "<br>");
+            
+        }catch(e){
+            $("#report").append(e.message + "<br>");
+            
+        }
     }
     
     for (i = 0; i < mailList.length; i++) {

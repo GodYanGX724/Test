@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        *稍後會去取得資料回來
+        *取得資料的筆數可能有很多
+            -> 很多就需要跑個迴圈
+            -> 所以先從迴圈開始。
+    </pre>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+    <script>
+        
+
+        // 目標: 我有一個陣列 -> 將內容放到主控台顯示
+        let items = ['蘋果', '香蕉', '皮卡丘'];
+
+        items.forEach(
+            function(value){
+                console.log(value);
+                
+            }
+        )
+        $.each(items,function(key,value){
+            console.log(value);
+            
+        })
+    </script>
+</body>
+</html>

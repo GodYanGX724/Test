@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btnGetOpenData">取得天氣資料</button>
+    <hr>
+    <select id="cityList"></select>
+    <hr>
+    <div id="divResult"></div>
+
+    <script src="../_js/jquery-3.6.0.js"></script>
+    <script>
+        // 存放資料的變數
+        let clist;
+        let wlist;
+
+        let btnClick = function () {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', xhrLoad)
+            xhr.open('GET', '../_file/F-C0032-001_20250218.xml');
+            xhr.send();
+            $('#btnGetOpenData').prop('disabled', true);
+            //  -> fetch()
+            //  -> $.ajax()
+            //  -> axios()
+        }
+
+        let xhrLoad = function () {
+            // console.log(this.responseText);
+
+            // 看見XML -> DOMparser ->讀取資料
+            let p = new DOMParser();
+            let XMLDocument = p.parseFromString(this.responseText, "application/xml");
+
+            // console.log(XMLDocument);
+
+            clist = XMLDocument.getElementsByTagName('locationName');
+            addCityListOption();
+            wlist = XMLDocument.querySelectorAll('locationName+weatherElement')
+            // console.log(clist);
+            // console.log(wlist);
+
+
+        }
+
+        // clist 放到畫面上的下拉選單
+        let addCityListOption = function () {
+            // 先把縣市清空
+            $('#cityList').empty();
+
+            $.each(clist,function(idx,value){
+                $('#cityList').append(`<option value=${idx}>${value.innerHTML} </option>`)
+            })
+
+        }
+
+        let selectChange = function () {
+            // 取得縣市的value  
+            let idx = $('#cityList').val();
+   
+            
+            $('#divResult').empty();
+            $(wlist[idx]).find('time').each(function(idx,elem){
+                let st = $(elem).find('startTime').text();
+                let et = $(elem).find('endTime').text();
+                let pn = $(elem).find('parameterName').text();
+
+                $('#divResult').append(`<p>${st}</p>`);
+                $('#divResult').append(`<p>${et}</p>`);
+                $('#divResult').append(`<p>${pn}</p>`);
+            })
+        }
+        $('#btnGetOpenData').on('click', btnClick);
+        $('#cityList').on('change', selectChange);
+    </script>
+</body>
+
+</html>

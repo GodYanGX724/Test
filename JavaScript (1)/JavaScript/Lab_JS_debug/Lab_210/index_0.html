@@ -48,7 +48,11 @@
         ];
     
     function sendMail(mailAddress) {
-        // if (mailAddress != undefined) {
+        if (!mailAddress) {
+            $("#report").append("資料有缺<br>");
+            return;
+        }
+        // if (mailAddress === undefined) {
         //     $("#report").append("資料有缺<br>");
         //     return;
         // }

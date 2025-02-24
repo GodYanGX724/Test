@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <h4>獨立音樂</h4>
+    <p><a href='https://data.gov.tw/dataset/6006'>https://data.gov.tw/dataset/6006</a></p>
+    <hr>
+    <button id="btnGetOpenData">取得展覽資料</button>
+    <button id="btnGetOpenDataV2">取得展覽資料(table+圖片)</button>
+
+    <hr>
+    <div id="divResult"></div>
+
+    <script src="../_js/jquery-3.6.0.js"></script>
+    <script>
+        let btnClick = function () {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', xhrLoad)
+            xhr.open('GET', '../_file/music.json');
+            xhr.send();
+            //  -> fetch()
+            //  -> $.ajax()
+            //  -> axios()
+        }
+
+        let xhrLoad = function () {
+            // console.log(this.responseText);
+            // JSON.parse()把字串轉成能取用的樣子
+            divResult.innerHTML = '';
+            let xa = JSON.parse(this.responseText);
+            console.log(xa);
+            console.log(xa[0].title);
+            console.log(xa[0].startDate);
+            console.log(xa[0].endDate);
+
+            xa.forEach(function (data) {
+                divResult.innerHTML += `<p>期間:${data.startDate} - ${data.endDate}</p>`;
+                divResult.innerHTML += `<p>名稱:${data.title}</p>`;
+                divResult.innerHTML += `<hr>`;
+
+            })
+        }
+        // 10. 按鈕點選時，取得展覽資料
+        let btnClickV2 = function () {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', xhrLoadV2)
+            xhr.open('GET', '../_file/music.json');
+            xhr.send();
+            //  -> fetch()
+            //  -> $.ajax()
+            //  -> axios()
+        }
+
+        let xhrLoadV2 = function () {
+            // console.log(this.responseText);
+            // JSON.parse()把字串轉成能取用的樣子
+            divResult.innerHTML = '';
+            let xa = JSON.parse(this.responseText);
+            console.log(xa);
+            // console.log(xa[0].title);
+            // console.log(xa[0].startDate);
+            // console.log(xa[0].endDate);
+
+            xa.forEach(function (data) {
+                divResult.innerHTML += `<p>期間:${data.startDate} - ${data.endDate}</p>`;
+                divResult.innerHTML += `<p>名稱:${data.title}</p>`;
+                if(data.imageUrl){
+                    divResult.innerHTML += `<p>圖片:</p><img src="${data.imageUrl}" style="width: 600px;">`;
+                }else{
+                    divResult.innerHTML += `<p>圖片:無圖片來源</p>`;
+
+                }
+                data.showInfo.forEach(function (value){
+                    divResult.innerHTML += `<table style="border: 1px solid;">
+                                            <tr>
+                                                <td style="border: 1px solid;">time: ${value.time}</td>
+                                                <td style="border: 1px solid;">location:${value.location}</td>
+                                                <td style="border: 1px solid;">locationName:${value.locationName}</td>
+                                                <td style="border: 1px solid;">onSales:${value.onSales}</td>
+                                                <td style="border: 1px solid;">price:${value.price}</td>
+                                                <td style="border: 1px solid;">latitude:${value.latitude}</td>
+                                                <td style="border: 1px solid;">longitude:${value.longitude}</td>
+                                                <td style="border: 1px solid;">endTime${value.endTime}</td>
+                                            </tr>
+                                            </table>`;
+                })
+
+                divResult.innerHTML += `<hr>`;
+
+                console.log(data.showInfo);
+                
+            })
+        }
+
+
+
+        $('#btnGetOpenData').on('click', btnClick);
+        $('#btnGetOpenDataV2').on('click', btnClickV2);
+    </script>
+
+</body>
+
+</html>
